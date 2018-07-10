@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Mollo</string>
+    <string name="kakao_app_key">4422cf6abc2140ffaa1f80ba598862c8</string>
 </resources>

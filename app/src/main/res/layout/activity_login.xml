@@ -4,13 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="themollo.app.mollo.login.sns_login.LoginActivity">
 
     <com.kakao.usermgmt.LoginButton
         android:id="@+id/btKakaoLogin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_marginTop="100dp"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center">
 
     </com.kakao.usermgmt.LoginButton>
+
+    <com.facebook.login.widget.LoginButton
+        android:id="@+id/btFacebook"
+        android:layout_marginTop="20dp"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"/>
 
 </LinearLayout>

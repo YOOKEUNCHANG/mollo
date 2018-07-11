@@ -10,7 +10,9 @@
     <com.kakao.usermgmt.LoginButton
         android:id="@+id/btKakaoLogin"
         android:layout_marginTop="100dp"
-        android:layout_width="300dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginLeft="50dp"
+        android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_gravity="center">
 
@@ -19,8 +21,36 @@
     <com.facebook.login.widget.LoginButton
         android:id="@+id/btFacebook"
         android:layout_marginTop="20dp"
-        android:layout_width="300dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"/>
+
+    <Button
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="회원가입"/>
+
+    <Button
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="로그인"/>
+
+    <Button
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="손님 로그인"/>
+
+
 
 </LinearLayout>

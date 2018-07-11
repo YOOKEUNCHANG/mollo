@@ -43,7 +43,7 @@ public class SensorActivity extends AppCompatActivity
             gravitySensor, gyroscopeSensor,
             pressureSensor, proximitySensor;
 
-    private float[] lightArr, accelArr;
+    private float[] lightArr;
 
 
     @Override
@@ -53,17 +53,28 @@ public class SensorActivity extends AppCompatActivity
         ButterKnife.bind(this);
 
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        lightSensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
+        declareSensors();
 
+    }
+
+    public void declareSensors(){
+        lightSensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
+        proximitySensor = sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
+        gravitySensor = sensorManager.getDefaultSensor(Sensor.TYPE_GRAVITY);
+        accelSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        gyroscopeSensor = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
     }
 
     public void registerSensors() {
         sensorManager.registerListener( this, lightSensor, SensorManager.SENSOR_DELAY_NORMAL);
-
+        sensorManager.registerListener(this, proximitySensor, SensorManager.SENSOR_DELAY_NORMAL);
+        sensorManager.registerListener(this, gravitySensor, SensorManager.SENSOR_DELAY_NORMAL);
+        sensorManager.registerListener(this, accelSensor, SensorManager.SENSOR_DELAY_NORMAL);
+        sensorManager.registerListener(this, gyroscopeSensor, SensorManager.SENSOR_DELAY_NORMAL);
     }
 
     public void unregisterSensors() {
-        sensorManager.unregisterListener((SensorEventListener) this);
+        sensorManager.unregisterListener(this);
     }
 
     @Override
@@ -82,10 +93,38 @@ public class SensorActivity extends AppCompatActivity
     public void onSensorChanged(SensorEvent sensorEvent) {
         int sensorType = sensorEvent.sensor.getType();
 
-        if (sensorType == Sensor.TYPE_LIGHT) {
-            lightArr = sensorEvent.values;
-            float lux = (float) (Math.round(lightArr[0] * 100) / 100);
-            tvLight.setText(lux + " lux");
+
+        switch (sensorType){
+            case Sensor.TYPE_LIGHT:
+                lightArr = sensorEvent.values;
+                float lux = (float) (Math.round(lightArr[0] * 100) / 100);
+                tvLight.setText(lux + " lux");
+                break;
+
+            case Sensor.TYPE_PROXIMITY:
+                float dist = sensorEvent.values[0];
+                tvProxy.setText(dist + "distance value");
+                break;
+
+            case Sensor.TYPE_GRAVITY:
+                float grav0 = sensorEvent.values[0];
+                float grav1 = sensorEvent.values[1];
+                float grav2 = sensorEvent.values[2];
+                tvGravity.setText("0 : " + grav0 + " \n1 : " + grav1 + " \n2 : " + grav2);
+
+            case Sensor.TYPE_ACCELEROMETER:
+                float accx = sensorEvent.values[0];
+                float accy = sensorEvent.values[1];
+                float accz = sensorEvent.values[2];
+
+                tvAccel.setText("x : " + accx + " \ny : " + accy + " \nz : " + accz);
+
+            case Sensor.TYPE_GYROSCOPE:
+                float gyrox = sensorEvent.values[0];
+                float gyroy = sensorEvent.values[1];
+                float gyroz = sensorEvent.values[2];
+
+                tvGyro.setText("x : " + gyrox + " \ny : " + gyroy + " \nz : " + gyroz);
         }
     }
 

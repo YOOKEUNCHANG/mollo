@@ -1,10 +1,13 @@
 package themollo.app.mollo.login.sns_login;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.telecom.Call;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -15,23 +18,41 @@ import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.kakao.auth.ISessionCallback;
 import com.kakao.auth.Session;
+import com.kakao.usermgmt.request.SignupRequest;
 import com.kakao.util.exception.KakaoException;
 
 import org.json.JSONObject;
 
 import java.util.Arrays;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import themollo.app.mollo.MainActivity;
 import themollo.app.mollo.R;
-import themollo.app.mollo.login.sns_login.kakao.KakaoLogin;
+import themollo.app.mollo.firebase.FirebaseLogin;
+import themollo.app.mollo.firebase.SignInActivity;
+import themollo.app.mollo.firebase.SignUpActivity;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends FirebaseLogin {
 
     private ISessionCallback iSessionCallback;
-    private LoginButton btFacebook;
     private CallbackManager callbackManager;
+    
+    @BindView(R.id.btAnonySignIn)
+    Button btAnonySignIn;
+    @BindView(R.id.btSignIn)
+    Button btSignIn;
+    @BindView(R.id.btFacebook)
+    LoginButton btFacebook;
+    @BindView(R.id.btAnonySignIn)
+    Button getBtAnonySignIn;
 
     @Override
     protected void onDestroy() {
@@ -44,9 +65,8 @@ public class LoginActivity extends AppCompatActivity {
         super.onStart();
         if (Session.getCurrentSession().isOpened()
                 || AccessToken.isCurrentAccessTokenActive()) {
-            moveToMain();
+            moveTo(MainActivity.class);
         }
-
     }
 
     @Override
@@ -64,11 +84,37 @@ public class LoginActivity extends AppCompatActivity {
         FacebookSdk.sdkInitialize(this.getApplicationContext());
         setContentView(R.layout.activity_login);
 
+        ButterKnife.bind(this);
+
+        setRegisterKakaoCallback();
+        setRegisterFacebookCallback();
+    }
+
+    @Override
+    public void setButtonListener(){
+        btAnonySignIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                firebaseAnonySignIn(getBaseContext());
+            }
+        });
+
+        btSignIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                moveTo(SignInActivity.class);
+            }
+        });
+
+
+    }
+
+    public void setRegisterKakaoCallback(){
         //kakao
         iSessionCallback = new ISessionCallback() {
             @Override
             public void onSessionOpened() {
-                moveToMain();
+                moveTo(MainActivity.class);
                 Log.i("kakao", "session opened");
             }
 
@@ -79,13 +125,14 @@ public class LoginActivity extends AppCompatActivity {
         };
         Session.getCurrentSession().addCallback(iSessionCallback);
         Session.getCurrentSession().checkAndImplicitOpen();
-
+    }
+    
+    public void setRegisterFacebookCallback(){
         //facebook
         callbackManager = CallbackManager.Factory.create();
 
-        LoginButton loginButton = (LoginButton) findViewById(R.id.btFacebook);
-        loginButton.setReadPermissions(Arrays.asList("public_profile", "email"));
-        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+        btFacebook.setReadPermissions(Arrays.asList("public_profile", "email"));
+        btFacebook.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 GraphRequest graphRequest = GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
@@ -100,7 +147,7 @@ public class LoginActivity extends AppCompatActivity {
                 graphRequest.setParameters(parameters);
                 graphRequest.executeAsync();
 
-                moveToMain();
+                moveTo(MainActivity.class);
             }
 
             @Override
@@ -113,15 +160,11 @@ public class LoginActivity extends AppCompatActivity {
                 Log.i("facebook", error.toString());
             }
         });
-
-
-    }
-
-    public void moveToMain() {
-        startActivity(new Intent(LoginActivity.this, MainActivity.class));
     }
 
     public void removeSessionCallback() {
         Session.getCurrentSession().removeCallback(iSessionCallback);
     }
+
+
 }

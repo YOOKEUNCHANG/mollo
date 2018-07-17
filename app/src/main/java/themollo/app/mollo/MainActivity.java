@@ -7,14 +7,12 @@ import android.view.View;
 import android.widget.Button;
 
 import com.facebook.AccessToken;
-import com.facebook.login.Login;
 import com.facebook.login.LoginManager;
 import com.kakao.auth.Session;
 import com.kakao.usermgmt.UserManagement;
 import com.kakao.usermgmt.callback.LogoutResponseCallback;
 
 import themollo.app.mollo.login.sns_login.LoginActivity;
-import themollo.app.mollo.login.sns_login.sensor.SensorActivity;
 
 public class MainActivity extends AppCompatActivity {
 

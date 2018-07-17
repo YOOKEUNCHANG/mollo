@@ -1,4 +1,4 @@
-package themollo.app.mollo.login.sns_login.sensor;
+package themollo.app.mollo;
 
 import android.content.Context;
 import android.hardware.Sensor;

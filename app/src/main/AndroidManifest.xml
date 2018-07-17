@@ -37,7 +37,11 @@
             android:value="@string/facebook_app_id"
             tools:replace="android:value" />
 
-        <activity android:name=".login.sns_login.sensor.SensorActivity"></activity>
+        <activity android:name=".SensorActivity" />
+        <activity android:name=".firebase.SignInActivity" />
+        <activity android:name=".firebase.SignUpActivity" />
+        <activity android:name=".firebase.FindPwdActivity" />
+        <activity android:name=".survey.DoSurveyActivity"></activity>
     </application>
 
 </manifest>

@@ -7,24 +7,27 @@ import android.view.View;
 import android.widget.Button;
 
 import com.facebook.AccessToken;
+import com.facebook.login.Login;
 import com.facebook.login.LoginManager;
 import com.kakao.auth.Session;
 import com.kakao.usermgmt.UserManagement;
 import com.kakao.usermgmt.callback.LogoutResponseCallback;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import themollo.app.mollo.login.sns_login.LoginActivity;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppUtilBasement {
 
-    private Button btLogout;
-    private Button btSensor;
+    @BindView(R.id.btLogout)
+    Button btLogout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        btLogout = findViewById(R.id.btLogout);
+        ButterKnife.bind(this);
         btLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -32,32 +35,55 @@ public class MainActivity extends AppCompatActivity {
                     UserManagement.getInstance().requestLogout(new LogoutResponseCallback() {
                         @Override
                         public void onCompleteLogout() {
-                            moveToLogin();
+                            moveTo(LoginActivity.class);
                         }
                     });
                 else if(AccessToken.isCurrentAccessTokenActive()){
                     LoginManager.getInstance().logOut();
-                    moveToLogin();
+                    moveTo(LoginActivity.class);
                 }
             }
         });
+        setButtonListener();
+    }
 
+    public void setListener(final int r){
+        findViewById(r).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, BackgroundSampleActivity.class);
+                intent.putExtra(exampleName, String.valueOf(r));
+                startActivity(intent);
+            }
+        });
+    }
+
+    @Override
+    public void setButtonListener() {
         findViewById(R.id.btSensor).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                moveToSensor();
+                moveTo(SensorActivity.class);
             }
         });
 
+        findViewById(R.id.btNavi).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                moveTo(NaviSampleActivity.class);
+            }
+        });
 
+        findViewById(R.id.btLullabyPlayer).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                moveTo(LullabyActivity.class);
+            }
+        });
+
+        setListener(R.id.btChart);
+        setListener(R.id.btAlarm);
+        setListener(R.id.btHome);
+        setListener(R.id.btLullaby);
     }
-
-    public void moveToLogin(){
-        startActivity(new Intent(MainActivity.this, LoginActivity.class));
-    }
-
-    public void moveToSensor(){
-        startActivity(new Intent(MainActivity.this, SensorActivity.class));
-    }
-
 }

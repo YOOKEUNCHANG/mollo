@@ -4,6 +4,8 @@
     package="themollo.app.mollo">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+
 
     <application
         android:name=".MolloApplication"
@@ -18,13 +20,7 @@
         tools:replace="android:icon">
 
         <!-- activities -->
-        <activity android:name=".splash.SplashActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".splash.SplashActivity"></activity>
         <activity android:name=".MainActivity" />
         <activity android:name=".login.sns_login.LoginActivity" />
 
@@ -41,7 +37,16 @@
         <activity android:name=".firebase.SignInActivity" />
         <activity android:name=".firebase.SignUpActivity" />
         <activity android:name=".firebase.FindPwdActivity" />
-        <activity android:name=".survey.DoSurveyActivity"></activity>
+        <activity android:name=".survey.DoSurveyActivity" />
+        <activity android:name=".BackgroundSampleActivity" />
+        <activity android:name=".NaviSampleActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".LullabyActivity"></activity>
     </application>
 
 </manifest>

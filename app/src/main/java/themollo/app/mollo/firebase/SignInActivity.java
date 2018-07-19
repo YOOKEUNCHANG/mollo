@@ -28,6 +28,7 @@ public class SignInActivity extends FirebaseLogin {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
+        setButtonListener();
     }
 
     @Override

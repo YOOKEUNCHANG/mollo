@@ -7,8 +7,6 @@
     android:orientation="vertical"
     tools:context="themollo.app.mollo.MainActivity">
 
-
-
     <Button
         android:id="@+id/btLogout"
         android:layout_width="wrap_content"
@@ -20,6 +18,41 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="go to Sensor Act"/>
+
+    <Button
+        android:id="@+id/btHome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="background sample 1 - Home"/>
+
+    <Button
+        android:id="@+id/btAlarm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="background sample 2 - Alarm"/>
+
+    <Button
+        android:id="@+id/btChart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="background sample 3 - chart"/>
+
+    <Button
+        android:id="@+id/btLullaby"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="background sample 4 - llulaby"/>
+
+    <Button
+        android:id="@+id/btNavi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="navigation drawer"/>
+
+    <Button
+        android:id="@+id/btLullabyPlayer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
 
 </LinearLayout>

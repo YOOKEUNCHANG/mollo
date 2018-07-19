@@ -25,12 +25,18 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.kakao.auth.ISessionCallback;
 import com.kakao.auth.Session;
+import com.kakao.network.ErrorResult;
+import com.kakao.usermgmt.UserManagement;
+import com.kakao.usermgmt.callback.MeV2ResponseCallback;
 import com.kakao.usermgmt.request.SignupRequest;
+import com.kakao.usermgmt.response.MeV2Response;
 import com.kakao.util.exception.KakaoException;
 
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -42,6 +48,8 @@ import themollo.app.mollo.firebase.SignUpActivity;
 
 public class LoginActivity extends FirebaseLogin {
 
+    private static final String TAG = "LoginActivity";
+
     private ISessionCallback iSessionCallback;
     private CallbackManager callbackManager;
     
@@ -51,8 +59,7 @@ public class LoginActivity extends FirebaseLogin {
     Button btSignIn;
     @BindView(R.id.btFacebook)
     LoginButton btFacebook;
-    @BindView(R.id.btAnonySignIn)
-    Button getBtAnonySignIn;
+
 
     @Override
     protected void onDestroy() {
@@ -88,6 +95,34 @@ public class LoginActivity extends FirebaseLogin {
 
         setRegisterKakaoCallback();
         setRegisterFacebookCallback();
+        setButtonListener();
+    }
+
+    public void requestInfo(){
+        ArrayList<String> keys = new ArrayList<>();
+        keys.add("properties.nickname");
+        keys.add("properties.profile_image");
+        keys.add("kakao_account.email");
+
+        UserManagement.getInstance().me(keys, new MeV2ResponseCallback() {
+
+            @Override
+            public void onFailure(ErrorResult errorResult) {
+                Log.i(TAG, "errmsg : " + errorResult.toString());
+            }
+
+            @Override
+            public void onSessionClosed(ErrorResult errorResult) {
+
+            }
+
+            @Override
+            public void onSuccess(MeV2Response result) {
+                Log.i(TAG, "user id : " + result.getId());
+                Log.i(TAG, "email : " + result.getKakaoAccount().getEmail());
+                Log.i(TAG, "profile path : " + result.getProfileImagePath());
+            }
+        });
     }
 
     @Override
@@ -105,7 +140,6 @@ public class LoginActivity extends FirebaseLogin {
                 moveTo(SignInActivity.class);
             }
         });
-
 
     }
 
@@ -125,6 +159,8 @@ public class LoginActivity extends FirebaseLogin {
         };
         Session.getCurrentSession().addCallback(iSessionCallback);
         Session.getCurrentSession().checkAndImplicitOpen();
+
+        requestInfo();
     }
     
     public void setRegisterFacebookCallback(){
@@ -160,6 +196,8 @@ public class LoginActivity extends FirebaseLogin {
                 Log.i("facebook", error.toString());
             }
         });
+
+
     }
 
     public void removeSessionCallback() {

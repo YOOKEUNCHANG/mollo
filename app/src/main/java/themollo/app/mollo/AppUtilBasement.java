@@ -10,6 +10,12 @@ import android.support.v7.app.AppCompatActivity;
 
 public abstract class AppUtilBasement extends AppCompatActivity{
 
+    public static final String exampleName = "EN";
+    public static final String CHART = "chart";
+    public static final String ALARM = "alarm";
+    public static final String LULLABY = "lullaby";
+    public static final String HOME = "home";
+
     ProgressDialog pd;
 
     public void showPD(){
@@ -31,6 +37,6 @@ public abstract class AppUtilBasement extends AppCompatActivity{
         startActivity(new Intent(getBaseContext(), cls));
     }
 
-    public void setButtonListener(){}
+    public abstract void setButtonListener();
 
 }

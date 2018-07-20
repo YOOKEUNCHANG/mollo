@@ -1,13 +1,11 @@
 package themollo.app.mollo;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
 import com.facebook.AccessToken;
-import com.facebook.login.Login;
 import com.facebook.login.LoginManager;
 import com.kakao.auth.Session;
 import com.kakao.usermgmt.UserManagement;
@@ -16,6 +14,7 @@ import com.kakao.usermgmt.callback.LogoutResponseCallback;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import themollo.app.mollo.login.sns_login.LoginActivity;
+import themollo.app.mollo.lullaby.LullabyActivity;
 
 public class MainActivity extends AppUtilBasement {
 
@@ -81,9 +80,12 @@ public class MainActivity extends AppUtilBasement {
             }
         });
 
-        setListener(R.id.btChart);
-        setListener(R.id.btAlarm);
+        findViewById(R.id.btCircularBar).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
         setListener(R.id.btHome);
-        setListener(R.id.btLullaby);
     }
 }

@@ -31,17 +31,8 @@ public class BackgroundSampleActivity extends AppUtilBasement {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_background_sample);
         switch (activityType){
-            case R.id.btChart:
-                setContentView(R.layout.chart);
-                break;
             case R.id.btHome:
                 homeOnCreate();
-                break;
-            case R.id.btLullaby:
-                lullabyOnCreate();
-                break;
-            case R.id.btAlarm:
-                alarmOnCreate();
                 break;
         }
 

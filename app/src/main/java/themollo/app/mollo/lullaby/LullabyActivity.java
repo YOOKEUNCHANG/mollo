@@ -1,7 +1,9 @@
-package themollo.app.mollo;
+package themollo.app.mollo.lullaby;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import themollo.app.mollo.R;
 
 public class LullabyActivity extends AppCompatActivity {
 

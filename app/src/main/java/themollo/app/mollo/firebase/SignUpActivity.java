@@ -86,6 +86,11 @@ public class SignUpActivity extends FirebaseLogin {
         });
     }
 
+    @Override
+    public void butterBind() {
+
+    }
+
     public void emailSignUp(){
         showPD();
         getFirebaseAuth().createUserWithEmailAndPassword(userNewEmail, userNewPwd).addOnCompleteListener(new OnCompleteListener<AuthResult>() {

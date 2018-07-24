@@ -54,4 +54,9 @@ public class SignInActivity extends FirebaseLogin {
             }
         });
     }
+
+    @Override
+    public void butterBind() {
+
+    }
 }

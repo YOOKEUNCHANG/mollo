@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="themollo.app.mollo.SensorActivity">
+    tools:context="themollo.app.mollo.sample.SensorActivity">
 
     <LinearLayout
         android:layout_width="match_parent"

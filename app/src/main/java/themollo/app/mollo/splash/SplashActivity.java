@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
@@ -17,24 +18,43 @@ import java.security.NoSuchAlgorithmException;
 
 import themollo.app.mollo.R;
 import themollo.app.mollo.login.sns_login.LoginActivity;
+import themollo.app.mollo.tutorial.TutorialActivity;
+import themollo.app.mollo.util.AppUtilBasement;
 
-public class SplashActivity extends AppCompatActivity {
+public class SplashActivity extends AppUtilBasement {
 
-    private Button btSkip;
+    private static final int SPLASH_DELAY_TIME = 1000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        btSkip = findViewById(R.id.btSkip);
-        btSkip.setOnClickListener(new View.OnClickListener() {
+        new Handler().postDelayed(new Runnable() {
             @Override
-            public void onClick(View v) {
+            public void run() {
                 onSkip();
             }
-        });
+        }, SPLASH_DELAY_TIME);
 
+    }
+
+    public void onSkip(){
+        Intent intent = new Intent(SplashActivity.this, TutorialActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void setButtonListener() {
+
+    }
+
+    @Override
+    public void butterBind() {
+
+    }
+
+    public void getKeyHash(){
         try {
             PackageInfo info = getPackageManager().getPackageInfo(
                     getPackageName(), PackageManager.GET_SIGNATURES);
@@ -49,10 +69,5 @@ public class SplashActivity extends AppCompatActivity {
         } catch (NoSuchAlgorithmException e) {
 
         }
-    }
-
-    public void onSkip(){
-        Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
-        startActivity(intent);
     }
 }

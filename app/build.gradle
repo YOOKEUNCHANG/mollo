@@ -44,7 +44,6 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
-
     //firebase
     //noinspection GradleCompatible
     compile 'com.google.firebase:firebase-database:11.8.0'
@@ -84,6 +83,9 @@ dependencies {
 
     //circular bar
     compile 'com.github.Triggertrap:SeekArc:v1.1'
+
+    //wheel picker
+    compile 'cn.aigestudio.wheelpicker:WheelPicker:1.1.2'
 
 }
 apply plugin: 'com.google.gms.google-services'

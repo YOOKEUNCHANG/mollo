@@ -1,4 +1,4 @@
-package themollo.app.mollo;
+package themollo.app.mollo.sample;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,6 +8,7 @@ import com.triggertrap.seekarc.SeekArc;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import themollo.app.mollo.R;
 
 public class CircularBarActivity extends AppCompatActivity {
 

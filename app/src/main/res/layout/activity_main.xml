@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="themollo.app.mollo.MainActivity">
+    tools:context="themollo.app.mollo.sample.MainActivity">
 
     <Button
         android:id="@+id/btLogout"
@@ -25,8 +25,6 @@
         android:layout_height="wrap_content"
         android:text="background sample"/>
 
-
-
     <Button
         android:id="@+id/btNavi"
         android:layout_width="wrap_content"
@@ -44,6 +42,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="seekarc"/>
+
+    <Button
+        android:id="@+id/btAlarm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="alarm"/>
 
 
 </LinearLayout>

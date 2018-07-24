@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AlarmTimePickerStyle" parent="ThemeOverlay.AppCompat.Dialog.Alert">
+        <item name="showTitle">false</item>
+        <item name="android:colorControlActivated">#ffd600</item>
+    </style>
+</resources>

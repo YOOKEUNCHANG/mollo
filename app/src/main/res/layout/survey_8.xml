@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="themollo.app.mollo.survey.survey_fragment.Survey_p2">
+    tools:context="themollo.app.mollo.survey.survey_fragment.Survey_p5">
 
     <TextView
         android:layout_width="match_parent"
@@ -37,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="질문 2 ?"
+                android:text="질문 8 ?"
                 android:textSize="20dp" />
 
             <LinearLayout
@@ -47,7 +47,7 @@
                 android:gravity="center">
 
                 <EditText
-                    android:id="@+id/etAns2"
+                    android:id="@+id/etAns8"
                     android:layout_width="150dp"
                     android:layout_height="wrap_content" />
 

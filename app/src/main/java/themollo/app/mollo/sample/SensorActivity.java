@@ -1,4 +1,4 @@
-package themollo.app.mollo;
+package themollo.app.mollo.sample;
 
 import android.content.Context;
 import android.hardware.Sensor;

@@ -7,7 +7,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
-        android:name=".MolloApplication"
+        android:name=".util.MolloApplication"
         android:allowBackup="true"
         android:hardwareAccelerated="false"
         android:icon="@mipmap/ic_launcher"
@@ -20,7 +20,7 @@
 
         <!-- activities -->
         <activity android:name=".splash.SplashActivity" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".sample.MainActivity" />
         <activity android:name=".login.sns_login.LoginActivity" />
 
         <!-- meta data -->
@@ -32,24 +32,29 @@
             android:value="@string/facebook_app_id"
             tools:replace="android:value" />
 
-        <activity android:name=".SensorActivity" />
+        <activity android:name=".sample.SensorActivity" />
         <activity android:name=".firebase.SignInActivity" />
         <activity android:name=".firebase.SignUpActivity" />
         <activity android:name=".firebase.FindPwdActivity" />
-        <activity android:name=".survey.DoSurveyActivity" />
-        <activity android:name=".BackgroundSampleActivity" />
-        <activity android:name=".NaviSampleActivity">
-
-        </activity>
-        <activity android:name=".lullaby.LullabyActivity" />
-        <activity android:name=".lullaby.LullabyListActivity" />
-        <activity android:name=".CircularBarActivity">
+        <activity android:name=".survey.DoSurveyActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".sample.BackgroundSampleActivity" />
+        <activity android:name=".sample.NaviSampleActivity" />
+        <activity android:name=".lullaby.LullabyActivity" />
+        <activity android:name=".lullaby.LullabyListActivity" />
+        <activity android:name=".sample.CircularBarActivity" />
+        <activity android:name=".tutorial.TutorialActivity" />
+        <activity android:name=".alarm.AlarmActivity">
+
+        </activity>
+
+        <receiver android:name=".alarm.AlarmReceiver" />
+
     </application>
 
 </manifest>

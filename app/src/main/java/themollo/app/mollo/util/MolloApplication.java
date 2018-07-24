@@ -1,8 +1,7 @@
-package themollo.app.mollo;
+package themollo.app.mollo.util;
 
 import android.app.Application;
 
-import com.facebook.FacebookSdk;
 import com.kakao.auth.KakaoSDK;
 
 import themollo.app.mollo.login.sns_login.kakao.KakaoSDKAdapter;

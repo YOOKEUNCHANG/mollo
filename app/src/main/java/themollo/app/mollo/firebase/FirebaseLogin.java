@@ -2,7 +2,6 @@ package themollo.app.mollo.firebase;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
@@ -13,11 +12,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import org.w3c.dom.Text;
-
-import themollo.app.mollo.AppUtilBasement;
-import themollo.app.mollo.MainActivity;
-import themollo.app.mollo.login.sns_login.LoginActivity;
+import themollo.app.mollo.util.AppUtilBasement;
+import themollo.app.mollo.sample.MainActivity;
 
 /**
  * Created by alex on 2018. 7. 12..

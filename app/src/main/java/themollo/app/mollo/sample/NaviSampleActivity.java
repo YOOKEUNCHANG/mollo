@@ -1,4 +1,4 @@
-package themollo.app.mollo;
+package themollo.app.mollo.sample;
 
 import android.graphics.Color;
 import android.support.v4.widget.DrawerLayout;
@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import themollo.app.mollo.R;
 
 public class NaviSampleActivity extends AppCompatActivity {
 

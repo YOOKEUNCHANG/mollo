@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorAccent"
-    tools:context="themollo.app.mollo.NaviSampleActivity">
+    tools:context="themollo.app.mollo.sample.NaviSampleActivity">
 
     <LinearLayout
         android:id="@+id/llContent"

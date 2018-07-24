@@ -1,4 +1,4 @@
-package themollo.app.mollo.survey;
+package themollo.app.mollo.tutorial.tutorial_fragment;
 
 
 import android.os.Bundle;
@@ -12,10 +12,10 @@ import themollo.app.mollo.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class Survey_p1 extends Fragment {
+public class Tutorial_p5 extends Fragment {
 
 
-    public Survey_p1() {
+    public Tutorial_p5() {
         // Required empty public constructor
     }
 
@@ -24,8 +24,7 @@ public class Survey_p1 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.survey_1, container, false);
-        return view;
+        return inflater.inflate(R.layout.fragment_tutorial_p5, container, false);
     }
 
 }

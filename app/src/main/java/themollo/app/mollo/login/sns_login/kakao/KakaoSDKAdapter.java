@@ -8,7 +8,7 @@ import com.kakao.auth.IApplicationConfig;
 import com.kakao.auth.ISessionConfig;
 import com.kakao.auth.KakaoAdapter;
 
-import themollo.app.mollo.MolloApplication;
+import themollo.app.mollo.util.MolloApplication;
 
 /**
  * Created by alex on 2018. 7. 9..

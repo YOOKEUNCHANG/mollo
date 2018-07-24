@@ -1,4 +1,4 @@
-package themollo.app.mollo;
+package themollo.app.mollo.sample;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,8 +13,11 @@ import com.kakao.usermgmt.callback.LogoutResponseCallback;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import themollo.app.mollo.alarm.AlarmActivity;
+import themollo.app.mollo.R;
 import themollo.app.mollo.login.sns_login.LoginActivity;
 import themollo.app.mollo.lullaby.LullabyActivity;
+import themollo.app.mollo.util.AppUtilBasement;
 
 public class MainActivity extends AppUtilBasement {
 
@@ -83,9 +86,22 @@ public class MainActivity extends AppUtilBasement {
         findViewById(R.id.btCircularBar).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                moveTo(CircularBarActivity.class);
             }
         });
+
+        findViewById(R.id.btAlarm).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                moveTo(AlarmActivity.class);
+            }
+        });
+
         setListener(R.id.btHome);
+    }
+
+    @Override
+    public void butterBind() {
+
     }
 }

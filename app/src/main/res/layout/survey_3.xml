@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="themollo.app.mollo.survey.Survey_p3">
+    tools:context="themollo.app.mollo.survey.survey_fragment.Survey_p3">
 
     <TextView
         android:layout_width="match_parent"
@@ -47,6 +47,7 @@
                 android:gravity="center">
 
                 <EditText
+                    android:id="@+id/etAns3"
                     android:layout_width="150dp"
                     android:layout_height="wrap_content" />
 

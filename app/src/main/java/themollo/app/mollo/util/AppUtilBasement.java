@@ -1,8 +1,12 @@
-package themollo.app.mollo;
+package themollo.app.mollo.util;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.widget.Toast;
 
 /**
  * Created by alex on 2018. 7. 16..
@@ -15,6 +19,7 @@ public abstract class AppUtilBasement extends AppCompatActivity{
     public static final String ALARM = "alarm";
     public static final String LULLABY = "lullaby";
     public static final String HOME = "home";
+    public static final String SURVEY = "survey";
 
     ProgressDialog pd;
 
@@ -37,6 +42,28 @@ public abstract class AppUtilBasement extends AppCompatActivity{
         startActivity(new Intent(getBaseContext(), cls));
     }
 
-    public abstract void setButtonListener();
+    public void toastText(Context context, String text){
+        Toast.makeText(context, text, Toast.LENGTH_LONG).show();
+    }
 
+    public void logUtil(String tag, String text){
+        Log.i(tag, text);
+    }
+
+    public SharedPreferences getSurveyPref() {
+        return getSharedPreferences(SURVEY, Context.MODE_PRIVATE);
+    }
+
+    public void putSurveyDataPref(String key, String value) {
+        SharedPreferences.Editor editor = getSurveyPref().edit();
+        editor.putString(key, value);
+        editor.commit();
+    }
+
+    public String getSurveyData(String key){
+        return getSurveyPref().getString(key, "");
+    }
+
+    public abstract void setButtonListener();
+    public abstract void butterBind();
 }

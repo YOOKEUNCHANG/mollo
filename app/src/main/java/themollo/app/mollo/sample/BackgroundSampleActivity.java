@@ -1,14 +1,13 @@
-package themollo.app.mollo;
+package themollo.app.mollo.sample;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.LinearLayout;
 
-import com.github.mikephil.charting.charts.LineChart;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import themollo.app.mollo.R;
+import themollo.app.mollo.util.AppUtilBasement;
 
 public class BackgroundSampleActivity extends AppUtilBasement {
 
@@ -60,6 +59,11 @@ public class BackgroundSampleActivity extends AppUtilBasement {
 
     @Override
     public void setButtonListener() {
+
+    }
+
+    @Override
+    public void butterBind() {
 
     }
 }

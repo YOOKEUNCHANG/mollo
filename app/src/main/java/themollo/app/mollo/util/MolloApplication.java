@@ -3,6 +3,7 @@ package themollo.app.mollo.util;
 import android.app.Application;
 
 import com.kakao.auth.KakaoSDK;
+import com.miguelbcr.ui.rx_paparazzo2.RxPaparazzo;
 
 import themollo.app.mollo.login.sns_login.kakao.KakaoSDKAdapter;
 
@@ -18,6 +19,7 @@ public class MolloApplication extends Application {
     public void onCreate() {
         super.onCreate();
         MolloApplication.instance = this;
+        RxPaparazzo.register(this);
         KakaoSDK.init(new KakaoSDKAdapter());
     }
 

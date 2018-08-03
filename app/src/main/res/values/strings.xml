@@ -6,6 +6,67 @@
     <string name="open">open</string>
     <string name="close">close</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
+    <!-- tutorial -->
+    <string name="tutorial_1_text">Fill survey questions\nabout your sleep habit</string>
+    <string name="tutorial_2_text">Set alarm\nby adjusting circular bar</string>
+    <string name="tutorial_3_text">Set lullaby\nfor your comfortable sleep</string>
+    <string name="tutorial_4_text">Connect Mollo Diffuser\nand spread your favorite scent</string>
+    <string name="tutorial_5_text">We analyze your sleep\nand offer solution</string>
+
+    <!-- survey -->
+    <string name="done">If you done,\nclick here!</string>
+    <string name="survey_1_text">What\'s your gender?</string>
+    <string name="survey_2_text">How old are you?</string>
+    <string name="survey_3_text">During the past month,\nhow many hours of sleep\ndid you get at night?</string>
+    <string name="survey_4_text">During the hours you just filled,\nhow many hours of\nactual(deep) sleep you feel?</string>
+    <string name="survey_5_text">Select causes that disturb your sleep.\n(multipick available)</string>
+    <string name="survey_6_text">During the past month,
+        \nhow often have you taken
+        \nmedicine to help your sleep?</string>
+    <string name="survey_7_text">During the past month,
+        \nhow often have you had
+        \ntrouble staying awake while driving,
+        \neating meals, or engaging in social activity?</string>
+    <string name="male">male</string>
+    <string name="female">female</string>
+    <string name="age1020s">10-20s</string>
+    <string name="age3040s">30-40s</string>
+    <string name="age50s">>50s</string>
+
+    <!-- symptoms -->
+    <string name="symp1">can\'t get asleep\nin 30 mins</string>
+    <string name="symp2">wake up\nin the middle</string>
+    <string name="symp3">frequently\ngo to bathroom</string>
+    <string name="symp4">hard to\nbreathe</string>
+    <string name="symp5">snore or cough\nso hard</string>
+    <string name="symp6">too cold</string>
+    <string name="symp7">too hot</string>
+    <string name="symp8">nightmare</string>
+    <string name="symp9">have ache\nsomewhere</string>
+
+    <!-- a week -->
+    <string name="not_take">not\ntaking</string>
+    <string name="once_a_week">once\na week</string>
+    <string name="twice_a_week">twice\na week</string>
+    <string name="more_than_twice">>2 times\na week</string>
+
+    <!-- menu -->
+    <string name="home">HOME</string>
+    <string name="my_account">MY ACCOUNT</string>
+    <string name="lullaby">LULLABY</string>
+    <string name="diffuser">DIFFUSER</string>
+    <string name="alarm">ALARM</string>
+    <string name="sign_in">SIGN IN</string>
+    <string name="sign_up">SIGN UP</string>
+    <string name="sleeing_pattern">SLEEPING PATTERN</string>
+
+    <!-- analysis -->
+    <string name="today">TODAY</string>
+    <string name="monthly">MONTHLY</string>
+
+    <!-- default -->
+    <string name="default_sound_title">DEFAULT SOUND TITLE</string>
+
+    <!-- fragment -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

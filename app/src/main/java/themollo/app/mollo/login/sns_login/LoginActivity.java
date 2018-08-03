@@ -30,10 +30,13 @@ import java.util.Arrays;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import themollo.app.mollo.home.HomeActivity;
 import themollo.app.mollo.sample.MainActivity;
 import themollo.app.mollo.R;
 import themollo.app.mollo.firebase.FirebaseLogin;
 import themollo.app.mollo.firebase.SignInActivity;
+import themollo.app.mollo.survey.DoSurveyActivity;
+import themollo.app.mollo.util.BackPressController;
 
 public class LoginActivity extends FirebaseLogin {
 
@@ -41,7 +44,8 @@ public class LoginActivity extends FirebaseLogin {
 
     private ISessionCallback iSessionCallback;
     private CallbackManager callbackManager;
-    
+    private BackPressController backPressController;
+
     @BindView(R.id.btAnonySignIn)
     Button btAnonySignIn;
     @BindView(R.id.btSignIn)
@@ -49,6 +53,10 @@ public class LoginActivity extends FirebaseLogin {
     @BindView(R.id.btFacebook)
     LoginButton btFacebook;
 
+    @Override
+    public void onBackPressed() {
+        backPressController.onBackPressed();
+    }
 
     @Override
     protected void onDestroy() {
@@ -60,8 +68,9 @@ public class LoginActivity extends FirebaseLogin {
     protected void onStart() {
         super.onStart();
         if (Session.getCurrentSession().isOpened()
-                || AccessToken.isCurrentAccessTokenActive()) {
-            moveTo(MainActivity.class);
+                || AccessToken.isCurrentAccessTokenActive()
+                || getFirebaseUser() != null) {
+            moveTo(HomeActivity.class);
         }
     }
 
@@ -79,6 +88,8 @@ public class LoginActivity extends FirebaseLogin {
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(this.getApplicationContext());
         setContentView(R.layout.activity_login);
+
+        backPressController = new BackPressController(this);
 
         ButterKnife.bind(this);
 
@@ -142,7 +153,7 @@ public class LoginActivity extends FirebaseLogin {
         iSessionCallback = new ISessionCallback() {
             @Override
             public void onSessionOpened() {
-                moveTo(MainActivity.class);
+                moveTo(DoSurveyActivity.class);
                 Log.i("kakao", "session opened");
             }
 
@@ -177,7 +188,7 @@ public class LoginActivity extends FirebaseLogin {
                 graphRequest.setParameters(parameters);
                 graphRequest.executeAsync();
 
-                moveTo(MainActivity.class);
+                moveTo(DoSurveyActivity.class);
             }
 
             @Override

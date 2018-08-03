@@ -22,9 +22,12 @@ import com.google.firebase.auth.FirebaseUser;
 import com.kakao.usermgmt.request.SignupRequest;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import themollo.app.mollo.R;
 
 public class SignUpActivity extends FirebaseLogin {
+
+    private final String TAG = "SignUpActivity";
 
     @BindView(R.id.etUserNewName)
     EditText etUserNewName;
@@ -38,8 +41,10 @@ public class SignUpActivity extends FirebaseLogin {
     CheckBox cbAgree;
     @BindView(R.id.llSignUp)
     LinearLayout llSignUp;
+    @BindView(R.id.llBack)
+    LinearLayout llBack;
 
-    private String userNewEmail="", userNewPwd="", userNewName="", userNewPwdCheck="";
+    private String userNewEmail = "", userNewPwd = "", userNewName = "", userNewPwdCheck = "";
     private FirebaseAuth.AuthStateListener authStateListener;
 
     @Override
@@ -47,63 +52,81 @@ public class SignUpActivity extends FirebaseLogin {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
-        userNewEmail = etUserNewID.getText().toString();
-        userNewPwd = etUserNewPwd.getText().toString();
-        userNewPwdCheck = etUserNewPwdCheck.getText().toString();
-        userNewName = etUserNewName.getText().toString();
+        butterBind();
+        setButtonListener();
 
         authStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                if(getFirebaseUser() != null){
+                if (getFirebaseUser() != null) {
                     //sign in
-                }else{
+                } else {
                     //sign out
                 }
             }
         };
     }
 
-    private boolean isPwdEquals(String pwd1, String pwd2){
-        if(pwd1.equals(pwd2)) return true;
+    private boolean isPwdEquals(String pwd1, String pwd2) {
+        if (pwd1.equals(pwd2)) return true;
         else return false;
     }
 
     @Override
     public void setButtonListener() {
+        userNewPwd = etUserNewPwd.getText().toString();
+        userNewPwdCheck = etUserNewPwdCheck.getText().toString();
         llSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(cbAgree.isChecked() && isPwdEquals(userNewPwd, userNewPwdCheck)){
-                    emailSignUp();
-                }else if(!cbAgree.isChecked()){
+                if (!cbAgree.isChecked()) {
                     Toast.makeText(SignUpActivity.this, "약관에 동의해주세요", Toast.LENGTH_LONG).show();
-                }else if(!isPwdEquals(userNewPwd, userNewPwdCheck)){
-                    etUserNewPwdCheck.setError("비밀번호가 일치하지 않습니다!");
+                    return;
+                } else if (!isPwdEquals(userNewPwd, userNewPwdCheck)) {
+                    Toast.makeText(SignUpActivity.this, "비밀번호가 일치하지 않습니다!", Toast.LENGTH_SHORT).show();
                     return;
                 }
+
+                emailSignUp();
+            }
+        });
+
+        llBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
     }
 
     @Override
     public void butterBind() {
-
+        ButterKnife.bind(this);
     }
 
-    public void emailSignUp(){
+    public void emailSignUp() {
         showPD();
-        getFirebaseAuth().createUserWithEmailAndPassword(userNewEmail, userNewPwd).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()){
-                    Toast.makeText(SignUpActivity.this, "계정이 생성되었습니다.", Toast.LENGTH_LONG).show();
-                    finish();
-                }else{
-                    Toast.makeText(SignUpActivity.this, "계정 생성에 실패하였습니다", Toast.LENGTH_LONG).show();
+        userNewEmail = etUserNewID.getText().toString();
+        userNewPwd = etUserNewPwd.getText().toString();
+        try {
+            getFirebaseAuth().createUserWithEmailAndPassword(userNewEmail, userNewPwd).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (task.isSuccessful()) {
+                        Toast.makeText(SignUpActivity.this, "계정이 생성되었습니다.", Toast.LENGTH_LONG).show();
+                        finish();
+                    } else {
+                        Toast.makeText(SignUpActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                        stopPD();
+                        return;
+                    }
+                    stopPD();
                 }
-                stopPD();
-            }
-        });
+            });
+        } catch (Exception e) {
+            Toast.makeText(getBaseContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+            stopPD();
+            return;
+        }
     }
 }

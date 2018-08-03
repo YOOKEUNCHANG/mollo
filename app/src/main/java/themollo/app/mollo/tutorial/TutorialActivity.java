@@ -40,7 +40,7 @@ public class TutorialActivity extends AppUtilBasement {
         vpTutorial.setCurrentItem(0);
 
         ciIndicator.setViewPager(vpTutorial);
-        ciIndicator.setBackgroundColor(R.color.appColor);
+//        ciIndicator.setBackgroundColor(R.color.appColor);
 
         tutorialPagerAdapter.registerDataSetObserver(ciIndicator.getDataSetObserver());
 

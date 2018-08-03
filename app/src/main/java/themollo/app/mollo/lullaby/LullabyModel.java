@@ -11,30 +11,18 @@ import de.hdodenhof.circleimageview.CircleImageView;
  */
 
 public class LullabyModel {
-    String imageUrl;
+
     String lullabyTitle;
-    boolean selected;
+    String lullabyPlayTime;
+    boolean isSelected;
 
-    public LullabyModel(String imageUrl, String lullabyTitle, boolean selected) {
-        this.imageUrl = imageUrl;
+    public LullabyModel() {
+    }
+
+    public LullabyModel(String lullabyTitle, String lullabyPlayTime, boolean isSelected) {
         this.lullabyTitle = lullabyTitle;
-        this.selected = selected;
-    }
-
-    public boolean isSelected() {
-        return selected;
-    }
-
-    public void setSelected(boolean selected) {
-        this.selected = selected;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+        this.lullabyPlayTime = lullabyPlayTime;
+        this.isSelected = isSelected;
     }
 
     public String getLullabyTitle() {
@@ -45,5 +33,19 @@ public class LullabyModel {
         this.lullabyTitle = lullabyTitle;
     }
 
+    public String getLullabyPlayTime() {
+        return lullabyPlayTime;
+    }
 
+    public void setLullabyPlayTime(String lullabyPlayTime) {
+        this.lullabyPlayTime = lullabyPlayTime;
+    }
+
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
+    }
 }

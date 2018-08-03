@@ -1,4 +1,4 @@
-package themollo.app.mollo.survey.survey_fragment;
+package themollo.app.mollo.survey;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -17,7 +17,6 @@ import themollo.app.mollo.survey.survey_fragment.Survey_p4;
 import themollo.app.mollo.survey.survey_fragment.Survey_p5;
 import themollo.app.mollo.survey.survey_fragment.Survey_p6;
 import themollo.app.mollo.survey.survey_fragment.Survey_p7;
-import themollo.app.mollo.survey.survey_fragment.Survey_p8;
 
 /**
  * Created by alex on 2018. 7. 16..
@@ -25,7 +24,7 @@ import themollo.app.mollo.survey.survey_fragment.Survey_p8;
 
 public class SurveyPagerAdapter extends FragmentStatePagerAdapter {
 
-    private static final int NUM_OF_FRAGMENT = 8;
+    private static final int NUM_OF_FRAGMENT = 7;
 
     public SurveyPagerAdapter(FragmentManager fm) {
         super(fm);
@@ -49,8 +48,6 @@ public class SurveyPagerAdapter extends FragmentStatePagerAdapter {
                 return new Survey_p6();
             case 6:
                 return new Survey_p7();
-            case 7:
-                return new Survey_p8();
             default:
                 return null;
         }

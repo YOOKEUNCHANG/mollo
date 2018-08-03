@@ -5,4 +5,12 @@
         <item name="showTitle">false</item>
         <item name="android:colorControlActivated">#ffd600</item>
     </style>
+
+    <style name="ActionBar" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="drawerArrowStyle">@style/AppTheme.DrawerArrowToggle</item>
+    </style>
+
+    <style name="AppTheme.DrawerArrowToggle" parent="Base.Widget.AppCompat.DrawerArrowToggle">
+        <item name="color">@android:color/white</item>
+    </style>
 </resources>

@@ -12,6 +12,9 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.nio.file.attribute.DosFileAttributes;
+
+import themollo.app.mollo.survey.DoSurveyActivity;
 import themollo.app.mollo.util.AppUtilBasement;
 import themollo.app.mollo.sample.MainActivity;
 
@@ -43,6 +46,7 @@ public abstract class FirebaseLogin extends AppUtilBasement {
                                 Log.i("firebase", getFirebaseUser().getUid());
                             }
                             Toast.makeText(context, "익명 로그인 되었습니다", Toast.LENGTH_LONG).show();
+                            moveTo(DoSurveyActivity.class);
                         } else {
                             Toast.makeText(context, "익명 로그인 싪패", Toast.LENGTH_LONG).show();
                             Log.i("firebase", "anony login failed : " + task.getException().toString());
@@ -57,11 +61,12 @@ public abstract class FirebaseLogin extends AppUtilBasement {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    Toast.makeText(context, "이메일로 로그인 되었습니다.", Toast.LENGTH_LONG).show();
-                    moveTo(MainActivity.class);
+                    Toast.makeText(context, "EMAIL LOGIN SUCCESS", Toast.LENGTH_LONG).show();
+                    moveTo(DoSurveyActivity.class);
                 }else{
-                    Toast.makeText(context, "이메일로 로그인에 실패하였습니다.", Toast.LENGTH_LONG).show();
-                    Log.i(TAG, "error msg : " + task.getException());
+                    Toast.makeText(context, task.getException().getMessage(), Toast.LENGTH_LONG).show();
+
+                    Log.i(TAG, "error msg : " + task.getException().getMessage());
                 }
                 stopPD();
             }
@@ -88,11 +93,5 @@ public abstract class FirebaseLogin extends AppUtilBasement {
         if(!isValid(userEmail, userPwd)) return;
     }
 
-    public FirebaseUser getFirebaseUser() {
-        return FirebaseAuth.getInstance().getCurrentUser();
-    }
 
-    public FirebaseAuth getFirebaseAuth() {
-        return FirebaseAuth.getInstance();
-    }
 }

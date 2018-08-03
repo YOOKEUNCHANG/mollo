@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#315082</color>
-    <color name="colorAccent">#FF4081</color>
-    <color name="appColor">#315082</color>
+    <color name="colorPrimaryDark">#2B2C5D</color>
+    <color name="colorAccent">#ffffff</color>
+    <color name="appColor">#2B2C5D</color>
+    <color name="tutorialTextColor">#ffffff</color>
+    <color name="drawerBackground">#7A7BA5</color>
+    <color name="light_gray">#c2c7cc</color>
+    <color name="dark_gray">#3d454c</color>
+    <color name="dark_gray_pressed">#373e44</color>
+    <color name="darker_gray">#1f2226</color>
+    <color name="home_button_color">#4C4EA8</color>
+    <color name="alarm_progress_color">#4C4EA8</color>
+    <color name="white">#fff</color>
+    <color name="tab_not_selected">#4E4CAE</color>
+    <color name="tab_selected">#605FD8</color>
 </resources>

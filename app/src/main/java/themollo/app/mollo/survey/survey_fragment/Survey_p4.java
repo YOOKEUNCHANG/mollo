@@ -1,34 +1,36 @@
 package themollo.app.mollo.survey.survey_fragment;
 
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.SeekBar;
+import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import themollo.app.mollo.R;
 import themollo.app.mollo.survey.DoSurveyActivity;
+import themollo.app.mollo.survey.FragmentLifeCycle;
 import themollo.app.mollo.util.FragUtilBasement;
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class Survey_p4 extends FragUtilBasement{
+public class Survey_p4 extends FragUtilBasement implements FragmentLifeCycle {
 
-    @BindView(R.id.etAns4)
-    EditText etAns4;
+    @BindView(R.id.sbHours)
+    SeekBar sbHours;
+    @BindView(R.id.tvHours)
+    TextView tvHours;
 
     private String KEY = DEEP_SLEEP_TIME;
-
-    public Survey_p4() {
-        // Required empty public constructor
-    }
-
+    private static String VALUE = "";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -37,12 +39,50 @@ public class Survey_p4 extends FragUtilBasement{
         View view = inflater.inflate(R.layout.survey_4, container, false);
         butterbind(view);
 
+        sbHours.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                VALUE = (float)progress/10+"";
+                tvHours.setText(VALUE);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+
 
         return view;
     }
+
+
 
     @Override
     public void butterbind(View view) {
         ButterKnife.bind(this, view);
     }
+
+
+    @Override
+    public void onResumeFragment(Context context) {
+        prefLog("p4 resumed");
+    }
+
+    @Override
+    public void onPauseFragment(Context context) {
+        prefLog("p4 paused");
+        SharedPreferences.Editor editor
+                = context.getSharedPreferences(SURVEY, Context.MODE_PRIVATE).edit();
+        editor.putString(KEY, VALUE).commit();
+
+        prefLog("key : " + KEY + " value : " + VALUE);
+    }
+
 }

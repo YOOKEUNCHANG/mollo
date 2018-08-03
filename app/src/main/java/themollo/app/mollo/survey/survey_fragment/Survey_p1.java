@@ -1,34 +1,41 @@
 package themollo.app.mollo.survey.survey_fragment;
 
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import themollo.app.mollo.R;
-import themollo.app.mollo.survey.DoSurveyActivity;
+import themollo.app.mollo.survey.FragmentLifeCycle;
 import themollo.app.mollo.util.FragUtilBasement;
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class Survey_p1 extends FragUtilBasement{
+public class Survey_p1 extends FragUtilBasement implements FragmentLifeCycle{
 
-    @BindView(R.id.etAns1)
-    EditText etAns1;
+    @BindView(R.id.ivMaleCircle)
+    ImageView ivMaleCircle;
 
-    private String KEY = BED_TIME;
+    @BindView(R.id.ivFemaleCircle)
+    ImageView ivFemaleCircle;
 
-    public Survey_p1() {
-        // Required empty public constructor
-    }
+    @BindView(R.id.flMale)
+    FrameLayout flMale;
 
+    @BindView(R.id.flFemale)
+    FrameLayout flFemale;
+
+    private String KEY = SEX;
+    private static String VALUE = "male";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -36,11 +43,50 @@ public class Survey_p1 extends FragUtilBasement{
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.survey_1, container, false);
         butterbind(view);
+
+        flMale.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ivMaleCircle.setVisibility(View.VISIBLE);
+                ivFemaleCircle.setVisibility(View.GONE);
+                VALUE = getString(R.string.male);
+            }
+        });
+
+        flFemale.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ivMaleCircle.setVisibility(View.GONE);
+                ivFemaleCircle.setVisibility(View.VISIBLE);
+                VALUE = getString(R.string.female);
+            }
+        });
+
+
         return view;
     }
+
+
 
     @Override
     public void butterbind(View view) {
         ButterKnife.bind(this, view);
     }
+
+
+    @Override
+    public void onResumeFragment(Context context) {
+        prefLog("p1 resumed");
+    }
+
+    @Override
+    public void onPauseFragment(Context context) {
+        prefLog("p1 paused");
+        SharedPreferences.Editor editor
+                = context.getSharedPreferences(SURVEY, Context.MODE_PRIVATE).edit();
+        editor.putString(KEY, VALUE).commit();
+
+        prefLog("key : " + KEY + " value : " + VALUE);
+    }
+
 }

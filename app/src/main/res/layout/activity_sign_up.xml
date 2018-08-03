@@ -5,34 +5,39 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#ffffff"
+    android:background="@color/appColor"
     tools:context=".firebase.SignUpActivity">
-    <LinearLayout
-        android:layout_margin="20dp"
+    <RelativeLayout
+        android:id="@+id/rlTop"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:orientation="horizontal">
-        <LinearLayout
-            android:id="@+id/llBack"
-            android:layout_width="50dp"
-            android:layout_height="50dp">
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_gravity="center"
-                android:layout_marginLeft="10dp"
-                android:src="@drawable/left"/>
-        </LinearLayout>
+        android:layout_height="80dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="이메일로 가입"
-            android:textColor="#000000"
-            android:textSize="15sp"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp">
 
-    </LinearLayout>
+            <LinearLayout
+                android:id="@+id/llBack"
+                android:layout_width="80dp"
+                android:layout_height="80dp">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_margin="25dp"
+                    android:background="@drawable/left_white" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:gravity="center"
+                android:text="@string/sign_up"
+                android:textColor="#fff"
+                android:textSize="20dp" />
+        </RelativeLayout>
+    </RelativeLayout>
     <ScrollView
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
@@ -51,17 +56,17 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="이름"
+                    android:text="FULL NAME"
                     android:textSize="15sp"
-                    android:textColor="#000"
+                    android:textColor="#fff"
                     android:layout_margin="10dp"/>
 
                 <EditText
                     android:id="@+id/etUserNewName"
-                    android:background="@drawable/sign_up_et"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:paddingLeft="20dp"
+                    android:textColor="#fff"
                     />
 
             </LinearLayout>
@@ -74,16 +79,16 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="이메일"
+                    android:text="EMAIL"
                     android:textSize="15sp"
-                    android:textColor="#000"
+                    android:textColor="#fff"
                     android:layout_margin="10dp"/>
 
                 <EditText
                     android:id="@+id/etUserNewID"
-                    android:background="@drawable/sign_up_et"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
+                    android:textColor="#fff"
                     android:paddingLeft="20dp"
                     />
 
@@ -97,17 +102,17 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="비밀번호"
+                    android:text="PASSWORD"
                     android:textSize="15sp"
-                    android:textColor="#000"
+                    android:textColor="#fff"
                     android:layout_margin="10dp"/>
 
                 <EditText
                     android:id="@+id/etUserNewPwd"
                     android:inputType="textPassword"
-                    android:background="@drawable/sign_up_et"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
+                    android:textColor="#fff"
                     android:paddingLeft="20dp"
                     />
 
@@ -123,16 +128,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    android:text="비밀번호 확인"
-                    android:textColor="#000"
+                    android:text="PASSWORD CONFIRM"
+                    android:textColor="#fff"
                     android:textSize="15sp" />
 
                 <EditText
                     android:id="@+id/etUserNewPwdCheck"
                     android:inputType="textPassword"
-                    android:background="@drawable/sign_up_et"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
+                    android:textColor="#fff"
                     android:paddingLeft="20dp"
                     />
 
@@ -152,8 +157,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="#000"
-                    android:text="개인정보 처리방침 약관에 동의합니까?"/>
+                    android:textColor="#fff"
+                    android:text="@string"/>
             </LinearLayout>
         </LinearLayout>
 

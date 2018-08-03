@@ -8,6 +8,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import themollo.app.mollo.R;
 import themollo.app.mollo.survey.DoSurveyActivity;
 
@@ -19,15 +20,18 @@ public class SignInActivity extends FirebaseLogin {
     EditText etUserPwd;
     @BindView(R.id.llSignUp)
     LinearLayout llSignUp;
-    @BindView(R.id.llFindPwd)
-    LinearLayout llFindPwd;
     @BindView(R.id.llSignIn)
     LinearLayout llSignIn;
+    @BindView(R.id.llBack)
+    LinearLayout llBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
+
+        butterBind();
+
         setButtonListener();
     }
 
@@ -40,23 +44,25 @@ public class SignInActivity extends FirebaseLogin {
             }
         });
 
-        llFindPwd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                moveTo(FindPwdActivity.class);
-            }
-        });
-
         llSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                moveTo(DoSurveyActivity.class);
+                firebaseEmailSignIn(etUserID.getText().toString()
+                        , etUserPwd.getText().toString()
+                        , getBaseContext());
+            }
+        });
+
+        llBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
     }
 
     @Override
     public void butterBind() {
-
+        ButterKnife.bind(this);
     }
 }

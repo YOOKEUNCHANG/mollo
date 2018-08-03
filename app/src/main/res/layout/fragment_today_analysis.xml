@@ -1,0 +1,26 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/appColor"
+    tools:context="themollo.app.mollo.analysis.TodayAnalysisFragment">
+
+
+    <org.eazegraph.lib.charts.ValueLineChart
+        android:id="@+id/vlcValueLineChart"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:layout_alignParentBottom="true"
+        app:egActivateIndicatorShadow="false"
+        app:egCurveSmoothness="0.4"
+        app:egIndicatorLineColor="#FE6DA8"
+        app:egIndicatorTextColor="#FE6DA8"
+        app:egIndicatorTextUnit="g"
+        app:egLegendHeight="40dp"
+        app:egUseCubic="true"
+        app:egUseDynamicScaling="false"
+        app:egUseOverlapFill="true" />
+
+
+</RelativeLayout>

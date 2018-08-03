@@ -11,6 +11,8 @@ import android.view.View;
 
 public abstract class FragUtilBasement extends android.support.v4.app.Fragment{
 
+    public static final String SEX = "sex";
+    public static final String AGE = "age";
     public static final String SURVEY = "survey";
     public static final String BED_TIME = "bedtime";
     public static final String WHEN_FALL_ASLEEP = "whenfallasleep";
@@ -25,7 +27,7 @@ public abstract class FragUtilBasement extends android.support.v4.app.Fragment{
     public abstract void butterbind(View view);
 
     public SharedPreferences getSurveyPref() {
-        return getActivity().getSharedPreferences(SURVEY, Context.MODE_PRIVATE);
+        return getContext().getSharedPreferences(SURVEY, Context.MODE_PRIVATE);
     }
 
     public void putSurveyDataPref(String key, String value) {
@@ -42,6 +44,9 @@ public abstract class FragUtilBasement extends android.support.v4.app.Fragment{
 
     public void prefLog(String text){
         Log.i("pref", text);
+    }
+    public void pageLog(String text){
+        Log.i("page", text);
     }
 
 

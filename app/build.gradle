@@ -23,6 +23,10 @@ android {
     dataBinding {
         enabled = true
     }
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
+    }
 }
 
 dependencies {
@@ -39,10 +43,6 @@ dependencies {
 
     implementation 'com.android.support:support-annotations:27.1.1'
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
-
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
     //firebase
     //noinspection GradleCompatible
@@ -86,6 +86,30 @@ dependencies {
 
     //wheel picker
     compile 'cn.aigestudio.wheelpicker:WheelPicker:1.1.2'
+
+    //lottie animation
+    compile 'com.airbnb.android:lottie:2.5.1'
+
+    //drawer
+    compile 'com.ikimuhendis:ldrawer:0.1'
+
+    //rxpaparazzo
+    compile "com.github.miguelbcr:RxPaparazzo:0.6.0-2.x"
+    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
+
+    //picasso
+    implementation 'com.squareup.picasso:picasso:2.71828'
+
+    //timelytextview
+    compile 'com.github.iballan:TimelyView:1.0.2'
+
+    //boot anim
+    compile 'com.github.ybq:Android-SpinKit:1.0.5'
+    compile 'com.github.ybq:nougat-boot-animation:1.0.1'
+
+    //graph
+    compile 'com.github.blackfizz:eazegraph:1.2.5l@aar'
+    compile 'com.nineoldandroids:library:2.4.0'
 
 }
 apply plugin: 'com.google.gms.google-services'

@@ -1,12 +1,17 @@
 package themollo.app.mollo.util;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 /**
  * Created by alex on 2018. 7. 16..
@@ -62,6 +67,14 @@ public abstract class AppUtilBasement extends AppCompatActivity{
 
     public String getSurveyData(String key){
         return getSurveyPref().getString(key, "");
+    }
+
+    public FirebaseUser getFirebaseUser() {
+        return FirebaseAuth.getInstance().getCurrentUser();
+    }
+
+    public FirebaseAuth getFirebaseAuth() {
+        return FirebaseAuth.getInstance();
     }
 
     public abstract void setButtonListener();

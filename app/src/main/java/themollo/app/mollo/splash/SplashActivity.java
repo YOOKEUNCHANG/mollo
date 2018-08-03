@@ -33,16 +33,12 @@ public class SplashActivity extends AppUtilBasement {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                onSkip();
+                moveTo(TutorialActivity.class);
             }
         }, SPLASH_DELAY_TIME);
 
     }
 
-    public void onSkip(){
-        Intent intent = new Intent(SplashActivity.this, TutorialActivity.class);
-        startActivity(intent);
-    }
 
     @Override
     public void setButtonListener() {

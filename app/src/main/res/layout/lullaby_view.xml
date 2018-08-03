@@ -2,12 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="100dp"
+    android:background="@color/appColor"
     android:orientation="vertical">
 
     <View
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:background="#aaaaaa" />
+        android:background="#fff"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,12 +16,7 @@
         android:layout_margin="10dp"
         android:orientation="horizontal">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/ciCircleImage"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_gravity="left"
-            android:src="@drawable/default_lullaby_ist" />
+
 
         <RelativeLayout
             android:layout_marginLeft="10dp"
@@ -31,30 +27,44 @@
                 android:id="@+id/tvLullabyTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="DEFAULT SOUND TITLE"
+                android:textSize="20dp"
+                android:textColor="#fff"
+                android:text="@string/default_sound_title"
                 android:gravity="center"
                 android:layout_alignParentLeft="true" />
 
-            <LinearLayout
-                android:id="@+id/llFav"
+            <TextView
+                android:id="@+id/tvPlayTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_toLeftOf="@+id/rlHeart"
+                android:textColor="#fff"
+                android:textSize="15dp"
+                android:text="03:00"
+                />
+
+            <RelativeLayout
+                android:id="@+id/rlHeart"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_alignParentRight="true"
-                android:layout_alignParentBottom="true"
-                android:gravity="right|bottom">
+                android:layout_centerVertical="true">
 
                 <ImageView
-                    android:id="@+id/ivFav"
+                    android:id="@+id/ivHeart"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:src="@drawable/heart"/>
+                    android:src="@drawable/heart_white"
+                    android:layout_centerInParent="true"/>
 
-            </LinearLayout>
-
+            </RelativeLayout>
 
         </RelativeLayout>
 
     </LinearLayout>
+
+
 
 
 </LinearLayout>

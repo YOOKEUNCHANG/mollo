@@ -19,11 +19,14 @@ import com.github.ybq.android.spinkit.sprite.SpriteContainer;
  */
 
 public class LullabyAnimator extends SpriteContainer {
+
     public LullabyAnimator() {
+
     }
 
+
     public Sprite[] onCreateChild() {
-        return new Sprite[]{new LullabyAnimator.Circle(Color.parseColor("#DB4437"),0, 360)};
+        return new Sprite[]{new LullabyAnimator.Circle(Color.parseColor("#8B8AFF"),0, 360)};
     }
 
     public void setColor(int color) {
@@ -81,8 +84,9 @@ public class LullabyAnimator extends SpriteContainer {
 
         public void drawShape(Canvas canvas, Paint paint) {
             paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SCREEN));
-            paint.setStrokeWidth((float)this.strokeWidth);
-            paint.setStyle(Paint.Style.STROKE);
+//            paint.setStrokeWidth((float)this.strokeWidth);
+//            paint.setStyle(Paint.Style.STROKE);
+            paint.setStyle(Paint.Style.FILL);
             canvas.translate((float)this.getDrawBounds().left, (float)this.getDrawBounds().top);
             canvas.drawPath(this.path, paint);
         }

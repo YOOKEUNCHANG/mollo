@@ -2,17 +2,24 @@ package themollo.app.mollo.util;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import com.mbh.timelyview.TimelyView;
 import com.nineoldandroids.animation.ObjectAnimator;
 
+import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import themollo.app.mollo.R;
+import themollo.app.mollo.sleeping.SleepActivity;
 
 
 public class SketchBook extends AppUtilBasement {
@@ -21,6 +28,15 @@ public class SketchBook extends AppUtilBasement {
     public static final int DEVIDE_VALUE = 60;
     public static final int NO_VALUE = -1;
     private volatile ObjectAnimator objectAnimator = null;
+
+    @BindString(R.string.button_transition)
+    String transitionName;
+
+    @BindString(R.string.alarm_start_time)
+    String alarmStartTime;
+
+    @BindString(R.string.alarm_end_time)
+    String alarmEndTime;
 
     @BindView(R.id.timelyTextView)
     TimelyView timelyTextView;
@@ -46,6 +62,9 @@ public class SketchBook extends AppUtilBasement {
     @BindView(R.id.tvFollowWakeupTime)
     TextView tvFollowWakeupTime;
 
+    @BindView(R.id.pbAlarmProgressBar)
+    ProgressBar pbAlarmProgressBar;
+
     private int sleepArcValue = 0;
     private int wakeupArcValue = 0;
     private int totalSleepHourValue = 0;
@@ -59,11 +78,23 @@ public class SketchBook extends AppUtilBasement {
     float XPosWhenThumbTop;
     float YPos;
 
+    private Drawable boot = new LullabyAnimator();
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sketch_book);
         butterBind();
+
+        getWindow().setEnterTransition(null);
+        getWindow().setExitTransition(null);
+
+        tvFollowSleepTime.setTransitionName(alarmStartTime);
+        tvFollowWakeupTime.setTransitionName(alarmEndTime);
+
+        pbAlarmProgressBar.setTransitionName(transitionName);
+        pbAlarmProgressBar.setIndeterminateDrawable(boot);
 
         int white = ContextCompat.getColor(getBaseContext(), R.color.white);
         timelyTextView.setTextColor(white);
@@ -76,7 +107,7 @@ public class SketchBook extends AppUtilBasement {
 //        saWakeup.setStartAngle(WAKEUP_ARC_START_ANGLE);
 
         objectAnimator = timelyTextView.animate(0, 9);
-        objectAnimator.setDuration(DURATION);
+        objectAnimator.setDuration(800);
         objectAnimator.start();
 
         px_300dp = dpToPx(300, getBaseContext());
@@ -104,27 +135,12 @@ public class SketchBook extends AppUtilBasement {
                     XPosWhenThumbTop = (getThumbWindowXPos(mySeekArc) - px_300dp) + 490;
                 }
                 YPos = (getThumbWindowYPos(mySeekArc) - px_150dp);
-//                Log.i("thumb_pos", "thumb x pos : " + mySeekArc.getThumbXPos() + " thumb y pos : " + mySeekArc.getThumbYPos());
                 tvFollowSleepTime.setTranslationX(XPosWhenThumbTop - xpos);
                 tvFollowSleepTime.setTranslationY(YPos - mySeekArc.getThumbYPos());
 
-                int hour = 18 + progress / 60;
-                int min = progress % 60;
-                if(hour >= 24) {
-                    hour -= 24;
-                    tvFollowSleepTime.setText(hour + ":" + min);
-                }else{
-                    tvFollowSleepTime.setText(hour + ":" + min);
-                }
+                tvFollowSleepTime.setText(getTimeText(progress, "sleepTime"));
 
-                tvUpperSeekArc.setText("SleepTime seekarc rotation : " + progress);
-                tvTotalSleepTime.setText(getTotalSleepHourValue() + "");
-
-                to = getTotalSleepHourValue() / 60;
-                objectAnimator = timelyTextView.animate(from, to);
-                objectAnimator.start();
-                from = to;
-//                numAnimate();
+                numAnim();
             }
 
             @Override
@@ -134,11 +150,7 @@ public class SketchBook extends AppUtilBasement {
 
             @Override
             public void onStopTrackingTouch(MySeekArc mySeekArc) {
-//                to = getTotalSleepHourValue() / 60;
-//                objectAnimator = timelyTextView.animate(from, to);
-//                objectAnimator.setDuration(ONE_ARC_WHOLE_VALUE);
-//                objectAnimator.start();
-//                from = to;
+
             }
         });
 
@@ -162,42 +174,70 @@ public class SketchBook extends AppUtilBasement {
 
                 tvFollowWakeupTime.setTranslationX(XPosWhenThumbTop - mySeekArc.getThumbXPos());
                 tvFollowWakeupTime.setTranslationY(YPos - mySeekArc.getThumbYPos());
+                tvFollowWakeupTime.setText(getTimeText(progress, "wakeupTime"));
 
-                int hour = 6 + progress / 60;
-                int min = progress % 60;
+//                tvLowerSeekArc.setText("WakeupTime seekarc rotation : " + progress);
+//                tvTotalSleepTime.setText(getTotalSleepHourValue() + "");
 
-                tvFollowWakeupTime.setText(hour + ":" + min);
-
-                tvLowerSeekArc.setText("WakeupTime seekarc rotation : " + progress);
-                tvTotalSleepTime.setText(getTotalSleepHourValue() + "");
-
-                to = getTotalSleepHourValue() / 60;
-                objectAnimator = timelyTextView.animate(from, to);
-                objectAnimator.start();
-                from = to;
-//                numAnimate();
+                numAnim();
             }
 
             @Override
             public void onStartTrackingTouch(MySeekArc mySeekArc) {
-
+                numAnim();
             }
 
             @Override
             public void onStopTrackingTouch(MySeekArc mySeekArc) {
-//                to = getTotalSleepHourValue() / 60;
-//                objectAnimator = timelyTextView.animate(from, to);
-//                objectAnimator.setDuration(ONE_ARC_WHOLE_VALUE);
-//                objectAnimator.start();
-//                from = to;
+                numAnim();
             }
         });
+
+
     }
 
-//    public float getXPos(SeekArc seekArc, int progress){
-//        return (float) ((float) ((seekArc.getWidth()-seekArc.getPaddingRight()-seekArc.getPaddingLeft()))
-//                * Math.cos(Math.toRadians(180-progress/2)) / 360);
-//    }
+    public void numAnim(){
+        to = getTotalSleepHourValue() / 60;
+        objectAnimator = timelyTextView.animate(from, to);
+        objectAnimator.start();
+        from = to;
+    }
+
+    public String getTimeText(int progress, String type){
+        StringBuilder sb = new StringBuilder();
+        int hour=0;
+        int min=0;
+        if(type.equals("sleepTime")){
+            hour = 12 + progress / 60;
+            min = progress % 60;
+        }else if(type.equals("wakeupTime")){
+            hour = 6 + progress / 60;
+            min = progress % 60;
+        }
+
+        if(isUnderTen(hour)){
+            sb.append("0" + hour + ":");
+            if(isUnderTen(min)){
+                sb.append("0" + min);
+            }else{
+                sb.append(min);
+            }
+        }else{
+            sb.append(hour + ":");
+            if(isUnderTen(min)){
+                sb.append("0" + min);
+            }else{
+                sb.append(min);
+            }
+        }
+        return sb.toString();
+    }
+
+    public boolean isUnderTen(int i){
+        if(i<10 && i>=0) return true;
+        else return false;
+    }
+
 
     public int getThumbWindowXPos(MySeekArc seekArc) {
         return seekArc.getWidth() - seekArc.getPaddingRight() - seekArc.getPaddingLeft();
@@ -224,6 +264,17 @@ public class SketchBook extends AppUtilBasement {
             objectAnimator.start();
             from = to;
         }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    @OnClick(R.id.llBack)
+    void backPress(){
+        finishAfterTransition();
+    }
+
+    @OnClick(R.id.tvSleepButton)
+    void sleep(){
+        moveTo(SleepActivity.class);
     }
 
     public int getSleepArcValue() {

@@ -51,22 +51,36 @@
     <string name="more_than_twice">>2 times\na week</string>
 
     <!-- menu -->
+    <string name="menu">MENU</string>
+    <string name="store">STORE</string>
     <string name="home">HOME</string>
+    <string name="sleep_sound">SLEEP SOUND</string>
+    <string name="device">DEVICE</string>
     <string name="my_account">MY ACCOUNT</string>
-    <string name="lullaby">LULLABY</string>
+    <string name="lullaby">SLEEP SOUND</string>
     <string name="diffuser">DIFFUSER</string>
     <string name="alarm">ALARM</string>
     <string name="sign_in">SIGN IN</string>
     <string name="sign_up">SIGN UP</string>
-    <string name="sleeing_pattern">SLEEPING PATTERN</string>
+    <string name="sleeing_pattern">SLEEP PATTERN</string>
 
     <!-- analysis -->
     <string name="today">TODAY</string>
     <string name="monthly">MONTHLY</string>
 
-    <!-- default -->
+    <!-- sleep sound -->
     <string name="default_sound_title">DEFAULT SOUND TITLE</string>
+    <string name="rainy_day">RAINY DAY</string>
+    <string name="summer_night">SUMMER NIGHT</string>
+    <string name="silent_forest">SILENT FOREST</string>
+    <string name="afternoon_at_cafe">AFTERNOON AT CAFE</string>
 
     <!-- fragment -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- transition name-->
+    <string name="button_transition">buttonTransition</string>
+    <string name="alarm_start_time">alarmStartTime</string>
+    <string name="alarm_end_time">alarmEndTime</string>
+
 </resources>

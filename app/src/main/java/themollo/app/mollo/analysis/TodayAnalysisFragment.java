@@ -1,6 +1,7 @@
 package themollo.app.mollo.analysis;
 
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -8,10 +9,17 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.github.mikephil.charting.charts.Chart;
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.IFillFormatter;
+import com.github.mikephil.charting.interfaces.dataprovider.LineDataProvider;
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 
-import org.eazegraph.lib.charts.ValueLineChart;
-import org.eazegraph.lib.models.ValueLinePoint;
-import org.eazegraph.lib.models.ValueLineSeries;
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -21,12 +29,10 @@ import themollo.app.mollo.util.FragUtilBasement;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class TodayAnalysisFragment extends ChartFragment {
+public class TodayAnalysisFragment extends FragUtilBasement {
 
-    @BindView(R.id.vlcValueLineChart)
-    ValueLineChart vlcValueLineChart;
-
-    private ValueLineSeries series;
+    @BindView(R.id.lcLineChart)
+    LineChart mChart;
 
     public TodayAnalysisFragment() {
         // Required empty public constructor
@@ -40,41 +46,112 @@ public class TodayAnalysisFragment extends ChartFragment {
         View view = inflater.inflate(R.layout.fragment_today_analysis, container, false);
         ButterKnife.bind(this, view);
 
-        series = new ValueLineSeries();
-        series.setColor(0xFF56B7F1);
 
-        series.addPoint(new ValueLinePoint("Jan", 2.4f));
-        series.addPoint(new ValueLinePoint("Feb", 3.4f));
-        series.addPoint(new ValueLinePoint("Mar", .4f));
-        series.addPoint(new ValueLinePoint("Apr", 1.2f));
-        series.addPoint(new ValueLinePoint("Mai", 2.6f));
-        series.addPoint(new ValueLinePoint("Jun", 1.0f));
-        series.addPoint(new ValueLinePoint("Jul", 3.5f));
-        series.addPoint(new ValueLinePoint("Aug", 2.4f));
-        series.addPoint(new ValueLinePoint("Sep", 2.4f));
-        series.addPoint(new ValueLinePoint("Oct", 3.4f));
-        series.addPoint(new ValueLinePoint("Nov", .4f));
-        series.addPoint(new ValueLinePoint("Dec", 1.3f));
+        mChart.setViewPortOffsets(0, 0, 0, 0);
 
-        vlcValueLineChart.addSeries(series);
-        vlcValueLineChart.startAnimation();
+
+        // no description text
+        mChart.getDescription().setEnabled(false);
+
+        // enable touch gestures
+        mChart.setTouchEnabled(true);
+
+        // enable scaling and dragging
+        mChart.setDragEnabled(true);
+        mChart.setScaleEnabled(true);
+
+        // if disabled, scaling can be done on x- and y-axis separately
+        mChart.setPinchZoom(false);
+
+        mChart.setDrawGridBackground(false);
+
+        mChart.setMaxHighlightDistance(300);
+
+        XAxis x = mChart.getXAxis();
+        x.setEnabled(false);
+
+        YAxis y = mChart.getAxisLeft();
+        y.setLabelCount(3, false);
+        y.setSpaceBottom(120);
+        y.setTextColor(Color.WHITE);
+        y.setTextSize(18f);
+        y.setPosition(YAxis.YAxisLabelPosition.INSIDE_CHART);
+        y.setDrawGridLines(false);
+
+
+        mChart.getAxisLeft().setEnabled(false);
+        mChart.getAxisRight().setEnabled(false);
+
+        // add data
+        setData(10, 10);
+
+        mChart.getLegend().setEnabled(false);
+
+        mChart.animateXY(2000, 2000);
+
+        // dont forget to refresh the drawing
+        mChart.invalidate();
+
 
 
         return view;
     }
 
     @Override
-    public void restartAnimation() {
-
-    }
-
-    @Override
-    public void onReset() {
-
-    }
-
-    @Override
     public void butterbind(View view) {
         ButterKnife.bind(this, view);
+    }
+
+    private void setData(int count, float range) {
+
+        ArrayList<Entry> yVals = new ArrayList<Entry>();
+
+        for (int i = 0; i < count; i++) {
+            float mult = (range + 1);
+            float val = (float) (Math.random() * mult % 10) + 40;// + (float)
+            // ((mult *
+            // 0.1) / 10);
+            yVals.add(new Entry(i, val));
+        }
+
+        LineDataSet set1;
+
+        if (mChart.getData() != null &&
+                mChart.getData().getDataSetCount() > 0) {
+            set1 = (LineDataSet)mChart.getData().getDataSetByIndex(0);
+            set1.setValues(yVals);
+            mChart.getData().notifyDataChanged();
+            mChart.notifyDataSetChanged();
+        } else {
+            // create a dataset and give it a type
+            set1 = new LineDataSet(yVals, "DataSet 1");
+
+
+            set1.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+            set1.setCubicIntensity(0.1f);
+            //set1.setDrawFilled(true);
+            set1.setDrawCircles(false);
+            set1.disableDashedLine();
+            set1.setLineWidth(0f);
+            set1.setFillColor(getResources().getColor(R.color.chart_fill_color));
+            set1.setFillAlpha(255);
+            set1.setDrawFilled(true);
+
+            set1.setDrawHorizontalHighlightIndicator(false);
+            set1.setFillFormatter(new IFillFormatter() {
+                @Override
+                public float getFillLinePosition(ILineDataSet dataSet, LineDataProvider dataProvider) {
+                    return -10;
+                }
+            });
+
+            // create a data object with the datasets
+            LineData data = new LineData(set1);
+            data.setValueTextSize(9f);
+            data.setDrawValues(false);
+
+            // set data
+            mChart.setData(data);
+        }
     }
 }

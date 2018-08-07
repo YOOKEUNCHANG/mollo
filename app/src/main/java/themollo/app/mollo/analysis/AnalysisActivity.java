@@ -4,15 +4,15 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MotionEvent;
+import android.view.View;
 
-import org.eazegraph.lib.charts.ValueLineChart;
-import org.eazegraph.lib.models.ValueLinePoint;
-import org.eazegraph.lib.models.ValueLineSeries;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import themollo.app.mollo.R;
 import themollo.app.mollo.util.AppUtilBasement;
+import themollo.app.mollo.util.CustomViewPager;
 
 public class AnalysisActivity extends AppUtilBasement {
 
@@ -20,9 +20,7 @@ public class AnalysisActivity extends AppUtilBasement {
     TabLayout tlTab;
 
     @BindView(R.id.vpAnalysis)
-    ViewPager vpAnalysis;
-
-
+    CustomViewPager vpAnalysis;
 
     private AnalysisPagerAdapter analysisPagerAdapter;
 
@@ -32,11 +30,21 @@ public class AnalysisActivity extends AppUtilBasement {
         setContentView(R.layout.activity_analysis);
         butterBind();
 
+        vpAnalysis.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return false;
+            }
+        });
 
+        TabLayout.Tab today = tlTab.newTab().setText("TODAY");
+        tlTab.setSelectedTabIndicatorColor(getResources().getColor(R.color.appColor));
         tlTab.addTab(tlTab.newTab().setText(R.string.today));
         tlTab.addTab(tlTab.newTab().setText(R.string.monthly));
+
         tlTab.setTabTextColors(R.color.tab_not_selected, R.color.tab_selected);
         tlTab.setTabGravity(TabLayout.GRAVITY_FILL);
+
 
         analysisPagerAdapter = new AnalysisPagerAdapter(getSupportFragmentManager(), tlTab.getTabCount());
         vpAnalysis.setAdapter(analysisPagerAdapter);
@@ -58,6 +66,8 @@ public class AnalysisActivity extends AppUtilBasement {
             }
         });
     }
+
+
 
     @Override
     public void setButtonListener() {

@@ -123,20 +123,41 @@
 
             </FrameLayout>
 
+
+
+            <ProgressBar
+                android:id="@+id/pbAlarmProgressBar"
+                android:layout_width="220dp"
+                android:layout_height="220dp"
+                android:layout_centerInParent="true" />
+
+
+
+
             <RelativeLayout
                 android:id="@+id/rlAlarmTime"
-                android:layout_width="250dp"
-                android:layout_height="250dp"
-                android:layout_centerInParent="true"
-                android:background="@drawable/alarm_clock">
+                android:layout_width="200dp"
+                android:layout_height="150dp"
+                android:layout_centerInParent="true">
+
 
                 <com.mbh.timelyview.TimelyView
                     android:id="@+id/timelyTextView"
                     android:layout_width="150dp"
                     android:layout_height="150dp"
-                    android:layout_centerInParent="true" />
+                    android:layout_alignParentLeft="true" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#fff"
+                    android:textSize="50dp"
+                    android:layout_alignParentBottom="true"
+                    android:text="h"
+                    android:layout_toRightOf="@id/timelyTextView"/>
 
             </RelativeLayout>
+
 
 
         </RelativeLayout>
@@ -152,7 +173,8 @@
         android:textSize="20dp"
         android:textColor="#fff"
         android:layout_centerInParent="true"
-        android:text="12313"/>
+        android:text="12313"
+        android:visibility="gone"/>
 
     <TextView
         android:id="@+id/tvLowerSeekArc"
@@ -163,7 +185,8 @@
         android:textColor="#fff"
         android:layout_marginTop="10dp"
         android:layout_centerInParent="true"
-        android:text="12313"/>
+        android:text="12313"
+        android:visibility="gone"/>
 
     <TextView
         android:id="@+id/tvTotalSleepTime"
@@ -174,7 +197,29 @@
         android:textColor="#fff"
         android:layout_marginTop="10dp"
         android:layout_centerInParent="true"
-        android:text="12313"/>
+        android:text="12313"
+        android:visibility="gone"/>
+
+
+
+    <ImageView
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/bottom_seaweed"/>
+
+    <TextView
+        android:id="@+id/tvSleepButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sleep"
+        android:textSize="50dp"
+        android:textColor="#fff"
+        android:layout_marginBottom="100dp"
+        android:layout_centerInParent="true"
+        android:layout_alignParentBottom="true"/>
+
 
 
 </RelativeLayout>

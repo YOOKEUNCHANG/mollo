@@ -14,5 +14,8 @@
     <color name="alarm_progress_color">#4C4EA8</color>
     <color name="white">#fff</color>
     <color name="tab_not_selected">#4E4CAE</color>
+    <color name="drawer_background_color">#4C4AAB</color>
     <color name="tab_selected">#605FD8</color>
+    <color name="chart_fill_color">#8B8AFF</color>
+    <color name="moving_circle_color">#8B8AFF</color>
 </resources>

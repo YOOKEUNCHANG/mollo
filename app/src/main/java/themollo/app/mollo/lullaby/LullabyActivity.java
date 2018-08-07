@@ -1,6 +1,8 @@
 package themollo.app.mollo.lullaby;
 
 import android.graphics.drawable.Drawable;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatDrawableManager;
@@ -14,18 +16,20 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import com.github.ybq.nougatbootanimation.NougatBoot;
-
 import java.util.ArrayList;
 
+import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import themollo.app.mollo.R;
 import themollo.app.mollo.util.AppUtilBasement;
 import themollo.app.mollo.util.LullabyAnimator;
 
 public class LullabyActivity extends AppUtilBasement {
+
+    @BindString(R.string.button_transition)
+    String transitionName;
 
     @BindView(R.id.pbProgrssBar)
     ProgressBar pbProgressBar;
@@ -40,16 +44,23 @@ public class LullabyActivity extends AppUtilBasement {
     private LullabyAdapter lullabyAdapter;
     private ArrayList<LullabyModel> lullabyData = new ArrayList<>();
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lullaby);
         butterBind();
 
-        lullabyData.add(new LullabyModel(getString(R.string.default_sound_title), "03:00", true));
-        lullabyData.add(new LullabyModel(getString(R.string.default_sound_title), "03:00", true));
-        lullabyData.add(new LullabyModel(getString(R.string.default_sound_title), "03:00", true));
-        lullabyData.add(new LullabyModel(getString(R.string.default_sound_title), "03:00", true));
+        getWindow().setEnterTransition(null);
+        getWindow().setExitTransition(null);
+
+        pbProgressBar.setTransitionName(transitionName);
+        pbProgressBar.setIndeterminateDrawable(boot);
+
+        lullabyData.add(new LullabyModel(getString(R.string.rainy_day), "03:30", true, true));
+        lullabyData.add(new LullabyModel(getString(R.string.summer_night), "03:00", false, false));
+        lullabyData.add(new LullabyModel(getString(R.string.silent_forest), "05:30", false, false));
+        lullabyData.add(new LullabyModel(getString(R.string.afternoon_at_cafe), "04:30", true, false));
 
         rvLullabyList.setHasFixedSize(false);
         final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
@@ -59,17 +70,18 @@ public class LullabyActivity extends AppUtilBasement {
         lullabyAdapter = new LullabyAdapter(lullabyData);
         rvLullabyList.setAdapter(lullabyAdapter);
 
-        pbProgressBar.setIndeterminateDrawable(boot);
+
     }
 
     @Override
     public void setButtonListener() {
-        llBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    @OnClick(R.id.llBack)
+    void backPress(){
+        finishAfterTransition();
     }
 
     @Override
@@ -98,7 +110,17 @@ public class LullabyActivity extends AppUtilBasement {
 
             lullabyViewHolder.tvLullabyTitle.setText(""+lullabyModel.getLullabyTitle());
             lullabyViewHolder.tvPlayTime.setText(""+lullabyModel.getLullabyPlayTime());
-            lullabyViewHolder.ivHeart.setImageResource(R.drawable.heart_white);
+            if(lullabyModel.isSelected()){
+                lullabyViewHolder.ivHeart.setImageResource(R.drawable.heart_filled);
+            }else{
+                lullabyViewHolder.ivHeart.setImageResource(R.drawable.heart_empty);
+            }
+
+            if(lullabyModel.isPlaying()){
+                lullabyViewHolder.ivPlayState.setImageResource(R.drawable.pause);
+            }else{
+                lullabyViewHolder.ivPlayState.setImageResource(R.drawable.play);
+            }
 
         }
 
@@ -118,6 +140,8 @@ public class LullabyActivity extends AppUtilBasement {
         RelativeLayout rlHeart;
         @BindView(R.id.ivHeart)
         ImageView ivHeart;
+        @BindView(R.id.ivPlayState)
+        ImageView ivPlayState;
 
         public LullabyViewHolder(View itemView) {
             super(itemView);

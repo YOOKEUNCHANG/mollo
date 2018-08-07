@@ -15,6 +15,7 @@ public class LullabyModel {
     String lullabyTitle;
     String lullabyPlayTime;
     boolean isSelected;
+    boolean isPlaying;
 
     public LullabyModel() {
     }
@@ -23,6 +24,13 @@ public class LullabyModel {
         this.lullabyTitle = lullabyTitle;
         this.lullabyPlayTime = lullabyPlayTime;
         this.isSelected = isSelected;
+    }
+
+    public LullabyModel(String lullabyTitle, String lullabyPlayTime, boolean isSelected, boolean isPlaying) {
+        this.lullabyTitle = lullabyTitle;
+        this.lullabyPlayTime = lullabyPlayTime;
+        this.isSelected = isSelected;
+        this.isPlaying = isPlaying;
     }
 
     public String getLullabyTitle() {
@@ -47,5 +55,13 @@ public class LullabyModel {
 
     public void setSelected(boolean selected) {
         isSelected = selected;
+    }
+
+    public boolean isPlaying() {
+        return isPlaying;
+    }
+
+    public void setPlaying(boolean playing) {
+        isPlaying = playing;
     }
 }

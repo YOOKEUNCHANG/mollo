@@ -7,8 +7,8 @@
     android:background="@color/appColor"
     android:clipChildren="false"
     android:clipToPadding="false"
-    tools:context="themollo.app.mollo.lullaby.LullabyActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context="themollo.app.mollo.lullaby.LullabyActivity">
 
     <RelativeLayout
         android:id="@+id/rlTop"
@@ -44,14 +44,14 @@
 
     <RelativeLayout
         android:id="@+id/rlProgress"
-        android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:layout_below="@id/rlTop"
-        android:clipToPadding="false"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="40dp"
         android:clipChildren="false"
-        android:layout_marginTop="40dp">
+        android:clipToPadding="false">
 
         <ProgressBar
             android:id="@+id/pbProgrssBar"
@@ -63,19 +63,19 @@
             android:id="@+id/tvTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
+            android:layout_centerInParent="true"
             android:layout_marginTop="70dp"
-            android:text="Title"
+            android:text="RAINY DAY"
             android:textColor="#fff"
-            android:textSize="30dp" />
+            android:textSize="24dp" />
 
         <TextView
-            android:id="@+id/tvAlarmTime"
+            android:id="@+id/tvPlayTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/tvTitle"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="2dp"
+            android:layout_marginTop="14dp"
             android:text="03:00"
             android:textColor="#fff"
             android:textStyle="bold" />
@@ -83,35 +83,34 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:layout_below="@id/rlProgress"
         android:id="@+id/rlPlay"
-        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
-        android:layout_height="80dp">
+        android:layout_height="80dp"
+        android:layout_below="@id/rlProgress"
+        android:layout_marginTop="10dp">
 
         <ImageView
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:src="@drawable/rewind"
+            android:layout_centerInParent="true"
             android:layout_toLeftOf="@id/ivPlay"
-            android:layout_centerInParent="true"/>
+            android:src="@drawable/prev" />
 
         <ImageView
             android:id="@+id/ivPlay"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:src="@drawable/play"
+            android:layout_centerInParent="true"
             android:layout_marginLeft="40dp"
             android:layout_marginRight="40dp"
-            android:layout_centerInParent="true"/>
+            android:src="@drawable/pause" />
 
         <ImageView
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:src="@drawable/next"
+            android:layout_centerInParent="true"
             android:layout_toRightOf="@id/ivPlay"
-            android:layout_centerInParent="true"/>
-
+            android:src="@drawable/next" />
 
 
     </RelativeLayout>
@@ -120,11 +119,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rvLullabyList"
-        android:layout_below="@id/rlPlay"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvLullabyList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rlPlay" />
 
     </LinearLayout>
 

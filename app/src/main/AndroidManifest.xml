@@ -9,7 +9,6 @@
     <application
         android:name=".util.MolloApplication"
         android:allowBackup="true"
-        android:hardwareAccelerated="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:largeHeap="true"
@@ -42,9 +41,7 @@
             tools:replace="android:value" />
 
         <!-- activities -->
-        <activity android:name=".splash.SplashActivity">
-
-        </activity>
+        <activity android:name=".splash.SplashActivity" />
         <activity android:name=".sample.MainActivity" />
         <activity android:name=".login.sns_login.LoginActivity">
 
@@ -56,22 +53,28 @@
         <activity android:name=".survey.DoSurveyActivity" />
         <activity android:name=".sample.BackgroundSampleActivity" />
         <activity android:name=".sample.NaviSampleActivity" />
-        <activity android:name=".lullaby.LullabyActivity"/>
+        <activity android:name=".lullaby.LullabyActivity" />
         <activity android:name=".sample.CircularBarActivity" />
         <activity android:name=".tutorial.TutorialActivity" />
         <activity android:name=".alarm.AlarmActivity" />
         <activity android:name=".home.HomeActivity"></activity>
-        <activity android:name=".util.SketchBook">
-
-        </activity>
-        <activity android:name=".MyAccountActivity"></activity>
-        <activity android:name=".analysis.AnalysisActivity">
+        <activity android:name=".util.SketchBook" />
+        <activity android:name=".account.MyAccountActivity" />
+        <activity android:name=".analysis.AnalysisActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".util.SketchBook2" />
+        <activity
+            android:name=".sample.AfterActivity"
+            android:theme="@style/BaseAppTheme" />
+        <activity
+            android:name=".sample.BeforeActivity"
+            android:theme="@style/BaseAppTheme"></activity>
+        <activity android:name=".sleeping.SleepActivity"></activity>
     </application>
 
 </manifest>

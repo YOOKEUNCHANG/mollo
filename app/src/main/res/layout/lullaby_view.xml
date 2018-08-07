@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="100dp"
+    android:layout_height="70dp"
     android:background="@color/appColor"
     android:orientation="vertical">
 
@@ -16,10 +16,23 @@
         android:layout_margin="10dp"
         android:orientation="horizontal">
 
+        <RelativeLayout
+            android:id="@+id/rlHeart"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true">
 
+            <ImageView
+                android:id="@+id/ivHeart"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/heart_white"
+                android:layout_centerInParent="true"/>
+
+        </RelativeLayout>
 
         <RelativeLayout
-            android:layout_marginLeft="10dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -27,10 +40,11 @@
                 android:id="@+id/tvLullabyTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:textSize="20dp"
+                android:textSize="14dp"
                 android:textColor="#fff"
                 android:text="@string/default_sound_title"
                 android:gravity="center"
+                android:textStyle="bold"
                 android:layout_alignParentLeft="true" />
 
             <TextView
@@ -38,31 +52,26 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:layout_toLeftOf="@+id/rlHeart"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@id/tvLullabyTitle"
                 android:textColor="#fff"
                 android:textSize="15dp"
                 android:text="03:00"
                 />
 
-            <RelativeLayout
-                android:id="@+id/rlHeart"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+            <ImageView
+                android:id="@+id/ivPlayState"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
                 android:layout_alignParentRight="true"
-                android:layout_centerVertical="true">
+                android:layout_centerVertical="true"
+                android:src="@drawable/play"/>
 
-                <ImageView
-                    android:id="@+id/ivHeart"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/heart_white"
-                    android:layout_centerInParent="true"/>
-
-            </RelativeLayout>
 
         </RelativeLayout>
 
     </LinearLayout>
+
 
 
 

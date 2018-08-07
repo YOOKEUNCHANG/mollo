@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/appColor"
-    tools:context="themollo.app.mollo.MyAccountActivity">
+    tools:context="themollo.app.mollo.account.MyAccountActivity">
 
     <RelativeLayout
         android:id="@+id/rlTop"

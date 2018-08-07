@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.tsengvn.typekit.TypekitContextWrapper;
 
 /**
  * Created by alex on 2018. 7. 16..
@@ -77,6 +79,13 @@ public abstract class AppUtilBasement extends AppCompatActivity{
         return FirebaseAuth.getInstance();
     }
 
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(TypekitContextWrapper.wrap(newBase));
+    }
+
+    //abstract methods
     public abstract void setButtonListener();
     public abstract void butterBind();
+
 }

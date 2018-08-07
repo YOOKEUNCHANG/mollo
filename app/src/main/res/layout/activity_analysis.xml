@@ -42,10 +42,10 @@
     <android.support.design.widget.TabLayout
         android:id="@+id/tlTab"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_below="@id/rlTop" />
 
-    <android.support.v4.view.ViewPager
+    <themollo.app.mollo.util.CustomViewPager
         android:id="@+id/vpAnalysis"
         android:layout_below="@id/tlTab"
         android:layout_width="match_parent"

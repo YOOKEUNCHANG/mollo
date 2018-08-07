@@ -6,21 +6,16 @@
     android:background="@color/appColor"
     tools:context="themollo.app.mollo.analysis.TodayAnalysisFragment">
 
-
-    <org.eazegraph.lib.charts.ValueLineChart
-        android:id="@+id/vlcValueLineChart"
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/lcLineChart"
         android:layout_width="match_parent"
         android:layout_height="400dp"
-        android:layout_alignParentBottom="true"
-        app:egActivateIndicatorShadow="false"
-        app:egCurveSmoothness="0.4"
-        app:egIndicatorLineColor="#FE6DA8"
-        app:egIndicatorTextColor="#FE6DA8"
-        app:egIndicatorTextUnit="g"
-        app:egLegendHeight="40dp"
-        app:egUseCubic="true"
-        app:egUseDynamicScaling="false"
-        app:egUseOverlapFill="true" />
+        android:layout_alignParentBottom="true"/>
+
+
+
+
+
 
 
 </RelativeLayout>

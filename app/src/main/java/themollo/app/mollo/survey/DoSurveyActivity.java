@@ -29,15 +29,7 @@ public class DoSurveyActivity extends AppUtilBasement{
     private SurveyPagerAdapter surveyPagerAdapter;
     private BackPressController backPressController;
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        if (Session.getCurrentSession().isOpened()
-                || AccessToken.isCurrentAccessTokenActive()
-                || getFirebaseUser() != null) {
-            moveTo(HomeActivity.class);
-        }
-    }
+
 
     @SuppressLint("ResourceAsColor")
     @Override

@@ -8,11 +8,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import com.facebook.AccessToken;
+import com.kakao.auth.Session;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 import me.relex.circleindicator.CircleIndicator;
 import themollo.app.mollo.R;
+import themollo.app.mollo.home.HomeActivity;
 import themollo.app.mollo.util.AppUtilBasement;
 
 public class TutorialActivity extends AppUtilBasement {
@@ -23,6 +27,16 @@ public class TutorialActivity extends AppUtilBasement {
     ViewPager vpTutorial;
 
     private TutorialPagerAdapter tutorialPagerAdapter;
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (Session.getCurrentSession().isOpened()
+                || AccessToken.isCurrentAccessTokenActive()
+                || getFirebaseUser() != null) {
+            moveTo(HomeActivity.class);
+        }
+    }
 
     @SuppressLint("ResourceAsColor")
     @Override

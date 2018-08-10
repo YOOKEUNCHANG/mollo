@@ -13,6 +13,14 @@
     <string name="tutorial_4_text">Connect Mollo Diffuser\nand spread your favorite scent</string>
     <string name="tutorial_5_text">We analyze your sleep\nand offer solution</string>
 
+    <!-- login -->
+    <string name="login">LOGIN</string>
+    <string name="kakao_login">LOGIN WITH KAKAO</string>
+    <string name="facebook_login">LOGIN WITH FACEBOOK</string>
+    <string name="email_login">LOGIN WITH E-MAIL</string>
+    <string name="anonymous_login">LOGIN ANONYMOUSLY</string>
+    <string name="agree">If you sign up, it is regarded as you accept terms and conditions.</string>
+
     <!-- survey -->
     <string name="done">If you done,\nclick here!</string>
     <string name="survey_1_text">What\'s your gender?</string>
@@ -67,6 +75,26 @@
     <!-- analysis -->
     <string name="today">TODAY</string>
     <string name="monthly">MONTHLY</string>
+    <string name="total_sleep">TOTAL SLEEP</string>
+    <string name="deep_sleep">DEEP SLEEP</string>
+    <string name="light_sleep">LIGHT SLEEP</string>
+    <string name="awake">AWAKE</string>
+    <string name="sleep">SLEEP</string>
+    <string name="deep">DEEP</string>
+    <string name="most_favorite">MOST FAVORITE</string>
+    <string name="sleep_quaility">SLEEP QUALITY</string>
+    <string name="avg_sleep_quaility">AVG SLEEP QUALITY</string>
+    <string name="AVG">AVG</string>
+    <string name="LONGEST">LONGEST</string>
+    <string name="SHORTEST">SHORTEST</string>
+    <string name="sleep_time">SLEEP TIME</string>
+    <string name="one_hundred_percent">100%</string>
+    <string name="fifty">50</string>
+    <string name="zero">0</string>
+
+    <!-- diffuser scent -->
+    <string name="scent">SCENT</string>
+    <string name="peppermint">PEPPERMINT</string>
 
     <!-- sleep sound -->
     <string name="default_sound_title">DEFAULT SOUND TITLE</string>
@@ -82,5 +110,6 @@
     <string name="button_transition">buttonTransition</string>
     <string name="alarm_start_time">alarmStartTime</string>
     <string name="alarm_end_time">alarmEndTime</string>
+    <string name="alarm_to_sleep">alarmToSleep</string>
 
 </resources>

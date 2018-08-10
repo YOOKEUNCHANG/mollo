@@ -43,7 +43,9 @@
         android:id="@+id/tlTab"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_below="@id/rlTop" />
+        android:layout_below="@id/rlTop"
+        app:tabSelectedTextColor="@color/tab_selected"
+        app:tabTextColor="@color/tab_not_selected"/>
 
     <themollo.app.mollo.util.CustomViewPager
         android:id="@+id/vpAnalysis"

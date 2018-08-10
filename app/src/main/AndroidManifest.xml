@@ -48,24 +48,32 @@
         </activity>
         <activity android:name=".sample.SensorActivity" />
         <activity android:name=".firebase.SignInActivity" />
-        <activity android:name=".firebase.SignUpActivity" />
+        <activity android:name=".firebase.SignUpActivity">
+
+        </activity>
         <activity android:name=".firebase.FindPwdActivity" />
         <activity android:name=".survey.DoSurveyActivity" />
         <activity android:name=".sample.BackgroundSampleActivity" />
         <activity android:name=".sample.NaviSampleActivity" />
-        <activity android:name=".lullaby.LullabyActivity" />
-        <activity android:name=".sample.CircularBarActivity" />
-        <activity android:name=".tutorial.TutorialActivity" />
-        <activity android:name=".alarm.AlarmActivity" />
-        <activity android:name=".home.HomeActivity"></activity>
-        <activity android:name=".util.SketchBook" />
-        <activity android:name=".account.MyAccountActivity" />
-        <activity android:name=".analysis.AnalysisActivity" >
+        <activity android:name=".lullaby.LullabyActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".sample.CircularBarActivity" />
+        <activity android:name=".tutorial.TutorialActivity" />
+        <activity android:name=".alarm.AlarmActivity" />
+        <activity android:name=".home.HomeActivity"
+            android:theme="@style/BaseAppTheme">
+
+        </activity>
+        <activity android:name=".util.SketchBook"
+            android:theme="@style/BaseAppTheme"/>
+        <activity android:name=".account.MyAccountActivity" />
+        <activity android:name=".analysis.AnalysisActivity">
+
         </activity>
         <activity android:name=".util.SketchBook2" />
         <activity
@@ -73,8 +81,12 @@
             android:theme="@style/BaseAppTheme" />
         <activity
             android:name=".sample.BeforeActivity"
-            android:theme="@style/BaseAppTheme"></activity>
-        <activity android:name=".sleeping.SleepActivity"></activity>
+            android:theme="@style/BaseAppTheme" />
+        <activity
+            android:name=".sleeping.SleepActivity"
+            android:theme="@style/SleepTheme">
+
+        </activity>
     </application>
 
 </manifest>

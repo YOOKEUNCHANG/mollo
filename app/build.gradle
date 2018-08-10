@@ -116,6 +116,15 @@ dependencies {
     //custom font
     compile 'com.github.katoro:typekit:1.0.1'
 
+    //gif
+    compile 'com.felipecsl:gifimageview:2.2.0'
+
+    //io
+    compile group: 'commons-io', name: 'commons-io', version: '2.6'
+
+    //play button
+    compile 'com.github.recruit-lifestyle:PlayPauseButton:1.0'
+
 
 }
 apply plugin: 'com.google.gms.google-services'

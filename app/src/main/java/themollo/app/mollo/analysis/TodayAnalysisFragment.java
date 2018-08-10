@@ -47,7 +47,7 @@ public class TodayAnalysisFragment extends FragUtilBasement {
         ButterKnife.bind(this, view);
 
 
-        mChart.setViewPortOffsets(0, 0, 0, 0);
+               mChart.setViewPortOffsets(0, 0, 0, 0);
 
 
         // no description text
@@ -68,11 +68,17 @@ public class TodayAnalysisFragment extends FragUtilBasement {
         mChart.setMaxHighlightDistance(300);
 
         XAxis x = mChart.getXAxis();
-        x.setEnabled(false);
+        x.setLabelCount(9, false);
+        x.setTextColor(Color.WHITE);
+        x.setTextSize(14f);
+        x.setPosition(XAxis.XAxisPosition.BOTTOM_INSIDE);
+        x.setDrawGridLines(false);
+
+//        x.setEnabled(false);
 
         YAxis y = mChart.getAxisLeft();
         y.setLabelCount(3, false);
-        y.setSpaceBottom(120);
+        y.setSpaceBottom(140);
         y.setTextColor(Color.WHITE);
         y.setTextSize(18f);
         y.setPosition(YAxis.YAxisLabelPosition.INSIDE_CHART);
@@ -82,10 +88,17 @@ public class TodayAnalysisFragment extends FragUtilBasement {
         mChart.getAxisLeft().setEnabled(false);
         mChart.getAxisRight().setEnabled(false);
 
+        mChart.setDrawBorders(false);
+        mChart.setDragEnabled(false);
+        mChart.setScaleEnabled(false);
+
         // add data
         setData(10, 10);
 
         mChart.getLegend().setEnabled(false);
+        mChart.setBackgroundColor(Color.TRANSPARENT);
+        mChart.setDrawGridBackground(false);
+        mChart.setClickable(false);
 
         mChart.animateXY(2000, 2000);
 
@@ -128,7 +141,7 @@ public class TodayAnalysisFragment extends FragUtilBasement {
 
 
             set1.setMode(LineDataSet.Mode.CUBIC_BEZIER);
-            set1.setCubicIntensity(0.1f);
+            set1.setCubicIntensity(0.3f);
             //set1.setDrawFilled(true);
             set1.setDrawCircles(false);
             set1.disableDashedLine();

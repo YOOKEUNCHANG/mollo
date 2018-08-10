@@ -10,9 +10,12 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.os.Bundle;
+import android.transition.ChangeBounds;
+import android.transition.Fade;
 import android.util.Pair;
 import android.view.Gravity;
 import android.view.View;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -115,6 +118,13 @@ public class HomeActivity extends AppUtilBasement {
     @Override
     protected void onResume() {
         super.onResume();
+
+        String sleepTime = getAlarmData(SLEEP_TIME);
+        String wakeupTime = getAlarmData(WAKEUP_TIME);
+
+        tvStartAlarmTime.setText(sleepTime+"");
+        tvEndAlarmTime.setText(wakeupTime+"");
+
         timer = new Timer();
         timer.scheduleAtFixedRate(getTimerTask(), 1500, 1500);
     }
@@ -141,19 +151,33 @@ public class HomeActivity extends AppUtilBasement {
         };
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    private void transitionOverride(){
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            ChangeBounds changeBounds = new ChangeBounds();
+            changeBounds.setDuration(4000);
+            getWindow().setSharedElementEnterTransition(changeBounds);
+            getWindow().setSharedElementExitTransition(changeBounds);
+        }
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
         butterBind();
 
-        getWindow().setEnterTransition(null);
-        getWindow().setExitTransition(null);
-        rlAlarmButton.setTransitionName(transitionName);
+        transitionOverride();
+
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            rlAlarmButton.setTransitionName(transitionName);
+        }
+
         backPressController = new BackPressController(this);
 
+        dlHomeLayout.setScrimColor(Color.TRANSPARENT);
+        dlHomeLayout.setDrawerElevation(0f);
         
         drawerArrow = new DrawerArrow(getResources());
         drawerArrow.setStrokeColor(getResources().getColor(R.color.light_gray));
@@ -193,6 +217,7 @@ public class HomeActivity extends AppUtilBasement {
                 flContent.setScaleY(1 - (slideOffset / scaleYFactor));
             }
         };
+
         dlHomeLayout.addDrawerListener(actionBarDrawerToggle);
 
     }
@@ -202,35 +227,37 @@ public class HomeActivity extends AppUtilBasement {
         //popup
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @OnClick(R.id.rlAlarmButton)
     void moveToAlarmAnim() {
 //        moveTo(AlarmActivity.class);
-
-        ActivityOptions activityOptions = ActivityOptions.makeSceneTransitionAnimation(this,
-                rlAlarmButton, transitionName);
-        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this,
-                Pair.create(rlAlarmButton, transitionName),
-                Pair.create(tvStartAlarmTime, alarmStartTime),
-                Pair.create(tvEndAlarmTime, alarmEndTime));
-
-        Intent intent = new Intent(this, SketchBook.class);
-        startActivity(intent, options.toBundle());
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this,
+                    Pair.create(rlAlarmButton, transitionName),
+                    Pair.create(tvStartAlarmTime, alarmStartTime),
+                    Pair.create(tvEndAlarmTime, alarmEndTime));
+            Intent intent = new Intent(this, SketchBook.class);
+            startActivity(intent, options.toBundle());
+        }else{
+            moveTo(SketchBook.class);
+        }
 
     }
 
 
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @OnClick(R.id.tvLullabyButton)
     void moveToLullabyAnim() {
 //        moveTo(LullabyActivity.class);
 
-        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this,
-                Pair.create(tvLullabyButton, transitionName));
-
-        Intent intent = new Intent(this, LullabyActivity.class);
-        startActivity(intent, options.toBundle());
+        ActivityOptions options = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            options = ActivityOptions.makeSceneTransitionAnimation(this,
+                    Pair.create(tvLullabyButton, transitionName));
+            Intent intent = new Intent(this, LullabyActivity.class);
+            startActivity(intent, options.toBundle());
+        }else{
+            moveTo(LullabyActivity.class);
+        }
     }
 
 

@@ -517,11 +517,18 @@ public class MySeekArc extends View {
     }
 
     public int getThumbXPos(){
-        return this.mThumbXPos;
+//        return this.mThumbXPos;
+        return mTranslateX - mThumbXPos;
     }
 
+
     public int getThumbYPos(){
-        return this.mThumbYPos;
+//        return this.mThumbYPos;
+        return mTranslateY - mThumbYPos;
+    }
+
+    public int getThumbWindowPos(){
+        return 0;
     }
 
     public Drawable getThumb(){

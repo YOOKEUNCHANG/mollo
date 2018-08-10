@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Build;
+import android.support.multidex.MultiDex;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
@@ -27,6 +28,10 @@ public abstract class AppUtilBasement extends AppCompatActivity{
     public static final String LULLABY = "lullaby";
     public static final String HOME = "home";
     public static final String SURVEY = "survey";
+    public static final String SLEEP_ARC_PROGRESS = "sleepArcProgress";
+    public static final String WAKEUP_ARC_PROGRESS = "wakeupArcProgress";
+    public static final String SLEEP_TIME = "sleepTime";
+    public static final String WAKEUP_TIME= "wakeupTime";
 
     ProgressDialog pd;
 
@@ -67,6 +72,20 @@ public abstract class AppUtilBasement extends AppCompatActivity{
         editor.commit();
     }
 
+    public SharedPreferences getAlarmPref() {
+        return getSharedPreferences(ALARM, Context.MODE_PRIVATE);
+    }
+
+    public void putAlarmTimeData(String key, String value){
+        SharedPreferences.Editor editor = getAlarmPref().edit();
+        editor.putString(key, value);
+        editor.commit();
+    }
+
+    public String getAlarmData(String key){
+        return getAlarmPref().getString(key, "");
+    }
+
     public String getSurveyData(String key){
         return getSurveyPref().getString(key, "");
     }
@@ -82,6 +101,7 @@ public abstract class AppUtilBasement extends AppCompatActivity{
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(TypekitContextWrapper.wrap(newBase));
+        MultiDex.install(newBase);
     }
 
     //abstract methods

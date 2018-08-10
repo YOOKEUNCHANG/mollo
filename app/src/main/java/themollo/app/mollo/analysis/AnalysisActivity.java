@@ -1,16 +1,19 @@
 package themollo.app.mollo.analysis;
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.LinearLayout;
 
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import themollo.app.mollo.R;
+import themollo.app.mollo.home.HomeActivity;
 import themollo.app.mollo.util.AppUtilBasement;
 import themollo.app.mollo.util.CustomViewPager;
 
@@ -22,6 +25,9 @@ public class AnalysisActivity extends AppUtilBasement {
     @BindView(R.id.vpAnalysis)
     CustomViewPager vpAnalysis;
 
+    @BindView(R.id.llBack)
+    LinearLayout llBack;
+
     private AnalysisPagerAdapter analysisPagerAdapter;
 
     @Override
@@ -29,6 +35,7 @@ public class AnalysisActivity extends AppUtilBasement {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_analysis);
         butterBind();
+        setButtonListener();
 
         vpAnalysis.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -42,7 +49,6 @@ public class AnalysisActivity extends AppUtilBasement {
         tlTab.addTab(tlTab.newTab().setText(R.string.today));
         tlTab.addTab(tlTab.newTab().setText(R.string.monthly));
 
-        tlTab.setTabTextColors(R.color.tab_not_selected, R.color.tab_selected);
         tlTab.setTabGravity(TabLayout.GRAVITY_FILL);
 
 
@@ -71,7 +77,12 @@ public class AnalysisActivity extends AppUtilBasement {
 
     @Override
     public void setButtonListener() {
-
+        llBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(AnalysisActivity.this, HomeActivity.class));
+            }
+        });
     }
 
     @Override

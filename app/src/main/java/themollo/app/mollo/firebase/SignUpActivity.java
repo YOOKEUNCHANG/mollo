@@ -30,8 +30,6 @@ public class SignUpActivity extends FirebaseLogin {
     EditText etUserNewID;
     @BindView(R.id.etUserNewPwdCheck)
     EditText etUserNewPwdCheck;
-    @BindView(R.id.cbAgree)
-    CheckBox cbAgree;
     @BindView(R.id.llSignUp)
     LinearLayout llSignUp;
     @BindView(R.id.llBack)
@@ -72,10 +70,7 @@ public class SignUpActivity extends FirebaseLogin {
         llSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!cbAgree.isChecked()) {
-                    Toast.makeText(SignUpActivity.this, "약관에 동의해주세요", Toast.LENGTH_LONG).show();
-                    return;
-                } else if (!isPwdEquals(userNewPwd, userNewPwdCheck)) {
+                if (!isPwdEquals(userNewPwd, userNewPwdCheck)) {
                     Toast.makeText(SignUpActivity.this, "비밀번호가 일치하지 않습니다!", Toast.LENGTH_SHORT).show();
                     return;
                 }

@@ -1,5 +1,6 @@
 package themollo.app.mollo.lullaby;
 
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
@@ -22,6 +23,7 @@ import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import jp.co.recruit_lifestyle.android.widget.PlayPauseButton;
 import themollo.app.mollo.R;
 import themollo.app.mollo.util.AppUtilBasement;
 import themollo.app.mollo.util.LullabyAnimator;
@@ -40,21 +42,25 @@ public class LullabyActivity extends AppUtilBasement {
     @BindView(R.id.llBack)
     LinearLayout llBack;
 
+    @BindView(R.id.ppbPlayPauseButton)
+    PlayPauseButton ppbPlayPauseButton;
+
     private Drawable boot = new LullabyAnimator();
     private LullabyAdapter lullabyAdapter;
     private ArrayList<LullabyModel> lullabyData = new ArrayList<>();
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lullaby);
         butterBind();
 
-        getWindow().setEnterTransition(null);
-        getWindow().setExitTransition(null);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setEnterTransition(null);
+            getWindow().setExitTransition(null);
+            pbProgressBar.setTransitionName(transitionName);
+        }
 
-        pbProgressBar.setTransitionName(transitionName);
         pbProgressBar.setIndeterminateDrawable(boot);
 
         lullabyData.add(new LullabyModel(getString(R.string.rainy_day), "03:30", true, true));
@@ -70,6 +76,8 @@ public class LullabyActivity extends AppUtilBasement {
         lullabyAdapter = new LullabyAdapter(lullabyData);
         rvLullabyList.setAdapter(lullabyAdapter);
 
+        ppbPlayPauseButton.setColor(Color.parseColor("#8B8AFF"));
+
 
     }
 
@@ -78,10 +86,13 @@ public class LullabyActivity extends AppUtilBasement {
 
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @OnClick(R.id.llBack)
     void backPress(){
-        finishAfterTransition();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            finishAfterTransition();
+        }else{
+            finish();
+        }
     }
 
     @Override

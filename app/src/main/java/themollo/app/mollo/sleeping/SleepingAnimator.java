@@ -1,4 +1,4 @@
-package themollo.app.mollo.util;
+package themollo.app.mollo.sleeping;
 
 import android.animation.ValueAnimator;
 import android.graphics.Canvas;
@@ -18,14 +18,16 @@ import com.github.ybq.android.spinkit.sprite.SpriteContainer;
  * Created by alex on 2018. 8. 2..
  */
 
-public class LullabyAnimator extends SpriteContainer {
+public class SleepingAnimator extends SpriteContainer {
 
-    public LullabyAnimator() {
+    public SleepingAnimator() {
 
     }
 
+
     public Sprite[] onCreateChild() {
-        return new Sprite[]{new LullabyAnimator.Circle(Color.parseColor("#8B8AFF"),0, 360)};
+        return new Sprite[]{new SleepingAnimator.Circle(Color.parseColor("#ffffff"),0, 360),
+                new SleepingAnimator.Circle(Color.parseColor("#ffffff"),-144, 216)};
     }
 
     public void setColor(int color) {
@@ -83,9 +85,9 @@ public class LullabyAnimator extends SpriteContainer {
 
         public void drawShape(Canvas canvas, Paint paint) {
             paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SCREEN));
-//            paint.setStrokeWidth((float)this.strokeWidth);
-//            paint.setStyle(Paint.Style.STROKE);
-            paint.setStyle(Paint.Style.FILL);
+            paint.setStrokeWidth(2f);
+            paint.setStyle(Paint.Style.STROKE);
+//            paint.setStyle(Paint.Style.FILL);
             canvas.translate((float)this.getDrawBounds().left, (float)this.getDrawBounds().top);
             canvas.drawPath(this.path, paint);
         }

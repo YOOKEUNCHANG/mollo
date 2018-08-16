@@ -73,7 +73,10 @@ public class AnalysisActivity extends AppUtilBasement {
         });
     }
 
-
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(AnalysisActivity.this, HomeActivity.class));
+    }
 
     @Override
     public void setButtonListener() {

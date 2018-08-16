@@ -28,8 +28,8 @@ public class MolloApplication extends MultiDexApplication {
         KakaoSDK.init(new KakaoSDKAdapter());
 
         Typekit.getInstance()
-                .addNormal(Typekit.createFromAsset(this, "font/NanumBarunGothicLight.ttf"))
-                .addBold(Typekit.createFromAsset(this, "font/NanumBarunGothic.ttf"));
+                .addNormal(Typekit.createFromAsset(this, "font/NanumSquareRegular.ttf"))
+                .addBold(Typekit.createFromAsset(this, "font/NanumSquareBold.ttf"));
     }
 
     public static MolloApplication getInstance(){

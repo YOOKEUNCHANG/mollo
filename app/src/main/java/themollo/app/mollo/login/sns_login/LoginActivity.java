@@ -68,10 +68,15 @@ public class LoginActivity extends FirebaseLogin {
     protected void onStart() {
         super.onStart();
 
+        //default
         putAlarmTimeData(SLEEP_TIME, "22:00");
         putAlarmTimeData(WAKEUP_TIME, "07:00");
         putAlarmTimeData(SLEEP_ARC_PROGRESS, 240+"");
         putAlarmTimeData(WAKEUP_ARC_PROGRESS, 60+"");
+        putAlarmTimeData(TOP_ARC_XPOS, 95+"");
+        putAlarmTimeData(TOP_ARC_YPOS, 9+"");
+        putAlarmTimeData(BOTTOM_ARC_XPOS, 758+"");
+        putAlarmTimeData(BOTTOM_ARC_YPOS, 125+"");
 
         if (Session.getCurrentSession().isOpened()
                 || AccessToken.isCurrentAccessTokenActive()

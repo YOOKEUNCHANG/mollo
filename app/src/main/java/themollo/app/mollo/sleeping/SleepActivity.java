@@ -14,7 +14,9 @@ import android.support.v7.view.ActionMode;
 import android.transition.ChangeBounds;
 import android.transition.Fade;
 import android.transition.Transition;
+import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
@@ -23,6 +25,7 @@ import android.widget.Toast;
 
 import com.felipecsl.gifimageview.library.GifImageView;
 import com.mbh.timelyview.TimelyShortTimeView;
+import com.melnykov.fab.FloatingActionButton;
 
 import java.util.Date;
 import java.util.Timer;
@@ -31,6 +34,7 @@ import java.util.TimerTask;
 import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import jp.co.recruit_lifestyle.android.widget.PlayPauseButton;
 import themollo.app.mollo.R;
 import themollo.app.mollo.analysis.AnalysisActivity;
 import themollo.app.mollo.util.AppUtilBasement;
@@ -52,12 +56,29 @@ public class SleepActivity extends AppUtilBasement {
     @BindView(R.id.tvStopButton)
     TextView tvStopButton;
 
+    @BindView(R.id.ppbSound)
+    PlayPauseButton ppbSound;
 
+    @BindView(R.id.llSound)
+    LinearLayout llSound;
+
+    @BindView(R.id.tvStartAlarmTime)
+    TextView tvStartAlarmTime;
+
+    @BindView(R.id.tvEndAlarmTime)
+    TextView tvEndAlarmTime;
+
+    @BindString(R.string.alarm_start_time)
+    String alarmStartTime;
+
+    @BindString(R.string.alarm_end_time)
+    String alarmEndTime;
 
     private Drawable boot = new SleepingAnimator();
     private Timer timer;
+    private String sleepTime;
+    private String wakeupTime;
     private static final String gifURL = "https://media.giphy.com/media/d1G6qsjTJcHYhzxu/giphy.gif";
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,12 +87,16 @@ public class SleepActivity extends AppUtilBasement {
         butterBind();
         setButtonListener();
 
+        sleepTime = getIntent().getStringExtra(SLEEP_TIME);
+        wakeupTime = getIntent().getStringExtra(WAKEUP_TIME);
+
+        tvStartAlarmTime.setText(sleepTime);
+        tvEndAlarmTime.setText(wakeupTime);
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             transitionOverride();
             pbSleepProgressBar.setTransitionName(alarmToSleep);
         }
-
-
 
         pbSleepProgressBar.setIndeterminateDrawable(boot);
         ttvCurTime.setTextColor(Color.WHITE);
@@ -87,6 +112,8 @@ public class SleepActivity extends AppUtilBasement {
                 gifBack.startAnimation();
             }
         }.execute(gifURL);
+
+        ppbSound.setColor(Color.WHITE);
     }
 
     private void transitionOverride(){
@@ -96,7 +123,9 @@ public class SleepActivity extends AppUtilBasement {
             getWindow().setSharedElementExitTransition(changeBounds);
             getWindow().setSharedElementEnterTransition(changeBounds);
 
-
+//            Fade fade = new Fade();
+//            fade.setDuration(4000);
+//            getWindow().setEnterTransition(fade);
         }
     }
 
@@ -129,6 +158,14 @@ public class SleepActivity extends AppUtilBasement {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(SleepActivity.this, AnalysisActivity.class));
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+            }
+        });
+
+        llSound.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ppbSound.performClick();
             }
         });
     }

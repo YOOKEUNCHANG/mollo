@@ -137,7 +137,6 @@
     </RelativeLayout>
 
 
-
     <TextView
         android:id="@+id/tvStopButton"
         android:layout_width="wrap_content"
@@ -148,6 +147,25 @@
         android:layout_marginBottom="100dp"
         android:layout_centerInParent="true"
         android:layout_alignParentBottom="true"/>
+
+    <LinearLayout
+        android:id="@+id/llSound"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="20dp"
+        android:gravity="center"
+        android:background="@drawable/ppb_round">
+
+        <jp.co.recruit_lifestyle.android.widget.PlayPauseButton
+            android:id="@+id/ppbSound"
+            android:background="@drawable/ppb_round"
+            android:layout_width="20dp"
+            android:layout_height="20dp" />
+    </LinearLayout>
+
+
 
 
 

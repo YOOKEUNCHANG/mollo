@@ -5,8 +5,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
-import android.support.annotation.RequiresApi;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.os.Bundle;
@@ -15,13 +13,13 @@ import android.transition.Fade;
 import android.util.Pair;
 import android.view.Gravity;
 import android.view.View;
-import android.view.animation.DecelerateInterpolator;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.felipecsl.gifimageview.library.GifImageView;
 import com.mbh.timelyview.TimelyShortTimeView;
 
 import java.util.Date;
@@ -109,6 +107,9 @@ public class HomeActivity extends AppUtilBasement {
     @BindView(R.id.llDrawer)
     LinearLayout llDrawer;
 
+    @BindView(R.id.gifBack)
+    GifImageView gifBack;
+
     private DrawerArrow drawerArrow;
     private float drawerOffset;
     private boolean flipped;
@@ -118,6 +119,7 @@ public class HomeActivity extends AppUtilBasement {
     @Override
     protected void onResume() {
         super.onResume();
+
 
         String sleepTime = getAlarmData(SLEEP_TIME);
         String wakeupTime = getAlarmData(WAKEUP_TIME);
@@ -157,6 +159,11 @@ public class HomeActivity extends AppUtilBasement {
             changeBounds.setDuration(4000);
             getWindow().setSharedElementEnterTransition(changeBounds);
             getWindow().setSharedElementExitTransition(changeBounds);
+
+//            Fade fade = new Fade();
+//            fade.setDuration(1500);
+//            getWindow().setEnterTransition(fade);
+//            getWindow().setExitTransition(fade);
         }
     }
 
@@ -164,13 +171,14 @@ public class HomeActivity extends AppUtilBasement {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_home);
         butterBind();
-
-        transitionOverride();
+        setButtonListener();
 
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            transitionOverride();
             rlAlarmButton.setTransitionName(transitionName);
         }
 
@@ -178,7 +186,7 @@ public class HomeActivity extends AppUtilBasement {
 
         dlHomeLayout.setScrimColor(Color.TRANSPARENT);
         dlHomeLayout.setDrawerElevation(0f);
-        
+
         drawerArrow = new DrawerArrow(getResources());
         drawerArrow.setStrokeColor(getResources().getColor(R.color.light_gray));
         ivDrawerArrow.setImageDrawable(drawerArrow);
@@ -189,7 +197,6 @@ public class HomeActivity extends AppUtilBasement {
         ttvCurTime.setTime("99:99");
         ttvCurTime.setTime("00:00");
 
-        setButtonListener();
         registerActionToggle();
 
     }
@@ -202,18 +209,13 @@ public class HomeActivity extends AppUtilBasement {
     public void registerActionToggle() {
         ActionBarDrawerToggle actionBarDrawerToggle
                 = new ActionBarDrawerToggle(this, dlHomeLayout, R.string.open, R.string.close) {
-            private float scaleXFactor = 1.5f;
             private float scaleYFactor = 8f;
-            private float scaleFactor = 3f;
-
             @Override
             public void onDrawerSlide(View drawerView, float slideOffset) {
 
                 super.onDrawerSlide(drawerView, slideOffset);
                 float slideX = (float) (drawerView.getWidth() * (1.3) * slideOffset * (1.3));
-//                float slideY = (float) (drawerView.getHeight()*(1.2) * slideOffset*(1.2));
                 flContent.setTranslationX(slideX);
-//                llContent.setScaleX(1-(slideOffset / scaleXFactor));
                 flContent.setScaleY(1 - (slideOffset / scaleYFactor));
             }
         };
@@ -237,6 +239,7 @@ public class HomeActivity extends AppUtilBasement {
                     Pair.create(tvEndAlarmTime, alarmEndTime));
             Intent intent = new Intent(this, SketchBook.class);
             startActivity(intent, options.toBundle());
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         }else{
             moveTo(SketchBook.class);
         }
@@ -255,6 +258,7 @@ public class HomeActivity extends AppUtilBasement {
                     Pair.create(tvLullabyButton, transitionName));
             Intent intent = new Intent(this, LullabyActivity.class);
             startActivity(intent, options.toBundle());
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         }else{
             moveTo(LullabyActivity.class);
         }

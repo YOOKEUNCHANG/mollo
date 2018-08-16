@@ -114,6 +114,8 @@ public class MyAccountActivity extends AppUtilBasement {
                 }else if(getFirebaseUser() != null){
                     getFirebaseAuth().signOut();
                     moveTo(LoginActivity.class);
+                }else{
+                    moveTo(LoginActivity.class);
                 }
             }
         });

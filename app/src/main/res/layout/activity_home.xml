@@ -8,6 +8,12 @@
     android:background="@color/drawer_background_color"
     tools:context=".home.HomeActivity">
 
+    <com.felipecsl.gifimageview.library.GifImageView
+        android:id="@+id/gifBack"
+        android:scaleType="fitXY"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
     <FrameLayout
         android:id="@+id/flContent"
         android:layout_width="match_parent"
@@ -88,7 +94,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tvAlarmText"
                     android:scaleX="0.7"
-                    android:scaleY="0.7"/>
+                    android:scaleY="0.7" />
 
                 <RelativeLayout
 

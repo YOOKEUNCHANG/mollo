@@ -22,4 +22,8 @@
 
     <color name="facebook_button_color">#8b9dc3</color>
     <color name="kakao_button_color">#fcd411</color>
+
+    <color name="sleep_fab_color">#8B8AFF</color>
+    <color name="black">#000000</color>
+
 </resources>

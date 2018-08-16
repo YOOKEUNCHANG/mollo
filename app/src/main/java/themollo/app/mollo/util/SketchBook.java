@@ -3,7 +3,6 @@ package themollo.app.mollo.util;
 import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -15,13 +14,10 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.Pair;
 import android.view.View;
-import android.view.animation.DecelerateInterpolator;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
 import com.mbh.timelyview.TimelyView;
 import com.nineoldandroids.animation.ObjectAnimator;
-
 import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -72,25 +68,41 @@ public class SketchBook extends AppUtilBasement {
     @BindView(R.id.pbAlarmProgressBar)
     ProgressBar pbAlarmProgressBar;
 
+    @BindView(R.id.ttvTens)
+    TimelyView ttvTens;
+
+    @BindView(R.id.ttvUnits)
+    TimelyView ttvUnits;
+
     private int sleepArcValue = 0;
     private int wakeupArcValue = 0;
     private volatile int from = 9;
     private volatile int to = 1;
+    private int topThumbXPos = 0;
+    private int topThumbYPos = 0;
+    private int bottomThumbXPos = 0;
+    private int bottomThumbYPos = 0;
+
+    private boolean isFirst = true;
 
     float px_300dp;
     float px_150dp;
-    float XPosWhenThumbTop;
-    float YPos;
 
     private Drawable boot = new LullabyAnimator();
 
-    @Override
-    protected void onResume() {
+    private int toInt(String s) {
+        return Integer.parseInt(s);
+    }
 
-        int startArcProgress = Integer.parseInt(getAlarmData(SLEEP_ARC_PROGRESS));
-        int endArcProgress = Integer.parseInt(getAlarmData(WAKEUP_ARC_PROGRESS));
+    private void setDefaultArcData() {
+        int startArcProgress = toInt(getAlarmData(SLEEP_ARC_PROGRESS));
+        int endArcProgress = toInt(getAlarmData(WAKEUP_ARC_PROGRESS));
         String sleepTime = getAlarmData(SLEEP_TIME);
         String wakeupTime = getAlarmData(WAKEUP_TIME);
+        topThumbXPos = toInt(getAlarmData(TOP_ARC_XPOS));
+        topThumbYPos = toInt(getAlarmData(TOP_ARC_YPOS));
+        bottomThumbXPos = toInt(getAlarmData(BOTTOM_ARC_XPOS));
+        bottomThumbYPos = toInt(getAlarmData(BOTTOM_ARC_YPOS));
 
         saSleep.setProgress(startArcProgress);
         saWakeup.setProgress(endArcProgress);
@@ -98,6 +110,33 @@ public class SketchBook extends AppUtilBasement {
         tvFollowSleepTime.setText(sleepTime);
         tvFollowWakeupTime.setText(wakeupTime);
 
+        tvFollowSleepTime.setTranslationX(topThumbXPos);
+        tvFollowSleepTime.setTranslationY(topThumbYPos);
+        tvFollowWakeupTime.setTranslationX(bottomThumbXPos);
+        tvFollowWakeupTime.setTranslationY(bottomThumbYPos);
+
+        Log.i("alarmdata", "top x : " + getAlarmData(TOP_ARC_XPOS) + " top y : " + getAlarmData(TOP_ARC_YPOS));
+        Log.i("alarmdata", "bottom x : " + getAlarmData(BOTTOM_ARC_XPOS) + " bottom y : " + getAlarmData(BOTTOM_ARC_YPOS));
+
+    }
+
+    @Override
+    protected void onStart() {
+//        putAlarmTimeData(SLEEP_TIME, "22:00");
+//        putAlarmTimeData(WAKEUP_TIME, "07:00");
+//        putAlarmTimeData(SLEEP_ARC_PROGRESS, 240+"");
+//        putAlarmTimeData(WAKEUP_ARC_PROGRESS, 60+"");
+//        putAlarmTimeData(TOP_ARC_XPOS, 95+"");
+//        putAlarmTimeData(TOP_ARC_YPOS, 9+"");
+//        putAlarmTimeData(BOTTOM_ARC_XPOS, 758+"");
+//        putAlarmTimeData(BOTTOM_ARC_YPOS, 125+"");
+        setDefaultArcData();
+        super.onStart();
+    }
+
+    @Override
+    protected void onResume() {
+        setDefaultArcData();
         super.onResume();
     }
 
@@ -108,26 +147,36 @@ public class SketchBook extends AppUtilBasement {
             getWindow().setSharedElementExitTransition(changeBounds);
             getWindow().setSharedElementEnterTransition(changeBounds);
 
-            Fade fade = new Fade();
-
-            fade.setDuration(4000);
-            getWindow().setExitTransition(fade);
-            fade.setDuration(1500);
-            getWindow().setEnterTransition(fade);
-
-
+//            Fade fade = new Fade();
+//            fade.setMode(Fade.MODE_IN);
+//            fade.setDuration(1500);
+//            getWindow().setEnterTransition(fade);
+//            fade.setDuration(4000);
+//            getWindow().setExitTransition(fade);
         }
     }
 
+    private void putAlarmData() {
+        putAlarmTimeData(SLEEP_ARC_PROGRESS, getSleepArcValue() + "");
+        putAlarmTimeData(WAKEUP_ARC_PROGRESS, getWakeupArcValue() + "");
+        putAlarmTimeData(SLEEP_TIME, tvFollowSleepTime.getText().toString());
+        putAlarmTimeData(WAKEUP_TIME, tvFollowWakeupTime.getText().toString());
+        putAlarmTimeData(TOP_ARC_XPOS, topThumbXPos + "");
+        putAlarmTimeData(TOP_ARC_YPOS, topThumbYPos + "");
+        putAlarmTimeData(BOTTOM_ARC_XPOS, bottomThumbXPos + "");
+        putAlarmTimeData(BOTTOM_ARC_YPOS, bottomThumbYPos + "");
+    }
 
     @Override
     protected void onPause() {
-        putAlarmTimeData(SLEEP_ARC_PROGRESS, getSleepArcValue()+"");
-        putAlarmTimeData(WAKEUP_ARC_PROGRESS, getWakeupArcValue()+"");
-        putAlarmTimeData(SLEEP_TIME, tvFollowSleepTime.getText().toString());
-        putAlarmTimeData(WAKEUP_TIME, tvFollowWakeupTime.getText().toString());
-
+        putAlarmData();
         super.onPause();
+    }
+
+    @Override
+    protected void onStop() {
+        putAlarmData();
+        super.onStop();
     }
 
     @Override
@@ -135,6 +184,9 @@ public class SketchBook extends AppUtilBasement {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sketch_book);
         butterBind();
+
+
+        setButtonListener();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             transitionOverride();
@@ -148,6 +200,10 @@ public class SketchBook extends AppUtilBasement {
         int white = ContextCompat.getColor(getBaseContext(), R.color.white);
         timelyTextView.setTextColor(white);
         timelyTextView.setStrokeWidth(4);
+        ttvUnits.setTextColor(white);
+        ttvUnits.setStrokeWidth(4);
+        ttvTens.setTextColor(white);
+        ttvTens.setStrokeWidth(4);
 
         sleepArcValue = 600;
         wakeupArcValue = 0;
@@ -162,89 +218,15 @@ public class SketchBook extends AppUtilBasement {
         px_300dp = dpToPx(300, getBaseContext());
         px_150dp = dpToPx(150, getBaseContext());
 
-        tvFollowSleepTime.setX(29);
-        tvFollowSleepTime.setY(363);
+        tvFollowSleepTime.setTranslationX(29);
+        tvFollowSleepTime.setTranslationY(363);
 
-        tvFollowWakeupTime.setX(758);
-        tvFollowWakeupTime.setY(438);
+        tvFollowWakeupTime.setTranslationX(758);
+        tvFollowWakeupTime.setTranslationY(438);
 
 //        Log.i("layoutparams", "arc pl : " + saSleep.getPaddingLeft() + " arc pr : " + saSleep.getPaddingRight());
 
 
-        saSleep.setOnSeekArcChangeListener(new MySeekArc.OnSeekArcChangeListener() {
-            @Override
-            public void onProgressChanged(MySeekArc mySeekArc, int progress, boolean fromUser) {
-                sleepArcValue = progress;
-                to = getTotalSleepHourValue() / 60;
-                if(from != to){
-                    timelyTextView.animate(from, to).setDuration(800).start();
-                    from = to;
-                }
-                tvFollowSleepTime.setText(getTimeText(progress, "sleepTime"));
-                if (progress < 360)
-                    tvFollowSleepTime.setTranslationX(mySeekArc.getThumbXPos() - 150);
-                else
-                    tvFollowSleepTime.setTranslationX(mySeekArc.getThumbXPos() + 20);
-                tvFollowSleepTime.setTranslationY(mySeekArc.getThumbYPos() - 50);
-
-                Log.i("thumb", "saSleep x : " + mySeekArc.getThumbXPos() + " y : " + mySeekArc.getThumbYPos());
-            }
-
-            @Override
-            public void onStartTrackingTouch(MySeekArc mySeekArc) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(MySeekArc mySeekArc) {
-
-            }
-        });
-
-
-        saWakeup.setOnSeekArcChangeListener(new MySeekArc.OnSeekArcChangeListener() {
-            @Override
-            public void onProgressChanged(MySeekArc mySeekArc, int progress, boolean fromUser) {
-
-                wakeupArcValue = progress;
-                to = getTotalSleepHourValue() / 60;
-                if(from != to){
-                    timelyTextView.animate(from, to).setDuration(800).start();
-                    from = to;
-                }
-
-                tvFollowWakeupTime.setText(getTimeText(progress, "wakeupTime"));
-
-                if (progress < 360)
-                    tvFollowWakeupTime.setTranslationX(mySeekArc.getThumbXPos() + 20);
-                else
-                    tvFollowWakeupTime.setTranslationX(mySeekArc.getThumbXPos() - 150);
-                tvFollowWakeupTime.setTranslationY(mySeekArc.getThumbYPos() - px_150dp);
-
-                Log.i("thumb", "saWakeup x : " + mySeekArc.getThumbXPos() + " y : " + mySeekArc.getThumbYPos());
-            }
-
-            @Override
-            public void onStartTrackingTouch(MySeekArc mySeekArc) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(MySeekArc mySeekArc) {
-
-            }
-        });
-
-
-
-
-    }
-
-    public void numAnim() {
-        to = getTotalSleepHourValue() / 60;
-        objectAnimator = timelyTextView.animate(from, to);
-        objectAnimator.start();
-        from = to;
     }
 
 
@@ -282,6 +264,7 @@ public class SketchBook extends AppUtilBasement {
                 sb.append(min);
             }
         }
+
         return sb.toString();
     }
 
@@ -307,7 +290,6 @@ public class SketchBook extends AppUtilBasement {
     }
 
 
-
     @OnClick(R.id.llBack)
     void backPress() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -323,7 +305,10 @@ public class SketchBook extends AppUtilBasement {
             ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this,
                     Pair.create(pbAlarmProgressBar, alarmToSleep));
             Intent intent = new Intent(this, SleepActivity.class);
+            intent.putExtra(SLEEP_TIME, tvFollowSleepTime.getText().toString());
+            intent.putExtra(WAKEUP_TIME, tvFollowWakeupTime.getText().toString());
             startActivity(intent, options.toBundle());
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         } else {
             moveTo(SleepActivity.class);
         }
@@ -337,15 +322,107 @@ public class SketchBook extends AppUtilBasement {
         return wakeupArcValue;
     }
 
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+    }
+
     public int getTotalSleepHourValue() {
         int res = (720 - getSleepArcValue()) + getWakeupArcValue();
-        if(res / 60 >= 10) return 9;
-        else return (720 - getSleepArcValue()) + getWakeupArcValue();
+        return res;
     }
 
     @Override
     public void setButtonListener() {
+        saSleep.setOnSeekArcChangeListener(new MySeekArc.OnSeekArcChangeListener() {
+            @Override
+            public void onProgressChanged(MySeekArc mySeekArc, int progress, boolean fromUser) {
+                sleepArcValue = progress;
+//                to = getTotalSleepHourValue() / 60;
+//
+//                if (from != to) {
+//                    timelyTextView.animate(from, to).setDuration(800).start();
+//                    from = to;
+//                }
 
+                overTenControl();
+
+                tvFollowSleepTime.setText(getTimeText(progress, "sleepTime"));
+
+                if (!isFirst) {
+                    if (progress < 360) {
+                        topThumbXPos = mySeekArc.getThumbXPos() - 150;
+                        tvFollowSleepTime.setTranslationX(topThumbXPos);
+                    } else {
+                        topThumbXPos = mySeekArc.getThumbXPos() + 20;
+                        tvFollowSleepTime.setTranslationX(topThumbXPos);
+                    }
+                    topThumbYPos = mySeekArc.getThumbYPos() - 50;
+                    tvFollowSleepTime.setTranslationY(topThumbYPos);
+                }
+
+
+                Log.i("thumb", "saSleep x : " + tvFollowSleepTime.getTranslationX()
+                        + " y : " + tvFollowSleepTime.getTranslationY());
+            }
+
+            @Override
+            public void onStartTrackingTouch(MySeekArc mySeekArc) {
+                isFirst = false;
+            }
+
+            @Override
+            public void onStopTrackingTouch(MySeekArc mySeekArc) {
+
+            }
+        });
+
+
+        saWakeup.setOnSeekArcChangeListener(new MySeekArc.OnSeekArcChangeListener() {
+            @Override
+            public void onProgressChanged(MySeekArc mySeekArc, int progress, boolean fromUser) {
+
+                wakeupArcValue = progress;
+//                to = getTotalSleepHourValue() / 60;
+//
+//                if (from != to) {
+//                    timelyTextView.animate(from, to).setDuration(800).start();
+//                    from = to;
+//                }
+
+                overTenControl();
+
+                tvFollowWakeupTime.setText(getTimeText(progress, "wakeupTime"));
+
+                if (!isFirst) {
+                    if (progress < 360) {
+                        bottomThumbXPos = mySeekArc.getThumbXPos() + 20;
+                        tvFollowWakeupTime.setTranslationX(bottomThumbXPos);
+                    } else {
+                        bottomThumbXPos = mySeekArc.getThumbXPos() - 150;
+                        tvFollowWakeupTime.setTranslationX(bottomThumbXPos);
+                    }
+                    bottomThumbYPos = (int) (mySeekArc.getThumbYPos() - px_150dp);
+                    tvFollowWakeupTime.setTranslationY(bottomThumbYPos);
+                }
+
+
+                Log.i("thumb", "saWakeup x : " + tvFollowWakeupTime.getTranslationX()
+                        + " y : " + tvFollowWakeupTime.getTranslationY());
+            }
+
+            @Override
+            public void onStartTrackingTouch(MySeekArc mySeekArc) {
+                Log.i("thumb", "stopTracking");
+                isFirst = false;
+            }
+
+            @Override
+            public void onStopTrackingTouch(MySeekArc mySeekArc) {
+                Log.i("thumb", "stopTracking");
+            }
+        });
     }
 
     @Override
@@ -353,8 +430,54 @@ public class SketchBook extends AppUtilBasement {
         ButterKnife.bind(this);
     }
 
+    public void overTenControl() {
+        int tensFrom = from / 10;
+        int unitsFrom = from % 10;
 
+        to = getTotalSleepHourValue() / 60;
+
+        int tensTo = to / 10;
+        int unitsTo = to % 10;
+
+        Log.i("fromto", "from : " + from + " to : " + to);
+
+
+        if (from != to) {
+            if (from >= 10 && to >= 10) {
+                Log.i("fromto", "tens over triggered");
+                ttvTens.setVisibility(View.VISIBLE);
+                ttvUnits.setVisibility(View.VISIBLE);
+                timelyTextView.setVisibility(View.INVISIBLE);
+                ttvTens.animate(tensFrom, tensTo).setDuration(500).start();
+                ttvUnits.animate(unitsFrom, unitsTo).setDuration(500).start();
+                from = to;
+            }else if (from < 10 && to >= 10) {
+                Log.i("fromto", "tens over triggered");
+                ttvTens.setVisibility(View.VISIBLE);
+                ttvUnits.setVisibility(View.VISIBLE);
+                timelyTextView.setVisibility(View.INVISIBLE);
+                ttvTens.animate(from, tensTo).setDuration(500).start();
+                ttvUnits.animate(unitsFrom, unitsTo).setDuration(500).start();
+                from = to;
+            }else if(from >= 10 && to < 10){
+                Log.i("fromto", "tens below triggered");
+                ttvTens.setVisibility(View.INVISIBLE);
+                ttvUnits.setVisibility(View.INVISIBLE);
+                timelyTextView.setVisibility(View.VISIBLE);
+                timelyTextView.animate(unitsFrom, to).setDuration(500).start();
+                from = to;
+            }else if(from < 10 && to < 10){
+                Log.i("fromto", "tens below triggered");
+                ttvTens.setVisibility(View.INVISIBLE);
+                ttvUnits.setVisibility(View.INVISIBLE);
+                timelyTextView.setVisibility(View.VISIBLE);
+                timelyTextView.animate(from, to).setDuration(500).start();
+                from = to;
+            }
+        }
+    }
 }
+
 
 
 

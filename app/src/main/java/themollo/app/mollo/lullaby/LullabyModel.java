@@ -15,7 +15,7 @@ public class LullabyModel {
     String lullabyTitle;
     String lullabyPlayTime;
     boolean isSelected;
-    boolean isPlaying;
+    int rawFileName;
 
     public LullabyModel() {
     }
@@ -26,11 +26,19 @@ public class LullabyModel {
         this.isSelected = isSelected;
     }
 
-    public LullabyModel(String lullabyTitle, String lullabyPlayTime, boolean isSelected, boolean isPlaying) {
+    public LullabyModel(String lullabyTitle, String lullabyPlayTime, boolean isSelected, int rawFileName) {
         this.lullabyTitle = lullabyTitle;
         this.lullabyPlayTime = lullabyPlayTime;
         this.isSelected = isSelected;
-        this.isPlaying = isPlaying;
+        this.rawFileName = rawFileName;
+    }
+
+    public int getRawFileName() {
+        return rawFileName;
+    }
+
+    public void setRawFileName(int rawFileName) {
+        this.rawFileName = rawFileName;
     }
 
     public String getLullabyTitle() {
@@ -57,11 +65,4 @@ public class LullabyModel {
         isSelected = selected;
     }
 
-    public boolean isPlaying() {
-        return isPlaying;
-    }
-
-    public void setPlaying(boolean playing) {
-        isPlaying = playing;
-    }
 }

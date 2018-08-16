@@ -32,6 +32,10 @@ public abstract class AppUtilBasement extends AppCompatActivity{
     public static final String WAKEUP_ARC_PROGRESS = "wakeupArcProgress";
     public static final String SLEEP_TIME = "sleepTime";
     public static final String WAKEUP_TIME= "wakeupTime";
+    public static final String TOP_ARC_XPOS = "topArcXPos";
+    public static final String TOP_ARC_YPOS = "topArcYPos";
+    public static final String BOTTOM_ARC_XPOS = "bottomArcXPos";
+    public static final String BOTTOM_ARC_YPOS = "bottomArcYPos";
 
     ProgressDialog pd;
 
@@ -103,6 +107,8 @@ public abstract class AppUtilBasement extends AppCompatActivity{
         super.attachBaseContext(TypekitContextWrapper.wrap(newBase));
         MultiDex.install(newBase);
     }
+
+
 
     //abstract methods
     public abstract void setButtonListener();

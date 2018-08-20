@@ -8,11 +8,15 @@ import android.graphics.Path;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
+import android.graphics.drawable.AnimationDrawable;
+import android.view.animation.Animation;
 
 import com.github.ybq.android.spinkit.animation.SpriteAnimatorBuilder;
 import com.github.ybq.android.spinkit.sprite.ShapeSprite;
 import com.github.ybq.android.spinkit.sprite.Sprite;
 import com.github.ybq.android.spinkit.sprite.SpriteContainer;
+
+import themollo.app.mollo.R;
 
 /**
  * Created by alex on 2018. 8. 2..
@@ -25,7 +29,11 @@ public class LullabyAnimator extends SpriteContainer {
     }
 
     public Sprite[] onCreateChild() {
-        return new Sprite[]{new LullabyAnimator.Circle(Color.parseColor("#8B8AFF"),0, 360)};
+        Sprite[] sprites = new Sprite[]{new LullabyAnimator.Circle(R.drawable.gradient_list,0, 360)};
+        //Color.parseColor("#8B8AFF")
+        return new Sprite[]{
+                new LullabyAnimator.Circle(Color.parseColor("#8B8AFF"),0, 360)
+        };
     }
 
     public void setColor(int color) {

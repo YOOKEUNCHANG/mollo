@@ -1,6 +1,10 @@
 package themollo.app.mollo.sleeping;
 
+import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -16,6 +20,8 @@ import android.transition.Fade;
 import android.transition.Transition;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -27,7 +33,10 @@ import com.felipecsl.gifimageview.library.GifImageView;
 import com.mbh.timelyview.TimelyShortTimeView;
 import com.melnykov.fab.FloatingActionButton;
 
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -74,10 +83,12 @@ public class SleepActivity extends AppUtilBasement {
     @BindString(R.string.alarm_end_time)
     String alarmEndTime;
 
+    private Calendar calendar;
     private Drawable boot = new SleepingAnimator();
     private Timer timer;
     private String sleepTime;
     private String wakeupTime;
+    private boolean sleepTimeDayOver;
     private static final String gifURL = "https://media.giphy.com/media/d1G6qsjTJcHYhzxu/giphy.gif";
 
     @Override
@@ -89,9 +100,32 @@ public class SleepActivity extends AppUtilBasement {
 
         sleepTime = getIntent().getStringExtra(SLEEP_TIME);
         wakeupTime = getIntent().getStringExtra(WAKEUP_TIME);
+        sleepTimeDayOver = getIntent().getBooleanExtra(SLEEP_TIME_DAY_OVER, false);
+        calendar = Calendar.getInstance();
+
+        int wakeupHour = toInt(wakeupTime.split(":")[0]);
+        int wakeupMin = toInt(wakeupTime.split(":")[1]);
+
+        Log.i("time", "wakeupHour : " + wakeupHour + " / wakeupMin : " + wakeupMin);
+
+        calendar.set(Calendar.HOUR_OF_DAY, wakeupHour);
+        calendar.set(Calendar.MINUTE, wakeupMin);
 
         tvStartAlarmTime.setText(sleepTime);
         tvEndAlarmTime.setText(wakeupTime);
+
+        Intent alarmIntent = new Intent("themollo.app.mollo.sleeping.AlarmStart");
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(
+                this,
+                R.integer.pendingIntentRequestCode,
+                alarmIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        alarmManager.set(
+                AlarmManager.RTC_WAKEUP,
+                calendar.getTimeInMillis(),
+                pendingIntent
+        );
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             transitionOverride();
@@ -105,18 +139,19 @@ public class SleepActivity extends AppUtilBasement {
         ttvCurTime.setTime("99:99");
         ttvCurTime.setTime("00:00");
 
-        new GifDataDownloader(){
+        new GifDataDownloader() {
             @Override
             protected void onPostExecute(byte[] bytes) {
+                Animation fadeIn = AnimationUtils.loadAnimation(getBaseContext(), R.anim.fade_in);
                 gifBack.setBytes(bytes);
-                gifBack.startAnimation();
+                gifBack.startAnimation(fadeIn);
             }
         }.execute(gifURL);
 
         ppbSound.setColor(Color.WHITE);
     }
 
-    private void transitionOverride(){
+    private void transitionOverride() {
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             ChangeBounds changeBounds = new ChangeBounds();
             changeBounds.setDuration(4000);
@@ -157,6 +192,7 @@ public class SleepActivity extends AppUtilBasement {
         tvStopButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 startActivity(new Intent(SleepActivity.this, AnalysisActivity.class));
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }

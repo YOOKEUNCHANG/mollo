@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -59,14 +60,11 @@ public class LullabyActivity extends AppUtilBasement {
     private LullabyAdapter lullabyAdapter;
     private ArrayList<LullabyModel> lullabyData = new ArrayList<>();
 
-    AnimationDrawable animationDrawable;
-    ConstraintLayout llLullaby;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lullaby);
         butterBind();
-
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             pbProgressBar.setTransitionName(transitionName);
@@ -74,12 +72,6 @@ public class LullabyActivity extends AppUtilBasement {
 
         pbProgressBar.setIndeterminateDrawable(boot);
 
-        llLullaby = findViewById(R.id.llLullaby);
-        llLullaby.setBackgroundResource(R.drawable.gradient_list);
-
-        animationDrawable = (AnimationDrawable) llLullaby.getBackground();
-        animationDrawable.setEnterFadeDuration(2000);
-        animationDrawable.setExitFadeDuration(4000);
 
         lullabyData.add(new LullabyModel(getString(R.string.rainy_day), "03:30", true, R.raw.sample1));
         lullabyData.add(new LullabyModel(getString(R.string.summer_night), "03:00", false, R.raw.sample2));
@@ -95,12 +87,6 @@ public class LullabyActivity extends AppUtilBasement {
         rvLullabyList.setAdapter(lullabyAdapter);
 
         ppbPlayPauseButton.setColor(Color.parseColor("#8B8AFF"));
-    }
-
-    @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        if(hasFocus)
-            animationDrawable.start();
     }
 
     private void transitionOverride() {

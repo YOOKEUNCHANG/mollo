@@ -1,6 +1,8 @@
 package themollo.app.mollo.util;
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -15,6 +17,8 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.tsengvn.typekit.TypekitContextWrapper;
+
+import themollo.app.mollo.alarm.AlarmActivity;
 
 /**
  * Created by alex on 2018. 7. 16..
@@ -36,8 +40,10 @@ public abstract class AppUtilBasement extends AppCompatActivity{
     public static final String TOP_ARC_YPOS = "topArcYPos";
     public static final String BOTTOM_ARC_XPOS = "bottomArcXPos";
     public static final String BOTTOM_ARC_YPOS = "bottomArcYPos";
+    public static final String SLEEP_TIME_DAY_OVER = "sleepTimeDayOver";
 
-    ProgressDialog pd;
+    public ProgressDialog pd;
+    public AlarmManager alarmManager;
 
     public void showPD(){
         if (pd == null) {
@@ -52,6 +58,10 @@ public abstract class AppUtilBasement extends AppCompatActivity{
         if (pd != null && pd.isShowing()) {
             pd.dismiss();
         }
+    }
+
+    public int toInt(String s) {
+        return Integer.parseInt(s);
     }
 
     public void moveTo(Class cls){
@@ -106,6 +116,12 @@ public abstract class AppUtilBasement extends AppCompatActivity{
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(TypekitContextWrapper.wrap(newBase));
         MultiDex.install(newBase);
+    }
+
+    public PendingIntent alarmEvent(){
+        Intent intent = new Intent(getApplicationContext(), AlarmActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
+        return pendingIntent;
     }
 
 

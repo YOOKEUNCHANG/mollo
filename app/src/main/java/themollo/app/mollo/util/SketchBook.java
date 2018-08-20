@@ -9,15 +9,20 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.transition.ChangeBounds;
-import android.transition.Fade;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.Pair;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
 import com.mbh.timelyview.TimelyView;
 import com.nineoldandroids.animation.ObjectAnimator;
+
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.Locale;
+
 import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,7 +31,7 @@ import themollo.app.mollo.R;
 import themollo.app.mollo.sleeping.SleepActivity;
 
 
-public class SketchBook extends AppUtilBasement {
+public class SketchBook extends AppUtilBasement{
     private volatile ObjectAnimator objectAnimator = null;
 
     @BindString(R.string.button_transition)
@@ -84,15 +89,12 @@ public class SketchBook extends AppUtilBasement {
     private int bottomThumbYPos = 0;
 
     private boolean isFirst = true;
+    private boolean isSleepTimeOverToday = false;
 
     float px_300dp;
     float px_150dp;
 
     private Drawable boot = new LullabyAnimator();
-
-    private int toInt(String s) {
-        return Integer.parseInt(s);
-    }
 
     private void setDefaultArcData() {
         int startArcProgress = toInt(getAlarmData(SLEEP_ARC_PROGRESS));
@@ -184,10 +186,16 @@ public class SketchBook extends AppUtilBasement {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sketch_book);
         butterBind();
-
-
         setButtonListener();
+        initUI();
 
+
+//        Log.i("layoutparams", "arc pl : " + saSleep.getPaddingLeft() + " arc pr : " + saSleep.getPaddingRight());
+
+
+    }
+
+    public void initUI(){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             transitionOverride();
             tvFollowSleepTime.setTransitionName(alarmStartTime);
@@ -223,12 +231,7 @@ public class SketchBook extends AppUtilBasement {
 
         tvFollowWakeupTime.setTranslationX(758);
         tvFollowWakeupTime.setTranslationY(438);
-
-//        Log.i("layoutparams", "arc pl : " + saSleep.getPaddingLeft() + " arc pr : " + saSleep.getPaddingRight());
-
-
     }
-
 
     public String getTimeText(int progress, String type) {
         StringBuilder sb = new StringBuilder();
@@ -307,6 +310,7 @@ public class SketchBook extends AppUtilBasement {
             Intent intent = new Intent(this, SleepActivity.class);
             intent.putExtra(SLEEP_TIME, tvFollowSleepTime.getText().toString());
             intent.putExtra(WAKEUP_TIME, tvFollowWakeupTime.getText().toString());
+            intent.putExtra(SLEEP_TIME_DAY_OVER, isSleepTimeOverToday);
             startActivity(intent, options.toBundle());
             overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         } else {
@@ -354,9 +358,11 @@ public class SketchBook extends AppUtilBasement {
                     if (progress < 360) {
                         topThumbXPos = mySeekArc.getThumbXPos() - 150;
                         tvFollowSleepTime.setTranslationX(topThumbXPos);
+                        isSleepTimeOverToday = false;
                     } else {
                         topThumbXPos = mySeekArc.getThumbXPos() + 20;
                         tvFollowSleepTime.setTranslationX(topThumbXPos);
+                        isSleepTimeOverToday = true;
                     }
                     topThumbYPos = mySeekArc.getThumbYPos() - 50;
                     tvFollowSleepTime.setTranslationY(topThumbYPos);
@@ -439,8 +445,7 @@ public class SketchBook extends AppUtilBasement {
         int tensTo = to / 10;
         int unitsTo = to % 10;
 
-        Log.i("fromto", "from : " + from + " to : " + to);
-
+//        Log.i("fromto", "from : " + from + " to : " + to);
 
         if (from != to) {
             if (from >= 10 && to >= 10) {
@@ -476,6 +481,8 @@ public class SketchBook extends AppUtilBasement {
             }
         }
     }
+
+
 }
 
 

@@ -29,7 +29,11 @@
         </provider>
 
         <!-- receiver -->
-        <receiver android:name=".alarm.AlarmReceiver" />
+        <receiver android:name=".sleeping.AlarmReceiver" >
+            <intent-filter>
+                <action android:name="themollo.app.mollo.alarm.AlarmStart"/>
+            </intent-filter>
+        </receiver>
 
         <!-- meta data -->
         <meta-data
@@ -56,18 +60,17 @@
         <activity android:name=".sample.BackgroundSampleActivity" />
         <activity android:name=".sample.NaviSampleActivity" />
         <activity android:name=".lullaby.LullabyActivity" >
+
+        </activity>
+        <activity android:name=".sample.CircularBarActivity" />
+        <activity android:name=".tutorial.TutorialActivity" />
+        <activity android:name=".alarm.AlarmActivity" />
+        <activity android:name=".home.HomeActivity" android:theme="@style/BaseAppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity android:name=".sample.CircularBarActivity" />
-        <activity android:name=".tutorial.TutorialActivity" />
-        <activity android:name=".alarm.AlarmActivity" />
-        <activity android:name=".home.HomeActivity"
-            android:theme="@style/BaseAppTheme">
-
         </activity>
         <activity android:name=".util.SketchBook"
             android:theme="@style/BaseAppTheme"/>
@@ -75,7 +78,9 @@
         <activity android:name=".analysis.AnalysisActivity">
 
         </activity>
-        <activity android:name=".util.SketchBook2" />
+        <activity android:name=".util.SketchBook2" >
+
+        </activity>
         <activity
             android:name=".sample.AfterActivity"
             android:theme="@style/BaseAppTheme" />

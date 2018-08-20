@@ -1,4 +1,4 @@
-package themollo.app.mollo.alarm;
+package themollo.app.mollo.sleeping;
 
 /**
  * Created by alex on 2018. 7. 24..

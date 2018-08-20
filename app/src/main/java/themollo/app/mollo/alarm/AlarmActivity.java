@@ -55,7 +55,6 @@ public class AlarmActivity extends AppUtilBasement implements DatePicker.OnDateC
         setButtonListener();
         setUI();
 
-
     }
 
     public void setUI() {
@@ -66,13 +65,13 @@ public class AlarmActivity extends AppUtilBasement implements DatePicker.OnDateC
 
         setContentView(R.layout.activity_alarm);
 
-
         datePicker = (DatePicker) findViewById(R.id.date_picker);
         datePicker.init(gregorianCalendar.get(Calendar.YEAR), gregorianCalendar.get(Calendar.MONTH), gregorianCalendar.get(Calendar.DAY_OF_MONTH), this);
         timePicker = (TimePicker) findViewById(R.id.time_picker);
         timePicker.setCurrentHour(gregorianCalendar.get(Calendar.HOUR_OF_DAY));
         timePicker.setCurrentMinute(gregorianCalendar.get(Calendar.MINUTE));
         timePicker.setOnTimeChangedListener(this);
+
     }
 
     //알람의 설정

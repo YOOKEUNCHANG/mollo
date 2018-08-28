@@ -34,14 +34,14 @@
                 android:orientation="horizontal">
 
                 <FrameLayout
-                    android:id="@+id/flNottaking"
+                    android:id="@+id/flNotAtAll"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
                     android:layout_margin="20dp">
 
 
                     <ImageView
-                        android:id="@+id/ivNottakingCircle"
+                        android:id="@+id/ivNotAtAllCircle"
                         android:layout_width="60dp"
                         android:layout_height="60dp"
                         android:layout_gravity="center"
@@ -56,7 +56,7 @@
                         android:textColor="#fff"
                         android:textSize="20dp"
                         android:gravity="center"
-                        android:text="@string/not_take"/>
+                        android:text="@string/not_at_all"/>
 
                 </FrameLayout>
 

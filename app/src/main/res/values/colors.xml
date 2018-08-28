@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#2B2C5D</color>
+    <color name="colorPrimaryDark">#391b67</color>
     <color name="colorAccent">#ffffff</color>
     <color name="appColor">#2B2C5D</color>
     <color name="tutorialTextColor">#ffffff</color>
@@ -25,5 +25,12 @@
 
     <color name="sleep_fab_color">#8B8AFF</color>
     <color name="black">#000000</color>
+
+    <!-- basement -->
+    <color name="base_background_start_color">#391b67</color>
+    <color name="base_background_end_color">#241042</color>
+    <color name="register_button_color">#c2a8fd</color>
+    <color name="survey_border_color">#979797</color>
+    <color name="survey_text_color">#381966</color>
 
 </resources>

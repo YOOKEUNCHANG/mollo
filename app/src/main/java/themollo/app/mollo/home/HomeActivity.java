@@ -171,7 +171,6 @@ public class HomeActivity extends AppUtilBasement {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_home);
         butterBind();
         setButtonListener();
@@ -234,9 +233,7 @@ public class HomeActivity extends AppUtilBasement {
 //        moveTo(AlarmActivity.class);
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
             ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this,
-                    Pair.create(rlAlarmButton, transitionName),
-                    Pair.create(tvStartAlarmTime, alarmStartTime),
-                    Pair.create(tvEndAlarmTime, alarmEndTime));
+                    Pair.create(rlAlarmButton, transitionName));
             Intent intent = new Intent(this, SketchBook.class);
             startActivity(intent, options.toBundle());
             overridePendingTransition(R.anim.fade_in, R.anim.fade_out);

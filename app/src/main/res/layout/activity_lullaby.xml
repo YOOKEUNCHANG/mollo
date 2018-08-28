@@ -23,12 +23,13 @@
             <LinearLayout
                 android:id="@+id/llBack"
                 android:layout_width="80dp"
-                android:layout_height="80dp">
+                android:layout_height="80dp"
+                android:gravity="center">
 
                 <ImageView
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:layout_margin="25dp"
+
                     android:background="@drawable/left_white" />
 
             </LinearLayout>
@@ -40,6 +41,24 @@
                 android:text="@string/lullaby"
                 android:textColor="#fff"
                 android:textSize="20dp" />
+
+            <LinearLayout
+                android:id="@+id/llOK"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:gravity="center"
+                android:visibility="gone"
+                android:layout_alignParentRight="true">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:text="@string/ok"
+                    android:textColor="#fff"
+                    android:textSize="18dp" />
+            </LinearLayout>
+
         </RelativeLayout>
     </RelativeLayout>
 

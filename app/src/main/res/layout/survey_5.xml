@@ -59,7 +59,7 @@
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_gravity="top|center"
-                        android:visibility="gone"
+                        android:visibility="invisible"
                         android:src="@drawable/gradient_button"/>
 
                     <TextView
@@ -94,7 +94,7 @@
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_gravity="top|center"
-                        android:visibility="gone"
+                        android:visibility="invisible"
                         android:src="@drawable/gradient_button"/>
 
                     <TextView
@@ -127,7 +127,7 @@
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_gravity="top|center"
-                        android:visibility="gone"
+                        android:visibility="invisible"
                         android:src="@drawable/gradient_button" />
 
                     <TextView
@@ -168,7 +168,7 @@
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_gravity="top|center"
-                        android:visibility="gone"
+                        android:visibility="invisible"
                         android:src="@drawable/gradient_button"/>
 
                     <TextView
@@ -204,7 +204,7 @@
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_gravity="top|center"
-                        android:visibility="gone"
+                        android:visibility="invisible"
                         android:src="@drawable/gradient_button"/>
 
                     <TextView
@@ -238,7 +238,7 @@
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_gravity="top|center"
-                        android:visibility="gone"
+                        android:visibility="invisible"
                         android:src="@drawable/gradient_button" />
 
                     <TextView
@@ -279,7 +279,7 @@
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_gravity="top|center"
-                        android:visibility="gone"
+                        android:visibility="invisible"
                         android:src="@drawable/gradient_button"/>
 
                     <TextView
@@ -313,7 +313,7 @@
                         android:id="@+id/ivHotCircle"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
-                        android:visibility="gone"
+                        android:visibility="invisible"
                         android:src="@drawable/gradient_button"/>
 
                     <TextView
@@ -346,7 +346,7 @@
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_gravity="top|center"
-                        android:visibility="gone"
+                        android:visibility="invisible"
                         android:src="@drawable/gradient_button" />
 
                     <TextView

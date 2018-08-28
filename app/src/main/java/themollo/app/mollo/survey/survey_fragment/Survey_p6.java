@@ -4,29 +4,23 @@ package themollo.app.mollo.survey.survey_fragment;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import themollo.app.mollo.R;
-import themollo.app.mollo.survey.DoSurveyActivity;
 import themollo.app.mollo.survey.FragmentLifeCycle;
 import themollo.app.mollo.util.FragUtilBasement;
 
 public class Survey_p6 extends FragUtilBasement implements FragmentLifeCycle {
 
-    @BindView(R.id.flNottaking)
+    @BindView(R.id.flNotAtAll)
     FrameLayout flNottaking;
-    @BindView(R.id.ivNottakingCircle)
+    @BindView(R.id.ivNotAtAllCircle)
     ImageView ivNottakingCircle;
 
     @BindView(R.id.flOnce)
@@ -45,7 +39,7 @@ public class Survey_p6 extends FragUtilBasement implements FragmentLifeCycle {
     ImageView ivMoreCircle;
 
     private String KEY = DRUG_FOR_SLEEP;
-    private static String VALUE = "";
+    private int VALUE = 0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -61,7 +55,8 @@ public class Survey_p6 extends FragUtilBasement implements FragmentLifeCycle {
                 ivOnceCircle.setVisibility(View.GONE);
                 ivTwiceCircle.setVisibility(View.GONE);
                 ivMoreCircle.setVisibility(View.GONE);
-                VALUE = getString(R.string.not_take);
+                VALUE = 0;
+                putSurveyDataPref(getActivity().getBaseContext(), KEY, VALUE+"");
             }
         });
 
@@ -72,7 +67,8 @@ public class Survey_p6 extends FragUtilBasement implements FragmentLifeCycle {
                 ivOnceCircle.setVisibility(View.VISIBLE);
                 ivTwiceCircle.setVisibility(View.GONE);
                 ivMoreCircle.setVisibility(View.GONE);
-                VALUE = getString(R.string.once_a_week);
+                VALUE = 1;
+                putSurveyDataPref(getActivity().getBaseContext(), KEY, VALUE+"");
             }
         });
 
@@ -83,7 +79,8 @@ public class Survey_p6 extends FragUtilBasement implements FragmentLifeCycle {
                 ivOnceCircle.setVisibility(View.GONE);
                 ivTwiceCircle.setVisibility(View.VISIBLE);
                 ivMoreCircle.setVisibility(View.GONE);
-                VALUE = getString(R.string.twice_a_week);
+                VALUE = 2;
+                putSurveyDataPref(getActivity().getBaseContext(), KEY, VALUE+"");
             }
         });
 
@@ -94,7 +91,8 @@ public class Survey_p6 extends FragUtilBasement implements FragmentLifeCycle {
                 ivOnceCircle.setVisibility(View.GONE);
                 ivTwiceCircle.setVisibility(View.GONE);
                 ivMoreCircle.setVisibility(View.VISIBLE);
-                VALUE = getString(R.string.more_than_twice);
+                VALUE = 3;
+                putSurveyDataPref(getActivity().getBaseContext(), KEY, VALUE+"");
             }
         });
 
@@ -118,11 +116,7 @@ public class Survey_p6 extends FragUtilBasement implements FragmentLifeCycle {
     @Override
     public void onPauseFragment(Context context) {
         prefLog("p6 paused");
-        SharedPreferences.Editor editor
-                = context.getSharedPreferences(SURVEY, Context.MODE_PRIVATE).edit();
-        editor.putString(KEY, VALUE).commit();
 
-        prefLog("key : " + KEY + " value : " + VALUE);
     }
 
 }

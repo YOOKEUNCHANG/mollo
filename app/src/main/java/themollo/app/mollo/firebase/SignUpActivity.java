@@ -3,6 +3,7 @@ package themollo.app.mollo.firebase;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -65,13 +66,23 @@ public class SignUpActivity extends FirebaseLogin {
 
     @Override
     public void setButtonListener() {
-        userNewPwd = etUserNewPwd.getText().toString();
-        userNewPwdCheck = etUserNewPwdCheck.getText().toString();
+
         llSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                userNewPwd = etUserNewPwd.getText().toString();
+                userNewPwdCheck = etUserNewPwdCheck.getText().toString();
+                userNewName = etUserNewName.getText().toString();
+
                 if (!isPwdEquals(userNewPwd, userNewPwdCheck)) {
-                    Toast.makeText(SignUpActivity.this, "비밀번호가 일치하지 않습니다!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignUpActivity.this, "Password not matched", Toast.LENGTH_SHORT).show();
+                    Log.i("signup", "user new pwd : " + userNewPwd + " user new pwd check" + userNewPwdCheck);
+                    return;
+                }
+
+                if(userNewName == "") {
+                    Toast.makeText(SignUpActivity.this, "Please input name", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -102,6 +113,7 @@ public class SignUpActivity extends FirebaseLogin {
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
                         Toast.makeText(SignUpActivity.this, "계정이 생성되었습니다.", Toast.LENGTH_LONG).show();
+                        putLoginData(MY_NAME, userNewName);
                         finish();
                     } else {
                         Toast.makeText(SignUpActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();

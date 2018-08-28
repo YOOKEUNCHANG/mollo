@@ -1,5 +1,6 @@
 package themollo.app.mollo.lullaby;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
@@ -18,21 +19,29 @@ import android.view.animation.Animation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import butterknife.BindInt;
 import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import jp.co.recruit_lifestyle.android.widget.PlayPauseButton;
 import themollo.app.mollo.R;
+import themollo.app.mollo.sleeping.SleepActivity;
+import themollo.app.mollo.sleeping.SleepSoundService;
 import themollo.app.mollo.util.AppUtilBasement;
 import themollo.app.mollo.util.LullabyAnimator;
 
 public class LullabyActivity extends AppUtilBasement {
+
+    @BindInt(R.integer.from_sleep_activity_request_code)
+    int fromSleepActivityRequestCode;
 
     @BindString(R.string.button_transition)
     String transitionName;
@@ -46,9 +55,12 @@ public class LullabyActivity extends AppUtilBasement {
     @BindView(R.id.llBack)
     LinearLayout llBack;
 
+    @BindView(R.id.llOK)
+    LinearLayout llOK;
 
     @BindView(R.id.ppbPlayPauseButton)
     PlayPauseButton ppbPlayPauseButton;
+
 
     private static final String NOT_START = "notstart";
     private static final String PLAYING = "playing";
@@ -59,6 +71,27 @@ public class LullabyActivity extends AppUtilBasement {
     private Drawable boot = new LullabyAnimator();
     private LullabyAdapter lullabyAdapter;
     private ArrayList<LullabyModel> lullabyData = new ArrayList<>();
+    private boolean fromSleep = false;
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK)
+            if (requestCode == fromSleepActivityRequestCode)
+                fromSleep = true;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+
+
+
+        super.onPause();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,17 +99,24 @@ public class LullabyActivity extends AppUtilBasement {
         setContentView(R.layout.activity_lullaby);
         butterBind();
 
+
+
+        if (fromSleep) {
+            llBack.setVisibility(View.GONE);
+            llOK.setVisibility(View.VISIBLE);
+        }
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             pbProgressBar.setTransitionName(transitionName);
         }
-
         pbProgressBar.setIndeterminateDrawable(boot);
 
+        lullabyData.add(new LullabyModel(ttRain, "03:30", false, R.raw.rainy_day));
+        lullabyData.add(new LullabyModel(ttTrain, "03:00", false, R.raw.train));
+        lullabyData.add(new LullabyModel(ttOcean, "05:30", false, R.raw.ocean_wave));
+        lullabyData.add(new LullabyModel(ttBrook, "04:30", false, R.raw.waterbrook));
+        lullabyData.add(new LullabyModel(ttForest, "01:50", false, R.raw.forest));
 
-        lullabyData.add(new LullabyModel(getString(R.string.rainy_day), "03:30", true, R.raw.sample1));
-        lullabyData.add(new LullabyModel(getString(R.string.summer_night), "03:00", false, R.raw.sample2));
-        lullabyData.add(new LullabyModel(getString(R.string.silent_forest), "05:30", false));
-        lullabyData.add(new LullabyModel(getString(R.string.afternoon_at_cafe), "04:30", true));
 
         rvLullabyList.setHasFixedSize(false);
         final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
@@ -88,6 +128,7 @@ public class LullabyActivity extends AppUtilBasement {
 
         ppbPlayPauseButton.setColor(Color.parseColor("#8B8AFF"));
     }
+
 
     private void transitionOverride() {
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -107,12 +148,38 @@ public class LullabyActivity extends AppUtilBasement {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        if (!fromSleep) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                finishAfterTransition();
+            } else {
+                finish();
+            }
+        } else {
+            Intent intent = new Intent(LullabyActivity.this, SleepActivity.class);
+            if (isAtLeastOneItemSelected()) {
+
+                startActivity(intent);
+            }
+        }
+        super.onBackPressed();
+    }
+
     @OnClick(R.id.llBack)
     void backPress() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            finishAfterTransition();
+        if (!fromSleep) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                finishAfterTransition();
+            } else {
+                finish();
+            }
         } else {
-            finish();
+            Intent intent = new Intent(LullabyActivity.this, SleepActivity.class);
+            if (isAtLeastOneItemSelected()) {
+
+                startActivity(intent);
+            }
         }
     }
 
@@ -120,6 +187,17 @@ public class LullabyActivity extends AppUtilBasement {
     public void butterBind() {
         ButterKnife.bind(this);
     }
+
+    public boolean isAtLeastOneItemSelected() {
+        for (int i = 0; i < lullabyData.size(); i++) {
+            if (!lullabyData.get(i).isSelected()) {
+                Toast.makeText(this, getString(R.string.select_sound), Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        }
+        return true;
+    }
+
 
     public class LullabyAdapter extends RecyclerView.Adapter {
 
@@ -139,8 +217,10 @@ public class LullabyActivity extends AppUtilBasement {
         public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
             LullabyModel lullabyModel = data.get(position);
             LullabyViewHolder lullabyViewHolder = (LullabyViewHolder) holder;
+            String title = lullabyModel.getLullabyTitle();
+            int file = getRawFileDataFromTitle(title);
 
-            lullabyViewHolder.tvLullabyTitle.setText("" + lullabyModel.getLullabyTitle());
+            lullabyViewHolder.tvLullabyTitle.setText("" + title);
             lullabyViewHolder.tvPlayTime.setText("" + lullabyModel.getLullabyPlayTime());
             if (lullabyModel.isSelected()) {
                 lullabyViewHolder.ivHeart.setImageResource(R.drawable.heart_filled);
@@ -148,13 +228,26 @@ public class LullabyActivity extends AppUtilBasement {
                 lullabyViewHolder.ivHeart.setImageResource(R.drawable.heart_empty);
             }
 
+            lullabyViewHolder.ivHeart.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    for (int i = 0; i < data.size(); i++) {
+                        data.get(i).setSelected(false);
+                    }
+                    data.get(position).setSelected(true);
+                    lullabyAdapter.notifyDataSetChanged();
+
+                    putAlarmTimeData(MY_SLEEP_SOUND, file+"");
+                    putAlarmTimeData(TITLE, title);
+                    Log.i("title", "title : " + title);
+                }
+            });
 
             lullabyViewHolder.ppbPlayState.setColor(Color.WHITE);
             lullabyViewHolder.ppbPlayState.setOnControlStatusChangeListener(new PlayPauseButton.OnControlStatusChangeListener() {
                 @Override
                 public void onStatusChange(View view, boolean state) {
                     Log.i("mpmp", "state : " + state);
-
                     if (state) {
                         mediaPlayer = MediaPlayer.create(getBaseContext(), lullabyModel.getRawFileName());
                         mediaPlayer.start();
@@ -164,8 +257,6 @@ public class LullabyActivity extends AppUtilBasement {
                     }
                 }
             });
-
-
         }
 
         @Override
@@ -188,6 +279,7 @@ public class LullabyActivity extends AppUtilBasement {
         PlayPauseButton ppbPlayState;
         @BindView(R.id.llLullabyView)
         LinearLayout llLullabyView;
+
 
         public LullabyViewHolder(View itemView) {
             super(itemView);

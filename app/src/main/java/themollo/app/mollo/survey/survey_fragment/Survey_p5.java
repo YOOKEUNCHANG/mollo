@@ -71,6 +71,7 @@ public class Survey_p5 extends FragUtilBasement implements FragmentLifeCycle {
     ImageView ivEvilCicle;
 
     private String KEY = WHAT_DISTURB;
+    private static int VALUE = 0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -93,10 +94,11 @@ public class Survey_p5 extends FragUtilBasement implements FragmentLifeCycle {
     }
 
     public void setButtonValue(FrameLayout frameLayout, final ImageView imageView, final String KEY){
-        final SharedPreferences pref = getContext().getSharedPreferences(SURVEY, Context.MODE_PRIVATE);
-        final SharedPreferences.Editor editor = pref.edit();
+        SharedPreferences pref = getContext().getSharedPreferences(SURVEY, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
         editor.putBoolean(KEY, false);
-        
+        editor.commit();
+
         frameLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -104,16 +106,18 @@ public class Survey_p5 extends FragUtilBasement implements FragmentLifeCycle {
                 if(!isChecked) {
                     imageView.setVisibility(View.VISIBLE);
                     editor.putBoolean(KEY, true);
+                    ++VALUE;
+                    prefLog(VALUE + "");
                 }else{
                     imageView.setVisibility(View.GONE);
                     editor.putBoolean(KEY, false);
+                    --VALUE;
+                    prefLog(VALUE + "");
                 }
                 editor.commit();
             }
         });
     }
-
-
 
     @Override
     public void butterbind(View view) {
@@ -129,6 +133,14 @@ public class Survey_p5 extends FragUtilBasement implements FragmentLifeCycle {
     @Override
     public void onPauseFragment(Context context) {
         prefLog("p5 paused");
+        putSurveyDataPref(context, KEY, VALUE+"");
     }
 
+    public static int getVALUE() {
+        return VALUE;
+    }
+
+    public static void setVALUE(int VALUE) {
+        Survey_p5.VALUE = VALUE;
+    }
 }

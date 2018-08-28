@@ -1,6 +1,5 @@
 package themollo.app.mollo.util;
 
-import android.app.Application;
 import android.graphics.Typeface;
 import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
@@ -18,6 +17,11 @@ import themollo.app.mollo.login.sns_login.kakao.KakaoSDKAdapter;
 public class MolloApplication extends MultiDexApplication {
 
     private static MolloApplication instance = null;
+    private static final String RoundEB = "font/NanumSquareRoundEB.ttf";
+    private static final String Regular = "font/NanumSquareRegular.ttf";
+    private static final String OTFB = "font/NanumSquareOTFBold.otf";
+    private static final String OTFEB = "font/NanumSquareOTFExtraBold.otf";
+    private static final String RoundR = "font/NanumSquareRoundR.ttf";
 
     @Override
     public void onCreate() {
@@ -28,8 +32,20 @@ public class MolloApplication extends MultiDexApplication {
         KakaoSDK.init(new KakaoSDKAdapter());
 
         Typekit.getInstance()
-                .addNormal(Typekit.createFromAsset(this, "font/NanumSquareRegular.ttf"))
-                .addBold(Typekit.createFromAsset(this, "font/NanumSquareBold.ttf"));
+                .addNormal(getFontType(OTFB))
+                .addBold(getFontType(RoundEB));
+
+        Typekit.getInstance().add("OTFEB",getFontType(OTFEB));
+        Typekit.getInstance().add("OTFB", getFontType(OTFB));
+        Typekit.getInstance().add("RoundR", getFontType(RoundR));
+
+
+
+
+    }
+
+    private Typeface getFontType(String font){
+        return Typekit.createFromAsset(this, font);
     }
 
     public static MolloApplication getInstance(){

@@ -46,6 +46,8 @@ public abstract class FirebaseLogin extends AppUtilBasement {
                                 Log.i("firebase", getFirebaseUser().getUid());
                             }
                             Toast.makeText(context, "익명 로그인 되었습니다", Toast.LENGTH_LONG).show();
+                            putLoginData(LOGIN_TYPE, FIREBASE_ANONYMOUS_LOGIN);
+                            putLoginData(MY_NAME, "I'M GROOT");
                             moveTo(DoSurveyActivity.class);
                         } else {
                             Toast.makeText(context, "익명 로그인 싪패", Toast.LENGTH_LONG).show();
@@ -62,6 +64,7 @@ public abstract class FirebaseLogin extends AppUtilBasement {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                     Toast.makeText(context, "EMAIL LOGIN SUCCESS", Toast.LENGTH_LONG).show();
+                    putLoginData(LOGIN_TYPE, FIREBASE_EMAIL_LOGIN);
                     moveTo(DoSurveyActivity.class);
                 }else{
                     Toast.makeText(context, task.getException().getMessage(), Toast.LENGTH_LONG).show();
@@ -84,7 +87,7 @@ public abstract class FirebaseLogin extends AppUtilBasement {
                 if(task.isSuccessful()){
                     Toast.makeText(context, "가입이 완료되었습니다.", Toast.LENGTH_LONG).show();
                 }else{
-                    Toast.makeText(context, "가입이 완료되었습니다.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, "가입에 실패하였습니다.", Toast.LENGTH_LONG).show();
                 }
                 stopPD();
             }

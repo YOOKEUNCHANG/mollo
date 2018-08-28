@@ -30,7 +30,7 @@ public class Survey_p3 extends FragUtilBasement implements FragmentLifeCycle{
     TextView tvHours;
 
     private String KEY = BED_TIME;
-    private static String VALUE = "";
+    private static String VALUE = "0";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -78,11 +78,7 @@ public class Survey_p3 extends FragUtilBasement implements FragmentLifeCycle{
     @Override
     public void onPauseFragment(Context context) {
         prefLog("p3 paused");
-        SharedPreferences.Editor editor
-                = context.getSharedPreferences(SURVEY, Context.MODE_PRIVATE).edit();
-        editor.putString(KEY, VALUE).commit();
-
-        prefLog("key : " + KEY + " value : " + VALUE);
+        putSurveyDataPref(context, KEY, VALUE);
     }
 
 }

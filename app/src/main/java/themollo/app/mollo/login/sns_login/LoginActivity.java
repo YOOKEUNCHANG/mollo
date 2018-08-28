@@ -5,14 +5,15 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
-import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
+import com.facebook.Profile;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.kakao.auth.ISessionCallback;
@@ -30,8 +31,6 @@ import java.util.Arrays;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import themollo.app.mollo.home.HomeActivity;
-import themollo.app.mollo.sample.MainActivity;
 import themollo.app.mollo.R;
 import themollo.app.mollo.firebase.FirebaseLogin;
 import themollo.app.mollo.firebase.SignInActivity;
@@ -48,10 +47,21 @@ public class LoginActivity extends FirebaseLogin {
 
     @BindView(R.id.btAnonySignIn)
     Button btAnonySignIn;
+
     @BindView(R.id.btSignIn)
     Button btSignIn;
+
     @BindView(R.id.btFacebook)
     LoginButton btFacebook;
+
+    @BindView(R.id.btKakaoLogin)
+    com.kakao.usermgmt.LoginButton btKakaoLogin;
+
+    @BindView(R.id.llFacebookButton)
+    LinearLayout llFacebookButton;
+
+    @BindView(R.id.llKakaoButton)
+    LinearLayout llKakaoButton;
 
     @Override
     public void onBackPressed() {
@@ -68,7 +78,7 @@ public class LoginActivity extends FirebaseLogin {
     protected void onStart() {
         super.onStart();
 
-        //default
+        //default data
         putAlarmTimeData(SLEEP_TIME, "22:00");
         putAlarmTimeData(WAKEUP_TIME, "07:00");
         putAlarmTimeData(SLEEP_ARC_PROGRESS, 240+"");
@@ -77,12 +87,11 @@ public class LoginActivity extends FirebaseLogin {
         putAlarmTimeData(TOP_ARC_YPOS, 9+"");
         putAlarmTimeData(BOTTOM_ARC_XPOS, 758+"");
         putAlarmTimeData(BOTTOM_ARC_YPOS, 125+"");
+        putAlarmTimeData(SLEEP_SOUND_TIMER, 0+"");
+        putAlarmTimeData(MY_SLEEP_SOUND, R.raw.rainy_day+"");
+        putAlarmTimeData(TITLE, ttRain);
 
-        if (Session.getCurrentSession().isOpened()
-                || AccessToken.isCurrentAccessTokenActive()
-                || getFirebaseUser() != null) {
-            moveTo(HomeActivity.class);
-        }
+        ifJoinedPassToHome();
     }
 
     @Override
@@ -99,10 +108,10 @@ public class LoginActivity extends FirebaseLogin {
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(this.getApplicationContext());
         setContentView(R.layout.activity_login);
+        butterBind();
 
         backPressController = new BackPressController(this);
 
-        ButterKnife.bind(this);
 
         setRegisterKakaoCallback();
         setRegisterFacebookCallback();
@@ -116,7 +125,6 @@ public class LoginActivity extends FirebaseLogin {
         keys.add("kakao_account.email");
 
         UserManagement.getInstance().me(keys, new MeV2ResponseCallback() {
-
             @Override
             public void onFailure(ErrorResult errorResult) {
                 Log.i(TAG, "errmsg : " + errorResult.toString());
@@ -130,8 +138,12 @@ public class LoginActivity extends FirebaseLogin {
             @Override
             public void onSuccess(MeV2Response result) {
                 Log.i(TAG, "user id : " + result.getId());
+                Log.i(TAG, "user name : " + result.getNickname());
                 Log.i(TAG, "email : " + result.getKakaoAccount().getEmail());
                 Log.i(TAG, "profile path : " + result.getProfileImagePath());
+
+                putLoginData(MY_NAME, result.getNickname());
+                putLoginData(PROFILE_PATH_URL, result.getProfileImagePath());
             }
         });
     }
@@ -152,11 +164,24 @@ public class LoginActivity extends FirebaseLogin {
             }
         });
 
+        llFacebookButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                btFacebook.performClick();
+            }
+        });
+
+        llKakaoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                btKakaoLogin.performClick();
+            }
+        });
     }
 
     @Override
     public void butterBind() {
-
+        ButterKnife.bind(this);
     }
 
     public void setRegisterKakaoCallback(){
@@ -164,6 +189,8 @@ public class LoginActivity extends FirebaseLogin {
         iSessionCallback = new ISessionCallback() {
             @Override
             public void onSessionOpened() {
+                requestInfo();
+                putLoginData(LOGIN_TYPE, KAKAO_LOGIN);
                 moveTo(DoSurveyActivity.class);
                 Log.i("kakao", "session opened");
             }
@@ -176,7 +203,7 @@ public class LoginActivity extends FirebaseLogin {
         Session.getCurrentSession().addCallback(iSessionCallback);
         Session.getCurrentSession().checkAndImplicitOpen();
 
-        requestInfo();
+
     }
     
     public void setRegisterFacebookCallback(){
@@ -190,7 +217,8 @@ public class LoginActivity extends FirebaseLogin {
                 GraphRequest graphRequest = GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
                     @Override
                     public void onCompleted(JSONObject object, GraphResponse response) {
-                        Log.i("facebook", object.toString());
+                        putLoginData(LOGIN_TYPE, FACEBOOK_LOGIN);
+                        Log.i("facebook_info", object.toString());
                     }
                 });
 
@@ -198,6 +226,13 @@ public class LoginActivity extends FirebaseLogin {
                 parameters.putString("facebook", "id,name,email,gender,birthday");
                 graphRequest.setParameters(parameters);
                 graphRequest.executeAsync();
+
+                Profile profile = Profile.getCurrentProfile();
+                Log.i("facebook_info", profile.getName());
+                Log.i("facebook_info", profile.getProfilePictureUri(100,100) + "");
+
+                putLoginData(MY_NAME, profile.getName());
+                putLoginData(PROFILE_PATH_URL, profile.getProfilePictureUri(100, 100)+"");
 
                 moveTo(DoSurveyActivity.class);
             }
@@ -209,7 +244,7 @@ public class LoginActivity extends FirebaseLogin {
 
             @Override
             public void onError(FacebookException error) {
-                Log.i("facebook", error.toString());
+                Log.i("facebook_info", error.toString());
             }
         });
 
@@ -219,6 +254,5 @@ public class LoginActivity extends FirebaseLogin {
     public void removeSessionCallback() {
         Session.getCurrentSession().removeCallback(iSessionCallback);
     }
-
 
 }

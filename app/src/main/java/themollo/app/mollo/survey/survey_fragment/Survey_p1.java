@@ -82,11 +82,14 @@ public class Survey_p1 extends FragUtilBasement implements FragmentLifeCycle{
     @Override
     public void onPauseFragment(Context context) {
         prefLog("p1 paused");
-        SharedPreferences.Editor editor
-                = context.getSharedPreferences(SURVEY, Context.MODE_PRIVATE).edit();
-        editor.putString(KEY, VALUE).commit();
 
-        prefLog("key : " + KEY + " value : " + VALUE);
+        putSurveyDataPref(context, KEY, VALUE);
+
+//        SharedPreferences.Editor editor
+//                = context.getSharedPreferences(SURVEY, Context.MODE_PRIVATE).edit();
+//        editor.putString(KEY, VALUE).commit();
+//
+//        prefLog("key : " + KEY + " value : " + VALUE);
     }
 
 }

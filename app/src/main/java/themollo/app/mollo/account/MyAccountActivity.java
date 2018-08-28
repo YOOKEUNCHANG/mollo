@@ -3,6 +3,7 @@ package themollo.app.mollo.account;
 import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -51,11 +52,25 @@ public class MyAccountActivity extends AppUtilBasement {
     @BindView(R.id.tvName)
     TextView tvName;
 
+    @BindView(R.id.tvLoginType)
+    TextView tvLoginType;
+
     @BindView(R.id.llLogout)
     LinearLayout llLogout;
 
     @BindView(R.id.flAccount)
     FrameLayout flAccount;
+
+    private String loginType = "";
+
+    @Override
+    protected void onResume() {
+
+        loginType = getLoginData(LOGIN_TYPE);
+        setMyAccountData(loginType);
+
+        super.onResume();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,8 +148,60 @@ public class MyAccountActivity extends AppUtilBasement {
                 finish();
             }
         });
+    }
+
+
+
+    public void setMyAccountData(String loginType) {
+
+        if(loginType.equals(FIREBASE_ANONYMOUS_LOGIN))
+            tvLoginType.setText("Login " + loginType);
+        else
+            tvLoginType.setText("Login with " + loginType);
+
+        tvName.setText(getLoginData(MY_NAME));
+        showPD();
+        if(loginType.equals(FIREBASE_ANONYMOUS_LOGIN)){
+            Glide.with(civAccount.getContext())
+                    .load(R.drawable.imgroot)
+                    .into(civAccount);
+            Glide.with(civAccountState.getContext())
+                    .load(R.drawable.anony)
+                    .into(civAccountState);
+        }else if(loginType.equals(FIREBASE_EMAIL_LOGIN)){
+            Glide.with(civAccount.getContext())
+                    .load(R.drawable.imgroot)
+                    .into(civAccount);
+            Glide.with(civAccountState.getContext())
+                    .load(R.drawable.email)
+                    .into(civAccountState);
+        }else if(loginType.equals(KAKAO_LOGIN)){
+            String profileURL = getLoginData(PROFILE_PATH_URL);
+
+            Glide.with(civAccount.getContext())
+                    .load(profileURL)
+                    .into(civAccount);
+
+            Glide.with(civAccountState.getContext())
+                    .load(R.drawable.kakao_icon)
+                    .into(civAccountState);
+
+        }else if(loginType.equals(FACEBOOK_LOGIN)){
+            String profileURL = getLoginData(PROFILE_PATH_URL);
+
+            Glide.with(civAccount.getContext())
+                    .load(profileURL)
+                    .into(civAccount);
+
+            Glide.with(civAccountState.getContext())
+                    .load(R.drawable.facebook_circled)
+                    .into(civAccountState);
+        }
+        stopPD();
 
     }
+
+
 
     @Override
     public void butterBind() {

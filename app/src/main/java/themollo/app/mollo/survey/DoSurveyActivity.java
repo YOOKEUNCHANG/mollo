@@ -38,6 +38,8 @@ public class DoSurveyActivity extends AppUtilBasement{
         setContentView(R.layout.activity_do_survey);
         butterBind();
 
+        Log.i("loginType","loginType : " + getLoginData(LOGIN_TYPE));
+
         backPressController = new BackPressController(this);
 
         surveyPagerAdapter = new SurveyPagerAdapter(getSupportFragmentManager());

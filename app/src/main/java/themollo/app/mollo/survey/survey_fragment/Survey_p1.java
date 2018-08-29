@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -22,17 +23,11 @@ import themollo.app.mollo.util.FragUtilBasement;
 
 public class Survey_p1 extends FragUtilBasement implements FragmentLifeCycle{
 
-    @BindView(R.id.ivMaleCircle)
-    ImageView ivMaleCircle;
+    @BindView(R.id.llMale)
+    LinearLayout llMale;
 
-    @BindView(R.id.ivFemaleCircle)
-    ImageView ivFemaleCircle;
-
-    @BindView(R.id.flMale)
-    FrameLayout flMale;
-
-    @BindView(R.id.flFemale)
-    FrameLayout flFemale;
+    @BindView(R.id.llFemale)
+    LinearLayout llFemale;
 
     private String KEY = SEX;
     private static String VALUE = "male";
@@ -41,23 +36,23 @@ public class Survey_p1 extends FragUtilBasement implements FragmentLifeCycle{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.survey_1, container, false);
+        View view = inflater.inflate(R.layout.survey_p1, container, false);
         butterbind(view);
 
-        flMale.setOnClickListener(new View.OnClickListener() {
+        llMale.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ivMaleCircle.setVisibility(View.VISIBLE);
-                ivFemaleCircle.setVisibility(View.GONE);
+                llMale.setBackgroundColor(getResources().getColor(R.color.button_select_color));
+                llFemale.setBackgroundColor(getResources().getColor(R.color.white));
                 VALUE = getString(R.string.male);
             }
         });
 
-        flFemale.setOnClickListener(new View.OnClickListener() {
+        llFemale.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ivMaleCircle.setVisibility(View.GONE);
-                ivFemaleCircle.setVisibility(View.VISIBLE);
+                llMale.setBackgroundColor(getResources().getColor(R.color.white));
+                llFemale.setBackgroundColor(getResources().getColor(R.color.button_select_color));
                 VALUE = getString(R.string.female);
             }
         });

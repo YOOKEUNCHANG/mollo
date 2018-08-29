@@ -15,6 +15,13 @@
     <string name="tutorial_4_text">Connect Mollo Diffuser\nand spread your favorite scent</string>
     <string name="tutorial_5_text">We analyze your sleep\nand offer solution</string>
 
+    <!-- alarm -->
+    <string name="you_can_sleep">YOU CAN SLEEP</string>
+    <string name="for_">for</string>
+    <string name="hour">hour</string>
+    <string name="dont_worry">Don’t worry and good night!</string>
+    <string name="wake_up">WAKE UP!</string>
+
     <!-- login -->
     <string name="login">LOGIN</string>
     <string name="log_in">LOG IN</string>
@@ -31,40 +38,40 @@
     <string name="agree">If you sign up, \nit is regarded as you accept terms and conditions.</string>
 
     <!-- survey -->
+    <string name="pageNum">\/7</string>
     <string name="done">If you done,\nclick here!</string>
     <string name="survey_1_text">당신의 성별은?</string>
     <string name="male">남자</string>
     <string name="female">여자</string>
-    <string name="survey_2_text">How old are you?</string>
-    <string name="survey_3_text">During the past month,\nhow many hours of sleep\ndid you get at night?</string>
-    <string name="survey_4_text">During the hours you just filled,\nhow many hours of\nactual(deep) sleep you feel?</string>
-    <string name="survey_5_text">Select causes that disturb your sleep.\n(multipick available)</string>
-    <string name="survey_6_text">During the past month,
-        \nhow often have you taken
-        \nmedicine to help your sleep?</string>
-    <string name="survey_7_text">During the past month,
-        \nhow often have you had
-        \ntrouble staying awake while driving,
-        \neating meals, or engaging in social activity?</string>
-
-    <string name="age1020s">10-20s</string>
-    <string name="age3040s">30-40s</string>
-    <string name="age50s">>50s</string>
+    <string name="survey_2_text">당신의 나이대는?</string>
+    <string name="age1020s">10-20</string>
+    <string name="age3040s">30-40</string>
+    <string name="age50s">50</string>
+    <string name="ages">대</string>
+    <string name="overAges">대 이상</string>
+    <string name="survey_3_text">지난 한달,\n평균 자는 시간은 몇 시간?</string>
+    <string name="hours">시간</string>
+    <string name="survey_4_text">그 중 숙면시간은?</string>
+    <string name="survey_5_text">잠을 방해하는 요소 9가지 중\n해당하는 것을 고르세요</string>
+    <string name="survey_6_text">잠을 돕는 약을\n얼마나 복용 중인가요?</string>
+    <string name="per">회/주</string>
+    <string name="survey_7_text">최근 일상생활 중에\n졸렸던 적이 얼마나 되나요?</string>
+    <string name="start">START</string>
     <string name="survey_result">SURVEY ANALYSIS</string>
     <string name="your_sleep_score">YOUR\nSLEEP SCORE</string>
     <string name="diffuser_scent_recommended">DIFFUSER\nSCENT\nRECOMMENDED</string>
     <string name="points">pts.</string>
 
     <!-- symptoms -->
-    <string name="symp1">can\'t get asleep\nin 30 mins</string>
-    <string name="symp2">wake up\nin the middle</string>
-    <string name="symp3">frequently\ngo to bathroom</string>
-    <string name="symp4">hard to\nbreathe</string>
-    <string name="symp5">snore or cough\nso hard</string>
-    <string name="symp6">too cold</string>
-    <string name="symp7">too hot</string>
-    <string name="symp8">nightmare</string>
-    <string name="symp9">have ache\nsomewhere</string>
+    <string name="symp1">30분 안에 잠에 들지 못함</string>
+    <string name="symp2">중간에 깸</string>
+    <string name="symp3">화장실때문에</string>
+    <string name="symp4">호흡이 불안함</string>
+    <string name="symp5">심하게 기침을 하거나 코를 곪</string>
+    <string name="symp6">너무 추움</string>
+    <string name="symp7">너무 더움</string>
+    <string name="symp8">악몽</string>
+    <string name="symp9">아픔</string>
 
     <!-- a week -->
     <string name="not_at_all">not\nat all</string>
@@ -72,6 +79,10 @@
     <string name="once_a_week">once\na week</string>
     <string name="twice_a_week">twice\na week</string>
     <string name="more_than_twice">>2 times\na week</string>
+
+    <!-- home -->
+    <string name="wake_up_at">We will wake up you at</string>
+    <string name="home_sleep_sound">SLEEP\nSOUND</string>
 
     <!-- menu -->
     <string name="menu">MENU</string>

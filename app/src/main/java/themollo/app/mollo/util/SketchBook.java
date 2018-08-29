@@ -326,15 +326,15 @@ public class SketchBook extends AppUtilBasement{
         return wakeupArcValue;
     }
 
+    public int getTotalSleepHourValue() {
+        int res = (720 - getSleepArcValue()) + getWakeupArcValue();
+        return res;
+    }
+
     @Override
     public void finish() {
         super.finish();
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-    }
-
-    public int getTotalSleepHourValue() {
-        int res = (720 - getSleepArcValue()) + getWakeupArcValue();
-        return res;
     }
 
     @Override

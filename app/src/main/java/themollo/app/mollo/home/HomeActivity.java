@@ -33,6 +33,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import themollo.app.mollo.account.MyAccountActivity;
 import themollo.app.mollo.R;
+import themollo.app.mollo.alarm.AlarmActivity;
 import themollo.app.mollo.analysis.AnalysisActivity;
 import themollo.app.mollo.lullaby.LullabyActivity;
 import themollo.app.mollo.util.AppUtilBasement;
@@ -50,8 +51,8 @@ public class HomeActivity extends AppUtilBasement {
     @BindString(R.string.alarm_end_time)
     String alarmEndTime;
 
-    @BindColor(R.color.moving_circle_color)
-    int movingColor;
+//    @BindColor(R.color.moving_circle_color)
+//    int movingColor;
 
     @BindView(R.id.dlHomeLayout)
     DrawerLayout dlHomeLayout;
@@ -59,11 +60,11 @@ public class HomeActivity extends AppUtilBasement {
     @BindView(R.id.llHomeMenu)
     LinearLayout llHomeMenu;
 
-    @BindView(R.id.llSettings)
-    LinearLayout llSettings;
+//    @BindView(R.id.llSettings)
+//    LinearLayout llSettings;
 
-    @BindView(R.id.flContent)
-    FrameLayout flContent;
+    @BindView(R.id.rlContent)
+    RelativeLayout rlContent;
 
     @BindView(R.id.ivDrawerArrow)
     ImageView ivDrawerArrow;
@@ -80,8 +81,8 @@ public class HomeActivity extends AppUtilBasement {
     @BindView(R.id.llSleepPattern)
     LinearLayout llSleepPattern;
 
-    @BindView(R.id.llDevice)
-    LinearLayout llDevice;
+//    @BindView(R.id.llDevice)
+//    LinearLayout llDevice;
 
     @BindView(R.id.llMyAccount)
     LinearLayout llAccount;
@@ -92,23 +93,24 @@ public class HomeActivity extends AppUtilBasement {
     @BindView(R.id.tvDiffuserButton)
     TextView tvDiffuserButton;
 
-    @BindView(R.id.ttvCurTime)
-    TimelyShortTimeView ttvCurTime;
+//    @BindView(R.id.ttvCurTime)
+//    TimelyShortTimeView ttvCurTime;
 
-    @BindView(R.id.rlAlarmButton)
-    RelativeLayout rlAlarmButton;
+//    @BindView(R.id.rlAlarmButton)
+//    RelativeLayout rlAlarmButton;
 
-    @BindView(R.id.tvStartAlarmTime)
-    TextView tvStartAlarmTime;
+//    @BindView(R.id.tvStartAlarmTime)
+//    TextView tvStartAlarmTime;
+//
+//    @BindView(R.id.tvEndAlarmTime)
+//    TextView tvEndAlarmTime;
 
-    @BindView(R.id.tvEndAlarmTime)
-    TextView tvEndAlarmTime;
+    @BindView(R.id.ivTopCircle)
+    ImageView ivTopCircle;
 
     @BindView(R.id.llDrawer)
     LinearLayout llDrawer;
 
-    @BindView(R.id.gifBack)
-    GifImageView gifBack;
 
     private DrawerArrow drawerArrow;
     private float drawerOffset;
@@ -121,37 +123,37 @@ public class HomeActivity extends AppUtilBasement {
         super.onResume();
 
 
-        String sleepTime = getAlarmData(SLEEP_TIME);
-        String wakeupTime = getAlarmData(WAKEUP_TIME);
+//        String sleepTime = getAlarmData(SLEEP_TIME);
+//        String wakeupTime = getAlarmData(WAKEUP_TIME);
 
-        tvStartAlarmTime.setText(sleepTime+"");
-        tvEndAlarmTime.setText(wakeupTime+"");
+//        tvStartAlarmTime.setText(sleepTime+"");
+//        tvEndAlarmTime.setText(wakeupTime+"");
 
-        timer = new Timer();
-        timer.scheduleAtFixedRate(getTimerTask(), 1500, 1500);
+//        timer = new Timer();
+//        timer.scheduleAtFixedRate(getTimerTask(), 1500, 1500);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        timer.cancel();
-        timer = null;
+//        timer.cancel();
+//        timer = null;
     }
 
-    private TimerTask getTimerTask() {
-        return new TimerTask() {
-            @Override
-            public void run() {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Date now = new Date();
-                        ttvCurTime.setTime(now);
-                    }
-                });
-            }
-        };
-    }
+//    private TimerTask getTimerTask() {
+//        return new TimerTask() {
+//            @Override
+//            public void run() {
+//                runOnUiThread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        Date now = new Date();
+//                        ttvCurTime.setTime(now);
+//                    }
+//                });
+//            }
+//        };
+//    }
 
     private void transitionOverride(){
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -171,14 +173,14 @@ public class HomeActivity extends AppUtilBasement {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.temp);
         butterBind();
         setButtonListener();
 
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             transitionOverride();
-            rlAlarmButton.setTransitionName(transitionName);
+            ivTopCircle.setTransitionName(transitionName);
         }
 
         backPressController = new BackPressController(this);
@@ -190,11 +192,11 @@ public class HomeActivity extends AppUtilBasement {
         drawerArrow.setStrokeColor(getResources().getColor(R.color.light_gray));
         ivDrawerArrow.setImageDrawable(drawerArrow);
 
-        ttvCurTime.setTextColor(Color.WHITE);
-        ttvCurTime.setTimeFormat(TimelyShortTimeView.FORMAT_HOUR_MIN);
-        ttvCurTime.setSeperatorsTextSize(50);
-        ttvCurTime.setTime("99:99");
-        ttvCurTime.setTime("00:00");
+//        ttvCurTime.setTextColor(Color.WHITE);
+//        ttvCurTime.setTimeFormat(TimelyShortTimeView.FORMAT_HOUR_MIN);
+//        ttvCurTime.setSeperatorsTextSize(50);
+//        ttvCurTime.setTime("99:99");
+//        ttvCurTime.setTime("00:00");
 
         registerActionToggle();
 
@@ -214,8 +216,8 @@ public class HomeActivity extends AppUtilBasement {
 
                 super.onDrawerSlide(drawerView, slideOffset);
                 float slideX = (float) (drawerView.getWidth() * (1.3) * slideOffset * (1.3));
-                flContent.setTranslationX(slideX);
-                flContent.setScaleY(1 - (slideOffset / scaleYFactor));
+                rlContent.setTranslationX(slideX);
+                rlContent.setScaleY(1 - (slideOffset / scaleYFactor));
             }
         };
 
@@ -228,17 +230,19 @@ public class HomeActivity extends AppUtilBasement {
         //popup
     }
 
-    @OnClick(R.id.rlAlarmButton)
+    @OnClick(R.id.ivTopCircle)
     void moveToAlarmAnim() {
 //        moveTo(AlarmActivity.class);
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
             ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this,
-                    Pair.create(rlAlarmButton, transitionName));
-            Intent intent = new Intent(this, SketchBook.class);
+                    Pair.create(ivTopCircle, transitionName));
+//            Intent intent = new Intent(this, SketchBook.class); //for debug
+            Intent intent = new Intent(this, AlarmActivity.class);
             startActivity(intent, options.toBundle());
             overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         }else{
-            moveTo(SketchBook.class);
+//            moveTo(SketchBook.class); // for debug
+            moveTo(AlarmActivity.class);
         }
 
     }

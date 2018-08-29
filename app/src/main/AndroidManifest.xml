@@ -61,7 +61,13 @@
 
         </activity>
         <activity android:name=".firebase.FindPwdActivity" />
-        <activity android:name=".survey.DoSurveyActivity" />
+        <activity android:name=".survey.DoSurveyActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".sample.BackgroundSampleActivity" />
         <activity android:name=".sample.NaviSampleActivity" />
         <activity
@@ -71,21 +77,21 @@
         <activity android:name=".tutorial.TutorialActivity">
 
         </activity>
-        <activity android:name=".alarm.AlarmActivity" />
+        <activity android:name=".alarm.AlarmActivity" >
+
+        </activity>
         <activity
             android:name=".home.HomeActivity"
-            android:theme="@style/BaseAppTheme"></activity>
+            android:theme="@style/BaseAppTheme">
+
+        </activity>
         <activity
             android:name=".util.SketchBook"
             android:theme="@style/BaseAppTheme" />
         <activity android:name=".account.MyAccountActivity" />
         <activity android:name=".analysis.AnalysisActivity"></activity>
         <activity android:name=".util.SketchBook2">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".sample.AfterActivity"

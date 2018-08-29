@@ -36,7 +36,7 @@ public class Survey_p3 extends FragUtilBasement implements FragmentLifeCycle{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.survey_3, container, false);
+        View view = inflater.inflate(R.layout.survey_p3, container, false);
         butterbind(view);
 
         sbHours.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {

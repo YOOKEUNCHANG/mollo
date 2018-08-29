@@ -99,6 +99,21 @@ public abstract class AppUtilBasement extends AppCompatActivity{
         Toast.makeText(context, text, Toast.LENGTH_LONG).show();
     }
 
+    public void setDefaultAlarmTimeData(){
+        //default data
+        putAlarmTimeData(SLEEP_TIME, "22:00");
+        putAlarmTimeData(WAKEUP_TIME, "07:00");
+        putAlarmTimeData(SLEEP_ARC_PROGRESS, 240+"");
+        putAlarmTimeData(WAKEUP_ARC_PROGRESS, 60+"");
+        putAlarmTimeData(TOP_ARC_XPOS, 95+"");
+        putAlarmTimeData(TOP_ARC_YPOS, 9+"");
+        putAlarmTimeData(BOTTOM_ARC_XPOS, 758+"");
+        putAlarmTimeData(BOTTOM_ARC_YPOS, 125+"");
+        putAlarmTimeData(SLEEP_SOUND_TIMER, 0+"");
+        putAlarmTimeData(MY_SLEEP_SOUND, R.raw.rainy_day+"");
+        putAlarmTimeData(TITLE, ttRain);
+    }
+
     public void logUtil(String tag, String text){
         Log.i(tag, text);
     }

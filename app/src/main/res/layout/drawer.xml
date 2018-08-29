@@ -1,167 +1,128 @@
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/llDrawer"
-    android:layout_width="200dp"
+    android:layout_width="240dp"
     android:layout_height="match_parent"
     android:background="@color/drawer_background_color"
     android:orientation="vertical"
-    android:paddingLeft="20dp">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15dp"
-            android:textColor="#fff"
-            android:textStyle="bold"
-            android:layout_gravity="center_vertical"
-            android:text="@string/menu"/>
-
-    </LinearLayout>
+    android:paddingLeft="39dp">
 
     <LinearLayout
         android:id="@+id/llStore"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="71dp">
 
         <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_gravity="center_vertical"/>
+            android:layout_width="20.5dp"
+            android:layout_height="19dp"
+            android:layout_gravity="center_vertical"
+            android:src="@mipmap/icn_store"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:textSize="15dp"
+            android:layout_marginLeft="30dp"
+            android:textSize="16sp"
             android:textColor="#fff"
-            android:textStyle="normal"
-            android:layout_gravity="center_vertical"
-            android:text="@string/store"/>
-
+            android:text="@string/store"
+            app:fontName="RoundB"/>
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/llAlarm"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="35dp">
 
         <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_gravity="center_vertical"/>
+            android:layout_width="20.5dp"
+            android:layout_height="19dp"
+            android:layout_gravity="center_vertical"
+            android:src="@mipmap/icon_alarm"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:textSize="15dp"
+            android:layout_marginLeft="30dp"
+            android:textSize="16sp"
             android:textColor="#fff"
-            android:textStyle="normal"
-            android:layout_gravity="center_vertical"
-            android:text="@string/alarm"/>
-
+            android:text="@string/alarm"
+            app:fontName="RoundB"/>
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/llLullaby"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="35dp">
 
         <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_gravity="center_vertical"/>
+            android:layout_width="20.5dp"
+            android:layout_height="19dp"
+            android:layout_gravity="center_vertical"
+            android:src="@mipmap/icon_sleep_sound"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:textSize="15dp"
+            android:layout_marginLeft="30dp"
+            android:textSize="16sp"
             android:textColor="#fff"
-            android:textStyle="normal"
-            android:layout_gravity="center_vertical"
-            android:text="@string/sleep_sound"/>
-
+            android:text="@string/sleep_sound"
+            app:fontName="RoundB"/>
     </LinearLayout>
-
-
 
     <LinearLayout
         android:id="@+id/llSleepPattern"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="35dp">
 
         <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_gravity="center_vertical"/>
+            android:layout_width="20.5dp"
+            android:layout_height="19dp"
+            android:layout_gravity="center_vertical"
+            android:src="@mipmap/icn_sleep"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:textSize="15dp"
+            android:layout_marginLeft="30dp"
+            android:textSize="16sp"
             android:textColor="#fff"
-            android:textStyle="normal"
-            android:layout_gravity="center_vertical"
-            android:text="@string/sleeing_pattern"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/llDevice"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_gravity="center_vertical"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:textSize="15dp"
-            android:textColor="#fff"
-            android:textStyle="normal"
-            android:layout_gravity="center_vertical"
-            android:text="@string/device"/>
-
+            android:text="@string/sleeing_pattern"
+            app:fontName="RoundB"/>
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/llMyAccount"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="35dp">
 
         <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_gravity="center_vertical"/>
+            android:layout_width="20.5dp"
+            android:layout_height="19dp"
+            android:layout_gravity="center_vertical"
+            android:src="@mipmap/icn_my_page"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:textSize="15dp"
+            android:layout_marginLeft="30dp"
+            android:textSize="16sp"
             android:textColor="#fff"
-            android:textStyle="normal"
-            android:layout_gravity="center_vertical"
-            android:text="@string/my_account"/>
-
+            android:text="@string/my_account"
+            app:fontName="RoundB"/>
     </LinearLayout>
+
+
 
 
 </LinearLayout>

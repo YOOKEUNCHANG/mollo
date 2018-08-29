@@ -22,6 +22,7 @@ public class MolloApplication extends MultiDexApplication {
     private static final String OTFB = "font/NanumSquareOTFBold.otf";
     private static final String OTFEB = "font/NanumSquareOTFExtraBold.otf";
     private static final String RoundR = "font/NanumSquareRoundR.ttf";
+    private static final String RoundL = "font/NanumSquareRoundL.ttf";
 
     @Override
     public void onCreate() {
@@ -38,6 +39,7 @@ public class MolloApplication extends MultiDexApplication {
         Typekit.getInstance().add("OTFEB",getFontType(OTFEB));
         Typekit.getInstance().add("OTFB", getFontType(OTFB));
         Typekit.getInstance().add("RoundR", getFontType(RoundR));
+        Typekit.getInstance().add("RoundL", getFontType(RoundL));
 
 
 

@@ -2,14 +2,19 @@ package themollo.app.mollo.survey;
 
 import android.annotation.SuppressLint;
 import android.app.Fragment;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.facebook.AccessToken;
 import com.kakao.auth.Session;
+
+import org.w3c.dom.Text;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -19,16 +24,28 @@ import themollo.app.mollo.util.AppUtilBasement;
 import themollo.app.mollo.R;
 import themollo.app.mollo.util.BackPressController;
 
-public class DoSurveyActivity extends AppUtilBasement{
+public class DoSurveyActivity extends AppUtilBasement {
 
-    @BindView(R.id.ciIndicator)
-    CircleIndicator ciIndicator;
+//    @BindView(R.id.ciIndicator)
+//    CircleIndicator ciIndicator;
+
     @BindView(R.id.vpSurvey)
     ViewPager vpSurvey;
 
+    @BindView(R.id.tvCurPageNum)
+    TextView tvCurPageNum;
+
+    @BindView(R.id.llNext)
+    LinearLayout llNext;
+
+    @BindView(R.id.llBack)
+    LinearLayout llBack;
+
+    @BindView(R.id.tvStart)
+    TextView tvStart;
+
     private SurveyPagerAdapter surveyPagerAdapter;
     private BackPressController backPressController;
-
 
 
     @SuppressLint("ResourceAsColor")
@@ -37,8 +54,9 @@ public class DoSurveyActivity extends AppUtilBasement{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_do_survey);
         butterBind();
+        setButtonListener();
 
-        Log.i("loginType","loginType : " + getLoginData(LOGIN_TYPE));
+        Log.i("loginType", "loginType : " + getLoginData(LOGIN_TYPE));
 
         backPressController = new BackPressController(this);
 
@@ -47,22 +65,37 @@ public class DoSurveyActivity extends AppUtilBasement{
         vpSurvey.setAdapter(surveyPagerAdapter);
         vpSurvey.setCurrentItem(0);
 
-        ciIndicator.setViewPager(vpSurvey);
-//        ciIndicator.setBackgroundColor(R.color.appColor);
-
-        surveyPagerAdapter.registerDataSetObserver(ciIndicator.getDataSetObserver());
+//        ciIndicator.setViewPager(vpSurvey);
+////        ciIndicator.setBackgroundColor(R.color.appColor);
+//
+//        surveyPagerAdapter.registerDataSetObserver(ciIndicator.getDataSetObserver());
 
         View.OnClickListener movePageListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 int tag = (int) view.getTag();
+                Log.i("tag", "tag : " + tag);
+                if (tag == 0) {
+                    llBack.setVisibility(View.GONE);
+                    llNext.setVisibility(View.VISIBLE);
+                    tvStart.setVisibility(View.GONE);
+                } else if (tag == 6) {
+                    llBack.setVisibility(View.VISIBLE);
+                    llNext.setVisibility(View.GONE);
+                    tvStart.setVisibility(View.VISIBLE);
+                } else {
+                    llBack.setVisibility(View.VISIBLE);
+                    llNext.setVisibility(View.VISIBLE);
+                    tvStart.setVisibility(View.GONE);
+                }
                 vpSurvey.setCurrentItem(tag);
+                tvCurPageNum.setText(tag + "");
             }
         };
 
         vpSurvey.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 
-            int curPosition =0;
+            int curPosition = 0;
 
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -101,19 +134,40 @@ public class DoSurveyActivity extends AppUtilBasement{
         Log.i("pref", "key : " + key + " value : " + value);
     }
 
-    public ViewPager getViewPager(){
+    public ViewPager getViewPager() {
         return vpSurvey;
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        surveyPagerAdapter.unregisterDataSetObserver(ciIndicator.getDataSetObserver());
+//        surveyPagerAdapter.unregisterDataSetObserver(ciIndicator.getDataSetObserver());
     }
 
     @Override
     public void setButtonListener() {
+        llBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int tag = (int) v.getTag();
+                vpSurvey.setCurrentItem(tag - 1);
+            }
+        });
 
+        llNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int tag = (int) v.getTag();
+                vpSurvey.setCurrentItem(tag + 1);
+            }
+        });
+
+        tvStart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(DoSurveyActivity.this, SurveyResultPopup.class));
+            }
+        });
     }
 
     @Override

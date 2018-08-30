@@ -173,7 +173,7 @@
                 android:textSize="16sp"
                 android:textColor="#fff"
                 android:text="@string/store"
-                app:fontName="RoundB"/>
+                app:fontName="RoundR"/>
         </LinearLayout>
 
         <LinearLayout
@@ -196,7 +196,7 @@
                 android:textSize="16sp"
                 android:textColor="#fff"
                 android:text="@string/alarm"
-                app:fontName="RoundB"/>
+                app:fontName="RoundR"/>
         </LinearLayout>
 
         <LinearLayout
@@ -219,7 +219,7 @@
                 android:textSize="16sp"
                 android:textColor="#fff"
                 android:text="@string/sleep_sound"
-                app:fontName="RoundB"/>
+                app:fontName="RoundR"/>
         </LinearLayout>
 
         <LinearLayout
@@ -242,7 +242,7 @@
                 android:textSize="16sp"
                 android:textColor="#fff"
                 android:text="@string/sleeing_pattern"
-                app:fontName="RoundB"/>
+                app:fontName="RoundR"/>
         </LinearLayout>
 
         <LinearLayout
@@ -265,7 +265,7 @@
                 android:textSize="16sp"
                 android:textColor="#fff"
                 android:text="@string/my_account"
-                app:fontName="RoundB"/>
+                app:fontName="RoundR"/>
         </LinearLayout>
 
 

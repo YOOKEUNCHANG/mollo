@@ -6,15 +6,6 @@
     android:layout_height="match_parent"
     tools:context="themollo.app.mollo.survey.survey_fragment.Survey_p1">
 
-
-
-    <ImageView
-        android:layout_width="320dp"
-        android:layout_height="265dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:src="@mipmap/backgraound_copy" />
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -33,7 +24,7 @@
         android:background="@drawable/input_box"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="123dp">
+        android:layout_marginBottom="27.5dp">
 
         <LinearLayout
             android:id="@+id/llMale"
@@ -48,7 +39,6 @@
                 android:layout_height="wrap_content"
                 android:text="@string/male"
                 android:textColor="@color/survey_text_color"
-                android:letterSpacing="-0.7"
                 android:textSize="21sp" />
 
         </LinearLayout>
@@ -71,7 +61,6 @@
                 android:layout_height="wrap_content"
                 android:text="@string/female"
                 android:textColor="@color/survey_text_color"
-                android:letterSpacing="-0.7"
                 android:textSize="21sp" />
 
         </LinearLayout>

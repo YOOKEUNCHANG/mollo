@@ -4,16 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/base_background_gradient"
     tools:context="themollo.app.mollo.survey.survey_fragment.Survey_p3">
-
-
-    <ImageView
-        android:layout_width="320dp"
-        android:layout_height="265dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:src="@mipmap/backgraound_copy" />
 
     <TextView
         android:layout_width="wrap_content"

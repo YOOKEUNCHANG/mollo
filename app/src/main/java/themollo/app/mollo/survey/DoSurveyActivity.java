@@ -64,6 +64,22 @@ public class DoSurveyActivity extends AppUtilBasement {
 
         vpSurvey.setAdapter(surveyPagerAdapter);
         vpSurvey.setCurrentItem(0);
+        vpSurvey.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
 
 //        ciIndicator.setViewPager(vpSurvey);
 ////        ciIndicator.setBackgroundColor(R.color.appColor);
@@ -74,22 +90,7 @@ public class DoSurveyActivity extends AppUtilBasement {
             @Override
             public void onClick(View view) {
                 int tag = (int) view.getTag();
-                Log.i("tag", "tag : " + tag);
-                if (tag == 0) {
-                    llBack.setVisibility(View.GONE);
-                    llNext.setVisibility(View.VISIBLE);
-                    tvStart.setVisibility(View.GONE);
-                } else if (tag == 6) {
-                    llBack.setVisibility(View.VISIBLE);
-                    llNext.setVisibility(View.GONE);
-                    tvStart.setVisibility(View.VISIBLE);
-                } else {
-                    llBack.setVisibility(View.VISIBLE);
-                    llNext.setVisibility(View.VISIBLE);
-                    tvStart.setVisibility(View.GONE);
-                }
                 vpSurvey.setCurrentItem(tag);
-                tvCurPageNum.setText(tag + "");
             }
         };
 
@@ -99,7 +100,21 @@ public class DoSurveyActivity extends AppUtilBasement {
 
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                if(position == 0){
+                    llBack.setVisibility(View.GONE);
+                    llNext.setVisibility(View.VISIBLE);
+                    tvStart.setVisibility(View.GONE);
+                }else if(position == 6){
+                    llBack.setVisibility(View.VISIBLE);
+                    llNext.setVisibility(View.GONE);
+                    tvStart.setVisibility(View.VISIBLE);
 
+                }else{
+                    llBack.setVisibility(View.VISIBLE);
+                    llNext.setVisibility(View.VISIBLE);
+                    tvStart.setVisibility(View.GONE);
+                }
+                tvCurPageNum.setText(""+(position+1));
             }
 
             @Override

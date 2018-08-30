@@ -25,6 +25,7 @@
     <!-- login -->
     <string name="login">LOGIN</string>
     <string name="log_in">LOG IN</string>
+    <string name="log_out">Logout</string>
     <string name="kakao_login">Login with Kakao Account</string>
     <string name="facebook_login">Login with Facebook Account</string>
     <string name="email_login">LOGIN WITH E-MAIL</string>

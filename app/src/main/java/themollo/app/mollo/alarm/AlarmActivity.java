@@ -110,11 +110,9 @@ public class AlarmActivity extends AppUtilBasement{
                 sleepArcValue = progress;
                 int a = getTotalSleepHourValue() / 60;
                 if(a>=10) {
-                    tvTotalSleepTime.setTextSize(55f);
                     tvTotalSleepTime.setText(a + "");
                 }
                 else {
-                    tvTotalSleepTime.setTextSize(102f);
                     tvTotalSleepTime.setText(a + "");
                 }
 //                to = getTotalSleepHourValue() / 60;
@@ -164,11 +162,9 @@ public class AlarmActivity extends AppUtilBasement{
                 wakeupArcValue = progress;
                 int a = getTotalSleepHourValue() / 60;
                 if(a>=10) {
-                    tvTotalSleepTime.setTextSize(55f);
                     tvTotalSleepTime.setText(a + "");
                 }
                 else {
-                    tvTotalSleepTime.setTextSize(102f);
                     tvTotalSleepTime.setText(a + "");
                 }
 //

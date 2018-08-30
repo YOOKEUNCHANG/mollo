@@ -27,6 +27,7 @@
     <color name="base_background_start_color">#391b67</color>
     <color name="base_background_end_color">#241042</color>
     <color name="register_button_color">#c2a8fd</color>
+    <color name="diffuser_button_color">#703dba</color>
     <color name="survey_border_color">#979797</color>
     <color name="survey_text_color">#381966</color>
     <color name="page_text_color">#c2a8fd</color>
@@ -40,8 +41,9 @@
     <color name="alarm_center_circle_start_color">#5a3ca1</color>
     <color name="alarm_center_circle_end_color">#c2a8fd</color>
     <color name="seekarc_progress_color">#7376ff</color>
-    <color name="button_select_color">#40aaaaaa</color>
+    <color name="button_select_color">#c2a8fd</color>
     <color name="radio_stroke_color">#6d5b89</color>
     <color name="radio_click_color">#c2a8fd</color>
+    <color name="account_bound_color">#979797</color>
 
 </resources>

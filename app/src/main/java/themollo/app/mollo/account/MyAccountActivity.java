@@ -55,8 +55,8 @@ public class MyAccountActivity extends AppUtilBasement {
     @BindView(R.id.tvLoginType)
     TextView tvLoginType;
 
-    @BindView(R.id.llLogout)
-    LinearLayout llLogout;
+    @BindView(R.id.tvLogout)
+    TextView tvLogout;
 
     @BindView(R.id.flAccount)
     FrameLayout flAccount;
@@ -75,7 +75,7 @@ public class MyAccountActivity extends AppUtilBasement {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_account);
+        setContentView(R.layout.activity_my_account2);
         butterBind();
         setButtonListener();
 
@@ -113,7 +113,7 @@ public class MyAccountActivity extends AppUtilBasement {
 
     @Override
     public void setButtonListener() {
-        llLogout.setOnClickListener(new View.OnClickListener() {
+        tvLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (Session.getCurrentSession().isOpened())

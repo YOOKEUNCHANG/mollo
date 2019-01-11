@@ -36,6 +36,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import themollo.app.mollo.R;
 import themollo.app.mollo.login.sns_login.LoginActivity;
+import themollo.app.mollo.tutorial.TutorialActivity;
 import themollo.app.mollo.util.AppUtilBasement;
 
 public class MyAccountActivity extends AppUtilBasement {
@@ -120,17 +121,17 @@ public class MyAccountActivity extends AppUtilBasement {
                     UserManagement.getInstance().requestLogout(new LogoutResponseCallback() {
                         @Override
                         public void onCompleteLogout() {
-                            moveTo(LoginActivity.class);
+                            moveTo(TutorialActivity.class);
                         }
                     });
                 else if(AccessToken.isCurrentAccessTokenActive()){
                     LoginManager.getInstance().logOut();
-                    moveTo(LoginActivity.class);
+                    moveTo(TutorialActivity.class);
                 }else if(getFirebaseUser() != null){
                     getFirebaseAuth().signOut();
-                    moveTo(LoginActivity.class);
+                    moveTo(TutorialActivity.class);
                 }else{
-                    moveTo(LoginActivity.class);
+                    moveTo(TutorialActivity.class);
                 }
             }
         });

@@ -102,20 +102,7 @@ public class Survey_p5 extends FragUtilBasement implements FragmentLifeCycle {
         butterbind(view);
         
         
-        llsymp1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(isClicked_symp1){
-                    ivsymp1.setImageResource(R.drawable.radio_not_clicked);
-                    isClicked_symp1 = false;
-                    --VALUE;
-                }else {
-                    ivsymp1.setImageResource(R.drawable.radio_clicked);
-                    isClicked_symp1 = true;
-                    ++VALUE;
-                }
-            }
-        });
+        setButtonValue();
 
         return view;
     }

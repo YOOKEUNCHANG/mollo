@@ -57,7 +57,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="85.5dp">
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/civAccount"
             android:layout_width="126dp"
             android:layout_height="126dp"
@@ -131,7 +131,7 @@
         android:textSize="18.5dp"
         android:textColor="@color/white"
         android:gravity="center"
-        app:fondName="RoundR"/>
+        app:fontName="RoundR"/>
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/civAccountState"
@@ -163,7 +163,7 @@
         android:textSize="18.5dp"
         android:textColor="@color/white"
         android:gravity="center"
-        app:fondName="RoundR"/>
+        app:fontName="RoundR"/>
 
     <View
         android:id="@+id/bar3"

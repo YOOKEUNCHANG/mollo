@@ -21,6 +21,7 @@
             android:layout_height="265dp"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
+            android:alpha="0.43"
             android:src="@mipmap/backgraound_copy" />
 
         <ImageView
@@ -66,34 +67,15 @@
             android:layout_marginTop="10dp">
 
             <TextView
+                android:id="@+id/tvAlarmTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toLeftOf="@id/tvTimeCenter"
-                android:text="12"
+                android:textSize="49.5dp"
                 android:textColor="@color/white"
-                android:textSize="49.5sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tvTimeCenter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:text=":"
-                android:textColor="@color/white"
-                android:textSize="49.5sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/tvTimeCenter"
-                android:text="50"
-                android:textColor="@color/white"
-                android:textSize="49.5sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:gravity="center"
+                android:text="12:12"
+                android:layout_centerHorizontal="true"/>
 
         </RelativeLayout>
 

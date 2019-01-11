@@ -8,12 +8,14 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import themollo.app.mollo.R;
 import themollo.app.mollo.sleeping.SleepActivity;
+import themollo.app.mollo.sleeping.SleepingActivity;
 import themollo.app.mollo.util.AppUtilBasement;
 import themollo.app.mollo.util.MySeekArc;
 
@@ -46,6 +48,9 @@ public class AlarmActivity extends AppUtilBasement{
     @BindView(R.id.tvTotalSleepTime)
     TextView tvTotalSleepTime;
 
+    @BindView(R.id.llBack)
+    LinearLayout llBack;
+
     private int sleepArcValue = 0;
     private int wakeupArcValue = 0;
     private int topThumbXPos = 0;
@@ -61,14 +66,14 @@ public class AlarmActivity extends AppUtilBasement{
 
     @Override
     protected void onResume() {
-        setDefaultAlarmTimeData(); //for debug
+//        setDefaultAlarmTimeData(); //for debug
         setDefaultArcData();
         super.onResume();
     }
 
     @Override
     protected void onStart() {
-        setDefaultAlarmTimeData(); //for debug
+//        setDefaultAlarmTimeData(); //for debug
         setDefaultArcData();
         super.onStart();
     }
@@ -97,10 +102,17 @@ public class AlarmActivity extends AppUtilBasement{
     @Override
     public void setButtonListener() {
 
+        llBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         tvSleepButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                moveTo(SleepActivity.class);
+                moveTo(SleepingActivity.class);
             }
         });
 
@@ -126,7 +138,7 @@ public class AlarmActivity extends AppUtilBasement{
 
                 if (!isFirst) {
                     if (progress < 360) {
-                        topThumbXPos = mySeekArc.getThumbXPos() - 150;
+                        topThumbXPos = mySeekArc.getThumbXPos() - 130;
                         tvFollowSleepTime.setTranslationX(topThumbXPos);
                         isSleepTimeOverToday = false;
                     } else {
@@ -178,10 +190,10 @@ public class AlarmActivity extends AppUtilBasement{
 
                 if (!isFirst) {
                     if (progress < 360) {
-                        bottomThumbXPos = mySeekArc.getThumbXPos() + 20;
+                        bottomThumbXPos = mySeekArc.getThumbXPos() + 30;
                         tvFollowWakeupTime.setTranslationX(bottomThumbXPos);
                     } else {
-                        bottomThumbXPos = mySeekArc.getThumbXPos() - 150;
+                        bottomThumbXPos = mySeekArc.getThumbXPos() - 130;
                         tvFollowWakeupTime.setTranslationX(bottomThumbXPos);
                     }
                     bottomThumbYPos = (int) (mySeekArc.getThumbYPos() - px_150dp);
